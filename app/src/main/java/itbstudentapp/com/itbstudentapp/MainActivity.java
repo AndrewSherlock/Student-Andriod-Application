@@ -13,7 +13,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
 
         forum = (Button) findViewById(R.id.forum);
         transport =  (Button) findViewById(R.id.transport);
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forum.setOnClickListener(this);
         timetable.setOnClickListener(this);
 
-        setContentView(R.layout.activity_main);
+
     }
 
 
