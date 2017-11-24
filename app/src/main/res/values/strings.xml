@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ITBStudentApp</string>
+    <string name="title_activity_forum">Forum</string>
+    <string name="title_activity_timetable">Timetable</string>
+    <string name="title_activity_quiz">Quiz</string>
+</resources>
