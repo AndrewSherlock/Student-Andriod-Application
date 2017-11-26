@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="itbstudentapp.com.itbstudentapp.Chat">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Chat coming soon"
+        android:textSize="30dp"
+        />
+
 </android.support.constraint.ConstraintLayout>
