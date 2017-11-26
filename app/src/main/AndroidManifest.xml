@@ -19,17 +19,11 @@
         <activity android:name=".Transport" />
         <activity android:name=".Map" />
         <activity
-            android:name=".Forum"
-            android:label="@string/title_activity_forum"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Forum" />
         <activity
-            android:name=".Timetable"
-            android:label="@string/title_activity_timetable"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Timetable" />
         <activity
-            android:name=".Quiz"
-            android:label="@string/title_activity_quiz"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Quiz" />
         <activity android:name=".Links" />
         <activity android:name=".Chat" />
         <activity android:name=".Phone"></activity>

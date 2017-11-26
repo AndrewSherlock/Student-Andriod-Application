@@ -20,7 +20,7 @@
                 android:layout_width="180dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="Transport"
+                android:text="@string/title_activity_transport"
                 android:id="@+id/transport"
                 />
 
@@ -28,7 +28,7 @@
                 android:layout_width="194dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="Timetable"
+                android:text="@string/title_activity_timetable"
                 android:id="@+id/timetable"
                 />
         </GridLayout>
@@ -42,7 +42,7 @@
                 android:layout_width="180dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="Quiz"
+                android:text="@string/title_activity_quiz"
                 android:id="@+id/quiz"
                 />
 
@@ -50,7 +50,7 @@
                 android:layout_width="194dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="map"
+                android:text="@string/title_activity_map"
                 android:id="@+id/map"
                 />
         </GridLayout>
@@ -64,7 +64,7 @@
                 android:layout_width="180dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="Forum"
+                android:text="@string/title_activity_forum"
                 android:id="@+id/forum"
                 />
 
@@ -72,7 +72,7 @@
                 android:layout_width="194dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="Chat"
+                android:text="@string/title_activity_chat"
                 android:id="@+id/chat"
                 />
         </GridLayout>
@@ -86,7 +86,7 @@
                 android:layout_width="180dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="links"
+                android:text="@string/title_activity_links"
                 android:id="@+id/links"
                 />
 
@@ -94,7 +94,7 @@
                 android:layout_width="194dp"
                 android:layout_height="132dp"
                 android:width="30dp"
-                android:text="Phone numbers"
+                android:text="@string/title_activity_phone"
                 android:id="@+id/phone"
                 />
         </GridLayout>
