@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context="itbstudentapp.com.itbstudentapp.Phone">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Phone coming soon"
-        android:textSize="30dp"
-        />
+
+    <Button
+        android:id="@+id/buttonCall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="call Ken" />
 
 </android.support.constraint.ConstraintLayout>
