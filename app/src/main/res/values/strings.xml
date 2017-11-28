@@ -3,4 +3,9 @@
     <string name="title_activity_forum">Forum</string>
     <string name="title_activity_timetable">Timetable</string>
     <string name="title_activity_quiz">Quiz</string>
+    <string name="title_activity_transport">Transport</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_phone">Phone Numbers</string>
+    <string name="title_activity_links">Quick Links</string>
 </resources>

@@ -2,13 +2,16 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="itbstudentapp.com.itbstudentapp">
 
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:background="#0bb736">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,17 +22,11 @@
         <activity android:name=".Transport" />
         <activity android:name=".Map" />
         <activity
-            android:name=".Forum"
-            android:label="@string/title_activity_forum"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Forum" />
         <activity
-            android:name=".Timetable"
-            android:label="@string/title_activity_timetable"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Timetable" />
         <activity
-            android:name=".Quiz"
-            android:label="@string/title_activity_quiz"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".Quiz" />
         <activity android:name=".Links" />
         <activity android:name=".Chat" />
         <activity android:name=".Phone"></activity>
