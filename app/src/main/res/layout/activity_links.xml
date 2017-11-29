@@ -21,7 +21,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Quick Links"
-                android:textSize="30dp"/>
+                android:textSize="30sp"/>
             <Button
                 android:layout_height="wrap_content"
                 android:clickable="true"
@@ -103,8 +103,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="51dp"
                 android:text="Back"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="460dp" />
+                tools:layout_editor_absoluteX="0sp"
+                tools:layout_editor_absoluteY="460sp" />
 
         </LinearLayout>
 
