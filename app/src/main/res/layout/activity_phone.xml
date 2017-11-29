@@ -4,13 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="itbstudentapp.com.itbstudentapp.Phone">
+    tools:context="itbstudentapp.com.itbstudentapp.Phone"
+    android:background="#0bb736">
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+       />
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <Button
         android:id="@+id/buttonSecurity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="call Security" />
+        android:text="call Security"
+        tools:layout_editor_absoluteX="52dp"
+        tools:layout_editor_absoluteY="48dp" />
+
+    <Button
+        android:id="@+id/buttonNurse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="call Nurse"
+        tools:layout_editor_absoluteX="234dp"
+        tools:layout_editor_absoluteY="48dp" />
+
+    </GridLayout>
 
 </android.support.constraint.ConstraintLayout>

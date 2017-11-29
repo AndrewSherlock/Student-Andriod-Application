@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="itbstudentapp.com.itbstudentapp.Links">
+    tools:context="itbstudentapp.com.itbstudentapp.Links"
+    android:background="#0bb736">
 
     <GridLayout
         android:layout_width="match_parent"
