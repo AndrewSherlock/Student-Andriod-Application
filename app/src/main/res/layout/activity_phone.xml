@@ -8,9 +8,9 @@
 
 
     <Button
-        android:id="@+id/buttonCall"
+        android:id="@+id/buttonSecurity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="call Ken" />
+        android:text="call Security" />
 
 </android.support.constraint.ConstraintLayout>

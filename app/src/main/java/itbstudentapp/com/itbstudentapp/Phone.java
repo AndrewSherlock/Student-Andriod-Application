@@ -30,12 +30,18 @@ public class Phone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone);
 
-        button = (Button) findViewById(R.id.buttonCall);
+        button = (Button) findViewById(R.id.buttonSecurity);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setData(Uri.parse("tel: 0857121499"));
+
+                String Security = " 018851099";
+                String Nurse ="018851105";
+                String Counsellor = "018851321";
+
+
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:"+ Security));
 
                 if (ActivityCompat.checkSelfPermission(Phone.this,
                         Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
