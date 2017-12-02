@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.Button;
 
 
-public class Phone extends AppCompatActivity {
+public class Phone extends AppCompatActivity implements View.OnClickListener {
 
     private Button securityButt;
     private Button nurseButt;
@@ -20,6 +20,7 @@ public class Phone extends AppCompatActivity {
     private Button SidButt;
     private Button ServicesButt;
     private Button ExamButt;
+    private Button BackButt;
 
 
     @Override
@@ -33,6 +34,11 @@ public class Phone extends AppCompatActivity {
         SidButt = (Button) findViewById(R.id.buttonSid);
         ServicesButt = (Button) findViewById(R.id.buttonService);
         ExamButt =  (Button) findViewById(R.id.buttonExam);
+
+
+        BackButt =  (Button) findViewById(R.id.home);
+        BackButt.setOnClickListener(this);
+
 
         securityButt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
@@ -84,5 +90,13 @@ public class Phone extends AppCompatActivity {
             }
         });
 
+
+    }
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.home:
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+        }
     }
 }
