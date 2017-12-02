@@ -16,6 +16,10 @@ public class Phone extends AppCompatActivity {
 
     private Button securityButt;
     private Button nurseButt;
+    private Button CounsellorButt;
+    private Button SidButt;
+    private Button ServicesButt;
+    private Button ExamButt;
 
 
     @Override
@@ -25,38 +29,57 @@ public class Phone extends AppCompatActivity {
 
         securityButt = (Button) findViewById(R.id.buttonSecurity);
         nurseButt = (Button) findViewById(R.id.buttonNurse);
-
+       CounsellorButt = (Button) findViewById(R.id.buttonCounsellor);
+        SidButt = (Button) findViewById(R.id.buttonSid);
+        ServicesButt = (Button) findViewById(R.id.buttonService);
+        ExamButt =  (Button) findViewById(R.id.buttonExam);
 
         securityButt.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
 
-
-             /*   String Nurse ="018851105";
-                String Counsellor = "018851321"; */
-
-
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:018851099"));
-/*
-                If change to call the number straight away some issue with permissions become an issue maybe something we can look at
-
-                if (ActivityCompat.checkSelfPermission(Phone.this,
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                } */
                 startActivity(callIntent);
             }
         });
-        nurseButt.setOnClickListener(new View.OnClickListener() {
+        nurseButt.setOnClickListener(new View.OnClickListener() {   // nurse
             public void onClick(View arg0) {
-
-
-              String Counsellor = "018851321";
 
 
                 Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse("tel:018851105"));
+                startActivity(callIntent);
+            }
+        });
+        CounsellorButt.setOnClickListener(new View.OnClickListener() {  // counsellor Sandra Carrol
+            public void onClick(View arg0) {
 
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:018851105"));
+                startActivity(callIntent);
+            }
+        });
+        SidButt.setOnClickListener(new View.OnClickListener() {  // sid desk
+            public void onClick(View arg0) {
+
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:018851592"));
+                startActivity(callIntent);
+            }
+        });
+        ServicesButt.setOnClickListener(new View.OnClickListener() { // student services Sinead Dunne
+            public void onClick(View arg0) {
+
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:018851014"));
+                startActivity(callIntent);
+            }
+        });
+        ExamButt.setOnClickListener(new View.OnClickListener() { // student services Sinead Dunne
+            public void onClick(View arg0) {
+
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
+                callIntent.setData(Uri.parse("tel:018851042"));
                 startActivity(callIntent);
             }
         });
