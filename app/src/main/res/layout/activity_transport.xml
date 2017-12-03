@@ -6,11 +6,91 @@
     android:layout_height="match_parent"
     tools:context="itbstudentapp.com.itbstudentapp.Transport">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Transport coming never"
-        android:textSize="30sp"
-        />
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="110sp"
+            android:textSize="80dp"
+            android:text="Transport"
+            android:textAlignment="center"/>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            android:orientation="horizontal"
+            >
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="192dp"
+                android:background="#CCf9f913"
+                android:id="@+id/dub_bus"
+                >
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/dublin_bus">
+                </ImageView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="192dp"
+                android:background="#CCa3210d"
+                android:id="@+id/bus_eir"
+                >
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/bus_eir">
+                </ImageView>
+            </RelativeLayout>
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="200sp"
+            >
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="192dp"
+                android:background="#CC34a810"
+                android:id="@+id/iar_eir"
+                >
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/irish_rail">
+                </ImageView>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="192dp"
+                android:background="#CC4420bc"
+                android:id="@+id/shut_bus"
+                >
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp"
+                    android:src="@drawable/itb_shut"></ImageView>
+            </RelativeLayout>
+        </GridLayout>
+
+
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
