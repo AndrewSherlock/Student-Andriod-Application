@@ -3,8 +3,8 @@
     package="itbstudentapp.com.itbstudentapp">
 
     <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -29,7 +29,9 @@
         <activity android:name=".Links" />
         <activity android:name=".Chat" />
         <activity android:name=".Phone" />
-        <activity android:name=".RouteChoice"></activity>
+        <activity android:name=".RouteChoice" />
+        <activity android:name=".StopList" />
+        <activity android:name=".BusTimes"></activity>
     </application>
 
 </manifest>
