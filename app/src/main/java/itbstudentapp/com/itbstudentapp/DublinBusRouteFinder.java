@@ -19,54 +19,49 @@ import java.util.ArrayList;
 
 public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
 
-    private String[] stopIdsInArea = {"4890", "2468", "2269", "1820", "1825", "1819", "2960", "7025", "7026", "4747"};
-    private String routes[];
-    private  Context appContext;
+    private String[] stopIdsInArea = {"2468", "1820", "1825", "1819", "2960", "7025", "7026", "4747"}; // stops in area
 
-    public DublinBusRouteFinder(Context appContext)
-    {
-        this.appContext = appContext;
-    }
+    private String routes[]; // array of routes
 
     @Override
     protected String[] doInBackground(Void... voids) {
-        routes =  getAvailibleRouteNumbers();
+        routes =  getAvailibleRouteNumbers(); // gets routes
         return routes;
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-        Toast.makeText(appContext, "Please Wait", Toast.LENGTH_SHORT);
+
     }
 
 
     public String[] getRoutes()
     {
         return  this.routes;
-    }
+    } // get routes
 
     private String[] getAvailibleRouteNumbers()
     {
-        ArrayList<String> availableRoutes = new ArrayList<String>();
+        ArrayList<String> availableRoutes = new ArrayList<String>(); // we are never sure of what the size is so an arraylist suits
         String[] routes = null;
 
         try
         {
             for(int i = 0; i < stopIdsInArea.length;i++)
             {
-                String json = getJsonStringOfDetails(stopIdsInArea[i]);
-                String[] routesArray = DecodeJson(json);
-                checkForConflicts(availableRoutes, routesArray);
+                String json = getJsonStringOfDetails(stopIdsInArea[i]); // gets json string
+                String[] routesArray = DecodeJson(json); // needs to be decoded
+                checkForConflicts(availableRoutes, routesArray); // loop to make sure we arent listing routes twice
             }
 
 
-            Object[] objects = availableRoutes.toArray();
+            Object[] objects = availableRoutes.toArray(); // convert to array
             routes = new String[objects.length];
 
             for(int x = 0; x < objects.length; x++)
             {
-                routes[x] = objects[x].toString();
+                routes[x] = objects[x].toString(); // casting
             }
 
         } catch (IOException exception)
@@ -83,7 +78,7 @@ public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
         {
             for(int i = 0; i < currentRoutes.length; i++)
             {
-                list.add(currentRoutes[i]);
+                list.add(currentRoutes[i]); // first time case
             }
         }
 
@@ -94,14 +89,14 @@ public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
             {
                 if(currentRoutes[i].equals(list.get(x)))
                 {
-                    isFound = true;
+                    isFound = true; // if we found, leave to the next go
                     break;
                 }
             }
 
             if(!isFound)
             {
-                list.add(currentRoutes[i]);
+                list.add(currentRoutes[i]); // else add
             }
         }
         return list;
@@ -114,7 +109,7 @@ public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
         connection = (HttpURLConnection) bus.openConnection();
         connection.setRequestMethod("GET");
         connection.connect();
-        // async. this causes a crash!
+
         BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         String inputLine = in.readLine();
 
@@ -136,7 +131,7 @@ public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
             if(routes.charAt(i) == '[' || routes.charAt(i) == ']' || routes.charAt(i) == '{' || routes.charAt(i) == '}' || routes.charAt(i) == '"')
             {
                 continue;
-            }
+            } // this removes padding around
             s+= routes.charAt(i);
         }
 

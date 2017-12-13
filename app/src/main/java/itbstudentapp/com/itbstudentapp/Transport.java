@@ -37,7 +37,7 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         switch (v.getId())
         {
             case R.id.dub_bus:
-                Toast.makeText(getApplicationContext(), "Getting available routes.", Toast.LENGTH_SHORT);
+                Toast.makeText(getApplicationContext(), "Getting available routes.", Toast.LENGTH_SHORT).show();
                 CallBusScreen("dublin_bus");
                 break;
             case R.id.bus_eir:
@@ -52,24 +52,13 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         }
     }
 
+    String[] routes = null;
     private void CallBusScreen(String methodOfTravel)
     {
-        // must use a thread here.
-        String[] routes = null;
-
-        if(methodOfTravel == "dublin_bus")
-        {
-            DublinBusRouteFinder dbhandler = new DublinBusRouteFinder(getApplicationContext());
-            try {
-                routes = dbhandler.execute().get();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            }
-        }
         Intent intent = new Intent(this, RouteChoice.class);
         intent.putExtra("routes", routes);
         startActivity(intent);
+
+
     }
 }
