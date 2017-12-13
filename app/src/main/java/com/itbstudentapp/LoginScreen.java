@@ -93,7 +93,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             LoginUser();
         } else if(v.getId() == R.id.register_button)
         {
-            // register screen
+            Intent intent = new Intent(this, RegisterUser.class);
+            startActivity(intent);
+            finish();
         } else{
             // forgotten password
         }
