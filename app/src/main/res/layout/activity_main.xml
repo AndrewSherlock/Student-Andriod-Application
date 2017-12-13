@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.itbstudentapp.MainActivity"
+    android:background="#0bb736">
+
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/itb"
-        tools:context="itbstudentapp.com.itbstudentapp.MainActivity"
         >
 
     <GridLayout
@@ -13,6 +20,27 @@
         android:layout_height="match_parent"
         android:columnCount="2"
         >
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:background="#b4027f19"
+            android:gravity="center"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="0dp"
+            android:layout_height="40sp"
+            android:layout_columnWeight="1"
+            android:layout_gravity="fill_horizontal"
+            android:background="#b4027f19"
+            android:gravity="center"
+            android:text="logout"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
 
         <Button
             android:id="@+id/transport"
@@ -116,3 +144,4 @@
     </GridLayout>
 
 </ScrollView>
+</android.support.constraint.ConstraintLayout>

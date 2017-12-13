@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button forum, transport, map, timetable, quiz, chat, links, phone;
+    private Button TEMP_LOG_OUT;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         chat = (Button) findViewById(R.id.chat);
         links = (Button) findViewById(R.id.links);
         phone = (Button) findViewById(R.id.phone);
+        TEMP_LOG_OUT = (Button) findViewById(R.id.logout);
 
         phone.setOnClickListener(this);
         transport.setOnClickListener(this);
@@ -33,12 +37,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forum.setOnClickListener(this);
         timetable.setOnClickListener(this);
 
+        TEMP_LOG_OUT.setOnClickListener(this);
+
 
     }
 
 
     // this interputs the button which clicked
     public void onClick(View view) {
+
+        if(view.getId() == R.id.logout)
+        {
+            FirebaseAuth auth = FirebaseAuth.getInstance();
+            auth.signOut();
+
+            Intent intent = new Intent(this, LoginScreen.class);
+            startActivity(intent);
+        }
 
         switch (view.getId()){
             case R.id.transport:
