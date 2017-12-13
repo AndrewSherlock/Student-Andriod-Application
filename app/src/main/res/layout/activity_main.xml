@@ -21,7 +21,7 @@
             android:layout_height="132sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#80ff0000"
+            android:background="#53ff0000"
 
             android:gravity="center"
             android:text="@string/title_activity_transport"

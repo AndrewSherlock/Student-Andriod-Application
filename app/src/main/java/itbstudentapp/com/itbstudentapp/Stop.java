@@ -1,9 +1,5 @@
 package itbstudentapp.com.itbstudentapp;
 
-/**
- * Created by andrew on 11/12/2017.
- */
-
 public class Stop {
 
     private String stop_name;
