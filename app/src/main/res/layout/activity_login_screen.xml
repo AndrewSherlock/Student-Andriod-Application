@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.itbstudentapp.LoginScreen">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#53c60f"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_itb"
+            android:layout_marginTop="50dp"
+            />
+
+        <LinearLayout
+        android:layout_marginLeft="10dp"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username :"
+            android:textSize="20dp"/>
+
+        <EditText
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:id="@+id/user_name_field"/>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Password :"
+                android:textSize="20dp"
+              />
+
+            <EditText
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:inputType="textPassword"
+                android:id="@+id/password_field"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Log In"
+                android:textSize="15dp"
+                android:id="@+id/login_button"
+                />
+            <Button
+                android:layout_width="150dp"
+                android:layout_height="50dp"
+                android:text="Forgot password"
+                android:textSize="12dp"
+                android:id="@+id/forgotten_password"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register here"
+                android:textSize="30dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                />
+
+            <Button
+                android:layout_width="120dp"
+                android:layout_height="50dp"
+                android:text="Register"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/register_button"
+                />
+
+        </LinearLayout>
+
+
+
+    </GridLayout>
+
+</android.support.constraint.ConstraintLayout>
