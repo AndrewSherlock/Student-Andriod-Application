@@ -9,4 +9,13 @@
     <string name="title_activity_phone">Phone Numbers</string>
     <string name="title_activity_links">Quick Links</string>
 
+
+    <string name="course_prompt">Choose a Course</string>
+
+    <string-array name="courses">
+        <item>BN104</item>
+        <item>BN103</item>
+        <item>BN002</item>
+    </string-array>
+
 </resources>

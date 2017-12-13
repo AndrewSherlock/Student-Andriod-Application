@@ -14,25 +14,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.itbstudentapp.LoginScreen">
+        <activity android:name=".LoginScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.itbstudentapp.Transport" />
-        <activity android:name="com.itbstudentapp.Map" />
-        <activity android:name="com.itbstudentapp.Forum" />
-        <activity android:name="com.itbstudentapp.Timetable" />
-        <activity android:name="com.itbstudentapp.Quiz" />
-        <activity android:name="com.itbstudentapp.Links" />
-        <activity android:name="com.itbstudentapp.Chat" />
-        <activity android:name="com.itbstudentapp.Phone" />
-        <activity android:name="com.itbstudentapp.RouteChoice" />
-        <activity android:name="com.itbstudentapp.StopList" />
-        <activity android:name="com.itbstudentapp.BusTimes" />
-        <activity android:name="com.itbstudentapp.MainActivity"></activity>
+        <activity android:name=".Transport" />
+        <activity android:name=".Map" />
+        <activity android:name=".Forum" />
+        <activity android:name=".Timetable" />
+        <activity android:name=".Quiz" />
+        <activity android:name=".Links" />
+        <activity android:name=".Chat" />
+        <activity android:name=".Phone" />
+        <activity android:name=".RouteChoice" />
+        <activity android:name=".StopList" />
+        <activity android:name=".BusTimes" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".RegisterUser"></activity>
     </application>
 
 </manifest>
