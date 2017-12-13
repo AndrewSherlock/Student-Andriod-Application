@@ -13,9 +13,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-/**
- * Created by andrew on 01/12/2017.
- */
 
 public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
 

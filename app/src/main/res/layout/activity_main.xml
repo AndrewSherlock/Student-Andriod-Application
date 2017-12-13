@@ -18,10 +18,10 @@
             android:id="@+id/transport"
 
             android:layout_width="0dp"
-            android:layout_height="132sp"
+            android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#80ff0000"
+            android:background="#b4540101"
 
             android:gravity="center"
             android:text="@string/title_activity_transport"
@@ -31,10 +31,10 @@
         <Button
             android:id="@+id/timetable"
             android:layout_width="0dp"
-            android:layout_height="132sp"
+            android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#80ffF000"
+            android:background="#b4605a00"
             android:gravity="center"
             android:text="@string/title_activity_timetable"
             android:textColor="@android:color/white"
@@ -43,10 +43,10 @@
         <Button
             android:id="@+id/quiz"
             android:layout_width="0dp"
-            android:layout_height="132sp"
+            android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#8000ffff"
+            android:background="#b4005c5c"
             android:gravity="center"
             android:text="@string/title_activity_quiz"
             android:textColor="@android:color/white"
@@ -55,11 +55,11 @@
             <Button
                 android:id="@+id/map"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#80c300ff"
+                android:background="#b448005e"
                 android:text="@string/title_activity_map"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -67,11 +67,11 @@
             <Button
                 android:id="@+id/forum"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#8000ff2f"
+                android:background="#b4006b14"
                 android:text="@string/title_activity_forum"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -79,11 +79,11 @@
             <Button
                 android:id="@+id/chat"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#80ffa200"
+                android:background="#b4704701"
                 android:text="@string/title_activity_chat"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -91,11 +91,11 @@
             <Button
                 android:id="@+id/links"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#80f700ff"
+                android:background="#b4660169"
                 android:text="@string/title_activity_links"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -103,11 +103,11 @@
             <Button
                 android:id="@+id/phone"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#80003cff"
+                android:background="#b4011966"
                 android:text="@string/title_activity_phone"
 
                 android:textColor="@android:color/white"

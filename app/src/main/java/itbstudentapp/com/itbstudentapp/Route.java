@@ -1,9 +1,5 @@
 package itbstudentapp.com.itbstudentapp;
 
-/**
- * Created by andrew on 26/11/2017.
- */
-
 public class Route {
 
     private String routeId;
