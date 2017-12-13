@@ -76,6 +76,9 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("users").child(user_id).setValue(user);
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.createUserWithEmailAndPassword(user_email, user_password);
+
         Toast.makeText(getApplicationContext(), "Account created.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginScreen.class));
 
