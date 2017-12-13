@@ -18,7 +18,7 @@
             android:id="@+id/transport"
 
             android:layout_width="0dp"
-            android:layout_height="132sp"
+            android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
             android:background="#53ff0000"
@@ -31,7 +31,7 @@
         <Button
             android:id="@+id/timetable"
             android:layout_width="0dp"
-            android:layout_height="132sp"
+            android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
             android:background="#80ffF000"
@@ -43,7 +43,7 @@
         <Button
             android:id="@+id/quiz"
             android:layout_width="0dp"
-            android:layout_height="132sp"
+            android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
             android:background="#8000ffff"
@@ -55,7 +55,7 @@
             <Button
                 android:id="@+id/map"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
@@ -67,7 +67,7 @@
             <Button
                 android:id="@+id/forum"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
@@ -79,7 +79,7 @@
             <Button
                 android:id="@+id/chat"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
@@ -91,7 +91,7 @@
             <Button
                 android:id="@+id/links"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
@@ -103,7 +103,7 @@
             <Button
                 android:id="@+id/phone"
                 android:layout_width="0dp"
-                android:layout_height="132sp"
+                android:layout_height="140sp"
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
