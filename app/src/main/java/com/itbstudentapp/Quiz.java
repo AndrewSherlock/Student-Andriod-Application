@@ -15,8 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
-    // I used this tutorial to make this
-    //https://www.youtube.com/watch?v=-4bZ_rfvBTk&t
+
 
     private TextView mScoreView;
     private TextView mQuestion;
@@ -28,7 +27,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     private String mAnswer;
 
     private DatabaseReference ref;
-  //  private FirebaseDatabase mQuestionRef, mchoice1Ref, mchoice2Ref,mchoice3Ref, mchoice4Ref,mAnswerRef;
 
 
     @Override
@@ -55,61 +53,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         buttons[2].setOnClickListener(this);
         buttons[3].setOnClickListener(this);
 
-        
-        /* this can be made a lot easier then this
-        //button1
-        mButtonChoice1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mButtonChoice1.getText().equals(mAnswer)){
-                    mScore = mScore+1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }else{
-                    updateQuestion();
-                }
-            }
-        });
-        //button2
-        mButtonChoice2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mButtonChoice2.getText().equals(mAnswer)){
-                    mScore = mScore+1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }else{
-                    updateQuestion();
-                }
-            }
-        });
-        //button3
-        mButtonChoice3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mButtonChoice3.getText().equals(mAnswer)){
-                    mScore = mScore+1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }else{
-                    updateQuestion();
-                }
-            }
-        });
-        //button4
-        mButtonChoice4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mButtonChoice4.getText().equals(mAnswer)){
-                    mScore = mScore+1;
-                    updateScore(mScore);
-                    updateQuestion();
-                }else{
-                    updateQuestion();
-                }
-            }
-        });
-        */
 
         updateQuestion();
 
@@ -164,81 +107,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
             }
         });
-        /*
-        mQuestionRef = new Firebase("https://itb-student-app-6727d.firebaseio.com/quiz/"+ mQuestionNumber +"/question");
-        mQuestionRef.addValueEventListener(new ValueEventListener(){
 
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                String question = dataSnapshot.getValue(String.class);
-                mQuestion.setText(question);
-            }
-
-            public void onCancelled (FirebaseError firebaseError){
-
-            }
-        });
-
-        mchoice1Ref = new Firebase("https://itb-student-app-6727d.firebaseio.com/quiz/"+ mQuestionNumber +"/choice1");
-        mchoice1Ref.addValueEventListener(new ValueEventListener(){
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                String choice = dataSnapshot.getValue(String.class);
-                mButtonChoice1.setText(choice);
-            }
-            public void onCancelled (FirebaseError firebaseError){
-
-            }
-
-        });
-        mchoice2Ref = new Firebase("https://itb-student-app-6727d.firebaseio.com/quiz/"+ mQuestionNumber +"/choice2");
-        mchoice2Ref.addValueEventListener(new ValueEventListener(){
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                String choice = dataSnapshot.getValue(String.class);
-                mButtonChoice2.setText(choice);
-            }
-            public void onCancelled (FirebaseError firebaseError){
-
-            }
-
-        });
-        mchoice3Ref = new Firebase("https://itb-student-app-6727d.firebaseio.com/quiz/ "+ mQuestionNumber +"/choice3");
-        mchoice3Ref.addValueEventListener(new ValueEventListener(){
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                String choice = dataSnapshot.getValue(String.class);
-                mButtonChoice3.setText(choice);
-            }
-            public void onCancelled (FirebaseError firebaseError){
-
-            }
-
-        });
-        mchoice4Ref = new Firebase("https://itb-student-app-6727d.firebaseio.com/quiz/"+ mQuestionNumber +"/choice4");
-        mchoice4Ref.addValueEventListener(new ValueEventListener(){
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                String choice = dataSnapshot.getValue(String.class);
-                mButtonChoice4.setText(choice);
-            }
-            public void onCancelled (FirebaseError firebaseError){
-
-            }
-
-        });
-
-        mAnswerRef = new Firebase ("https://itb-student-app-6727d.firebaseio.com/quiz/"+ mQuestionNumber +"/answer");
-        mAnswerRef.addValueEventListener(new ValueEventListener(){
-
-            public void onDataChange(DataSnapshot dataSnapshot){
-                mAnswer = dataSnapshot.getValue(String.class);
-
-            }
-            public void onCancelled (FirebaseError firebaseError){
-
-            }
-
-        }); */
         mQuestionNumber++;
 
     }
