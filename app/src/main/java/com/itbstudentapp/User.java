@@ -20,5 +20,4 @@ public class User {
         this.staffUser = staffUser;
         this.email = email;
     }
-
 }

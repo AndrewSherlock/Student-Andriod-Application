@@ -33,7 +33,8 @@
         <activity android:name=".StopList" />
         <activity android:name=".BusTimes" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".RegisterUser"></activity>
+        <activity android:name=".RegisterUser" />
+        <activity android:name=".MessageScreen"></activity>
     </application>
 
 </manifest>

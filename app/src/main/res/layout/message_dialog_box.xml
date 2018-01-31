@@ -1,0 +1,48 @@
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <RelativeLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="#42edd6"
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:id="@+id/dialog_box"
+        android:layout_alignParentRight="false">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="andrew says :"
+            android:textSize="15dp"
+            android:id="@+id/user_name_dialog"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="I am a long message that the user has sent to me"
+            android:textSize="20dp"
+            android:id="@+id/dialog"
+            android:layout_below="@+id/user_name_dialog"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="time"
+            android:textSize="15dp"
+            android:id="@+id/time_display"
+            android:layout_below="@+id/dialog"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            />
+
+    </RelativeLayout>
+</RelativeLayout>

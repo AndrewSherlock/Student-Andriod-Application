@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.itbstudentapp.MessageScreen">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#6bf442"
+            android:id="@+id/message_title_bar"
+            >
+
+
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="380dp"
+            android:orientation="vertical"
+            android:layout_below="@+id/message_title_bar"
+            android:id="@+id/message_dialogs"
+           >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/message_layout"
+                android:orientation="vertical"
+                >
+
+            </LinearLayout>
+
+        </ScrollView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_below="@+id/message_dialogs"
+            android:background="#6bf442"
+            >
+
+            <EditText
+                android:id="@+id/message_text_box"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:hint="Enter message"
+                android:textSize="25sp"
+                android:textColor="#fff"
+                android:layout_marginTop="10sp"
+                />
+
+            <Button
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="10dp"
+                android:text="send"
+                android:id="@+id/message_send"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
