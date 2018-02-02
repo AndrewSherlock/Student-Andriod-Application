@@ -13,7 +13,7 @@ public class UtilityFunctions {
     {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String user_name = auth.getCurrentUser().getEmail().toString();
-        user_name = user_name.split("@")[0].toUpperCase();
+        user_name = user_name.split("@")[0].toLowerCase();
 
         return  user_name;
     }

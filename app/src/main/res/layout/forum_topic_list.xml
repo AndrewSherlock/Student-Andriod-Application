@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#2c9e09"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout2">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent">
+               <TextView
+                   android:layout_width="250dp"
+                   android:layout_height="match_parent"
+                   android:text="Module name"
+                   android:textSize="30dp"
+                   android:textColor="#ffff"
+                   android:textAlignment="center"
+                   android:gravity="center"
+                   />
+
+               <Button
+                   android:layout_width="80dp"
+                   android:layout_height="50dp"
+                   android:layout_marginLeft="20dp"
+                   android:text="+"
+                   android:textSize="30dp"
+                   android:id="@+id/forum_new_message_button"
+                   />
+           </LinearLayout>
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_below="@+id/linearLayout2">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/forum_display">
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

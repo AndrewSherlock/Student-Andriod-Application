@@ -1,0 +1,91 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:paddingTop="20dp"
+    android:id="@+id/forum_user_post_layout">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:id="@+id/forum_user_section"
+    >
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:src="@drawable/login"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Andrew Sherlock"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:id="@+id/forum_user_name"/>
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="B00090936"
+            android:textSize="18dp"
+            android:textAlignment="center"
+            android:id="@+id/forum_user_id"/>
+    </LinearLayout>
+</LinearLayout>
+<RelativeLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_below="@+id/forum_user_section">
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="I am the question that the user has asked. I wonder how many replies the questuin will get. i suppose this is one of the bigger sizes that we will render in one go"
+    android:textSize="20dp"
+    android:layout_marginTop="5dp"
+    android:id="@+id/forum_user_post"
+    />
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/forum_user_post"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="18dp"
+        android:text="7 posts"
+        android:gravity="right"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/post_number"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:text="Reply"
+            android:id="@+id/forum_see_posts"
+
+            />
+
+    </LinearLayout>
+
+</LinearLayout>
+</RelativeLayout>
+    </RelativeLayout>

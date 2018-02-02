@@ -55,7 +55,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         buttons[2].setOnClickListener(this);
         buttons[3].setOnClickListener(this);
 
-        
+
         /* this can be made a lot easier then this
         //button1
         mButtonChoice1.setOnClickListener(new View.OnClickListener() {
