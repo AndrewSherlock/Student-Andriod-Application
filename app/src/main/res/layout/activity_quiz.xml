@@ -43,7 +43,6 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginBottom="30sp"
-        android:text="Which thing is alive?"
         android:textSize="20sp" />
 
 
@@ -53,13 +52,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30sp"
         android:background="#0091EA"
-        android:text="bird"
         android:textColor="#fff" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="door"
         android:background="#0091EA"
         android:textColor="#fff"
         android:layout_marginBottom="30sp"
@@ -68,16 +65,13 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="rock"
         android:background="#0091EA"
         android:textColor="#fff"
-
         android:layout_marginBottom="30sp"
         android:id="@+id/choice3"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="my hopes and dreams"
         android:background="#0091EA"
         android:textColor="#fff"
         android:layout_marginBottom="30sp"
@@ -89,7 +83,6 @@
         android:text="quit"
         android:background="#B71C1C"
         android:textColor="#fff"
-
         android:layout_marginBottom="30sp"
         android:id="@+id/quit"/>
 

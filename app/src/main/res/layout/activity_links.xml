@@ -22,7 +22,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Quick Links"
-                android:textSize="30sp"/>
+                android:textSize="30sp"
+                android:textStyle="bold"/>
             <Button
                 android:layout_height="wrap_content"
                 android:clickable="true"

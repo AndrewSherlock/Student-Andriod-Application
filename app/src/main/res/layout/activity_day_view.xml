@@ -6,12 +6,19 @@
     tools:context="com.itbstudentapp.Timetable"
     android:background="#bbedc8">
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/addNewClass"
+        android:text="Add Class"
+        />
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/timetable"
+        android:id="@+id/listCourseByDay"
         android:layout_margin="10dp"
         android:dividerHeight="10dp"
+        android:layout_below="@+id/addNewClass"
         android:divider="@null">
 
     </ListView>

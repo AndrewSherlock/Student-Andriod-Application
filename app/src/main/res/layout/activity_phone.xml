@@ -129,13 +129,7 @@
                 android:id="@+id/home"
                 />
 
-            <!--<Button-->
-                <!--android:layout_width="194dp"-->
-                <!--android:layout_height="132dp"-->
-                <!--android:width="30dp"-->
-                <!--android:text=""-->
-                <!--android:id=""-->
-                <!--/>-->
+
         </GridLayout>
     </GridLayout>
     </ScrollView>

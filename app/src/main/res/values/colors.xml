@@ -3,4 +3,36 @@
     <color name="colorPrimary">#008906</color>
     <color name="colorPrimaryDark">#005403</color>
     <color name="colorAccent">#FF4081</color>
+
+    <string-array name="colours" translatable="false">
+        <item>#b4540101</item>
+        <item>#b4605a00</item>
+        <item>#b4005c5c</item>
+        <item>#b448005e</item>
+        <item>#b4006b14</item>
+        <item>#b4704701</item>
+        <item>#b4660169</item>
+        <item>#b4011966</item>
+    </string-array>
+
+
+    <string-array name="letter_colours" translatable="false">
+        <item>#99cc00</item>
+        <item>#33b5e5</item>
+        <item>#0099cc</item>
+        <item>#547bca</item>
+        <item>#aa66cc</item>
+        <item>#9933cc</item>
+        <item>#669900</item>
+        <item>#aeb857</item>
+        <item>#cc0000</item>
+        <item>#df5948</item>
+        <item>#ff4444</item>
+        <item>#ae6b23</item>
+        <item>#ff8800</item>
+        <item>#e5ae4f</item>
+        <item>#ffbb33</item>
+        <item>#cccccc</item>
+        <item>#888888</item>
+    </string-array>
 </resources>
