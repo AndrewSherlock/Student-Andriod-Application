@@ -34,7 +34,9 @@
         <activity android:name=".BusTimes" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterUser" />
-        <activity android:name=".MessageScreen"></activity>
+        <activity android:name=".MessageScreen" />
+        <activity android:name=".DayView" />
+        <activity android:name=".AddClass"/>
     </application>
 
 </manifest>
