@@ -105,17 +105,15 @@ public class Timetable extends AppCompatActivity {
             }
             days = convertView.findViewById(R.id.weekDay);
             days.setText(dayArray[i]);
-            String colour = randomColour();
+            String colour = nextColour(i);
             convertView.setBackgroundColor(Color.parseColor(colour));
             return convertView;
         }
     }
-
-
-    public String randomColour(){
-        Random random = new Random();
+    
+    public String nextColour(int i){
         String [] colorArray = getResources().getStringArray(R.array.colours);
-        return colorArray[random.nextInt(colorArray.length)];
+        return colorArray[i];
     }
 
 
