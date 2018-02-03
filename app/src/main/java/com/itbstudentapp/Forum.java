@@ -97,23 +97,24 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
                 startActivity(thisIntent);
                 finish();
                 break;
-            case 1:  LoadForumForTopic(1, path);
+            case 1:  LoadForumForTopic(1, path, "Campus");
                 break;
-            case 2: LoadForumForTopic(2, path);
+            case 2: LoadForumForTopic(2, path, "Area");
                 break;
-            case 3: LoadForumForTopic(3, path);
+            case 3: LoadForumForTopic(3, path, "Transport");
                 break;
-            case 4: LoadForumForTopic(4, path);
+            case 4: LoadForumForTopic(4, path, "Relax");
                 break;
                 default: Log.e("Error", "Probelms");
         }
     }
 
-    private void LoadForumForTopic(int index, String path)
+    private void LoadForumForTopic(int index, String path, String title)
     {
         Intent intent = new Intent(this, ForumList.class);
         intent.putExtra("index", index);
         intent.putExtra("path", path);
+        intent.putExtra("title", title);
 
         startActivity(intent);
         finish();

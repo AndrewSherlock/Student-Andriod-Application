@@ -24,12 +24,19 @@ public class ImageUploader implements View.OnClickListener {
 
     private Activity context;
     private static final int request_code = 1;
+    private Uri uploadFile = null;
+    private String fileId = null;
 
     public ImageUploader() {
     }
 
     public ImageUploader(Activity activity) {
         context = activity; // we need to do this to use startActivityForResult
+    }
+
+    public void setUploadUri(Uri file)
+    {
+        this.uploadFile = file;
     }
 
     @Override
@@ -44,8 +51,9 @@ public class ImageUploader implements View.OnClickListener {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
+            fileId = UUID.randomUUID().toString();
 
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("forumImages/" + UUID.randomUUID().toString());
+            StorageReference ref = FirebaseStorage.getInstance().getReference().child("forumImages/" + fileId);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -68,4 +76,13 @@ public class ImageUploader implements View.OnClickListener {
         }
     }
 
+    public Uri getUploadedUri() {
+
+        return this.uploadFile;
+    }
+
+    public String getFileId()
+    {
+        return this.fileId;
+    }
 }

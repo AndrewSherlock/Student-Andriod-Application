@@ -20,20 +20,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
+import java.util.UUID;
 
 public class NewForumPost  extends AppCompatActivity {
 
     private Dialog dialog;
-    private Image image;
-    private static  final int request_code = 1;
-    private Activity callingActivitie;
+    private ImageUploader imageUploader;
+    private Activity callingActivity;
 
-    public NewForumPost(final Context context, final String path, Activity callingActivity){
-
-        this.callingActivitie = callingActivity;
+    public NewForumPost(final Context context, final String path, Activity callingActivity, ImageUploader imageUploader){
 
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.forum_new_post);
+        this.callingActivity = callingActivity;
 
         Button new_post = dialog.findViewById(R.id.modal_new_post_post);
         new_post.setOnClickListener(new View.OnClickListener() {
@@ -44,10 +43,9 @@ public class NewForumPost  extends AppCompatActivity {
         });
 
         Button image = dialog.findViewById(R.id.modal_new_post_add_image);
-        image.setOnClickListener(new ImageUploader(callingActivity));
 
-
-        //TODO implement image uploading
+        this.imageUploader = imageUploader;
+        image.setOnClickListener(imageUploader);
 
         dialog.show();
 
@@ -61,8 +59,27 @@ public class NewForumPost  extends AppCompatActivity {
         String user_text = user_message.getText().toString();
 
         if(user_text.length() > 0) {
-            ForumPost post = new ForumPost("there is no way to generate id yet", UtilityFunctions.getUserNameFromFirebase(), user_text, Calendar.getInstance().getTimeInMillis());
+            ForumPost post;
+
+            if(!UtilityFunctions.doesUserHaveConnection(callingActivity))
+            {
+                Toast.makeText(callingActivity, "No network connection. Please try again", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(imageUploader.getUploadedUri() != null)
+            {
+                imageUploader.ImageUpload(callingActivity, imageUploader.getUploadedUri());
+                post = new ForumPost(UUID.randomUUID().toString(), UtilityFunctions.getUserNameFromFirebase(),
+                        user_text, Calendar.getInstance().getTimeInMillis(), imageUploader.getFileId());
+            } else {
+                post = new ForumPost(UUID.randomUUID().toString(), UtilityFunctions.getUserNameFromFirebase(),
+                        user_text, Calendar.getInstance().getTimeInMillis());
+            }
+
             reference.child(post.getPostTitle()).setValue(post);
+            dialog.dismiss();
+
         } else{
             Toast.makeText(dialog.getContext(), "You must enter text to post", Toast.LENGTH_SHORT).show();
             return;

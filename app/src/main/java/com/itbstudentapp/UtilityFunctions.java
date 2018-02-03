@@ -1,5 +1,9 @@
 package com.itbstudentapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
@@ -38,5 +42,13 @@ public class UtilityFunctions {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yy");
         String date = simpleDateFormat.format(messageDate);
         return  date;
+    }
+
+    public static boolean doesUserHaveConnection(Context context)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return networkInfo.isConnectedOrConnecting() && networkInfo != null;
     }
 }

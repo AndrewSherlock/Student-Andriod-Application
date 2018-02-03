@@ -10,6 +10,7 @@ public class ForumPost {
     private long postTime;
 
     private ArrayList<Reply> postReplies;
+    private String fileUpload;
 
     public ForumPost()
     {
@@ -21,6 +22,16 @@ public class ForumPost {
         this.posterID = posterID;
         this.postComment = postComment;
         this.postTime = postTime;
+
+        postReplies = new ArrayList<Reply>();
+    }
+
+    public ForumPost(String postTitle, String posterID, String postComment, long postTime, String fileUpload) {
+        this.postTitle = postTitle;
+        this.posterID = posterID;
+        this.postComment = postComment;
+        this.postTime = postTime;
+        this.fileUpload = fileUpload;
 
         postReplies = new ArrayList<Reply>();
     }
@@ -68,5 +79,13 @@ public class ForumPost {
     public void AddReplyToTopic(Reply r)
     {
         this.postReplies.add(r);
+    }
+
+    public String getFileUpload() {
+        return fileUpload;
+    }
+
+    public void setFileUpload(String fileUpload) {
+        this.fileUpload = fileUpload;
     }
 }

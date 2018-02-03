@@ -1,18 +1,27 @@
 package com.itbstudentapp;
 
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -35,12 +44,12 @@ public class ForumManager {
         this.messagePath = messagePath;
     }
 
+    View forumDis;
+
     public void addPostToView(final LinearLayout v, final String path)
     {
         listView = v;
-       // forumDisplay = LayoutInflater.from(v.getContext()).inflate(R.layout.forum_topic_post, null);
 
-        Log.e("path", path);
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path);
         ref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -48,8 +57,19 @@ public class ForumManager {
                 if(posts == null)
                     posts = new ArrayList<ForumPost>();
 
-                final View forumDis = LayoutInflater.from(v.getContext()).inflate(R.layout.forum_topic_post, null);
+              //  final View forumDis = LayoutInflater.from(v.getContext()).inflate(R.layout.forum_topic_post, null);
                 final ForumPost forumPost = dataSnapshot.getValue(ForumPost.class);
+
+                if(forumPost.getFileUpload() != null)
+                {
+                    forumDis = LayoutInflater.from(v.getContext()).inflate(R.layout.forum_topic_post_image, null);
+                    final ImageView imageView =forumDis.findViewById(R.id.forum_user_post_image);
+                    final StorageReference storage = FirebaseStorage.getInstance().getReference("forumImages/").child(forumPost.getFileUpload());
+                    Glide.with(v.getContext()).using(new FirebaseImageLoader()).load(storage).into(imageView);
+                } else{
+
+                    forumDis = LayoutInflater.from(v.getContext()).inflate(R.layout.forum_topic_post, null);
+                }
 
                 Button replyButton = forumDis.findViewById(R.id.forum_see_posts);
                 replyButton.setOnClickListener(new View.OnClickListener() {
@@ -82,11 +102,24 @@ public class ForumManager {
        forumDis.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+               PopupMenu popupMenu = new PopupMenu(forumDis.getContext(), forumDis);
+               popupMenu.getMenuInflater().inflate(R.menu.user_contact_menu, popupMenu.getMenu());
 
-               Log.e("User press", "USER PRESSED");
-               //TODO add quick message ability
+               popupMenu.show();
 
+               popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                   @Override
+                   public boolean onMenuItemClick(MenuItem item) {
 
+                       if(item.getTitle().toString().equalsIgnoreCase("contact"))
+                       {
+                           Log.e("User press", "USER PRESSED");
+                           //TODO ensure that it opens the message intent
+                       }
+
+                       return true;
+                   }
+               });
            }
        });
     }

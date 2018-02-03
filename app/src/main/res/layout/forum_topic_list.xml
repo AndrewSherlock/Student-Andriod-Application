@@ -26,6 +26,7 @@
                    android:textColor="#ffff"
                    android:textAlignment="center"
                    android:gravity="center"
+                   android:id="@+id/forum_title"
                    />
 
                <Button
