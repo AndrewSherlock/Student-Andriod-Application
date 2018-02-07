@@ -24,6 +24,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
     private Forum instance;
     private LinearLayout layout;
     private String path;
+    private boolean isModule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,8 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
         {
             if(b.getString("sectionChoice").equals("0"))
             {
-                path = "forum/sections/0/modules";
+                path = "forum/sections/0/modules/";
+                isModule = true;
             }
         } else{
             path = "forum/sections/";
@@ -84,26 +86,25 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
-        String link = "";
-
-//        final String path = b.getString("path") + b.getInt("index") + "/topics";
-
-
-        switch (v.getId()) // can be removed
+        switch (v.getId())
         {
             case 0:
-                Intent thisIntent = getIntent();
-                thisIntent.putExtra("sectionChoice", "0");
-                startActivity(thisIntent);
-                finish();
+                if(!isModule) {
+                    Intent thisIntent = getIntent();
+                    thisIntent.putExtra("sectionChoice", "0");
+                    startActivity(thisIntent);
+                    finish();
+                } else{
+                    LoadForumForTopic(1, path, getTitleForSection(v.getId(), isModule));
+                }
                 break;
-            case 1:  LoadForumForTopic(1, path, "Campus");
+            case 1:  LoadForumForTopic(1, path, getTitleForSection(v.getId(), isModule));
                 break;
-            case 2: LoadForumForTopic(2, path, "Area");
+            case 2: LoadForumForTopic(2, path, getTitleForSection(v.getId(), isModule));
                 break;
-            case 3: LoadForumForTopic(3, path, "Transport");
+            case 3: LoadForumForTopic(3, path, getTitleForSection(v.getId(), isModule));
                 break;
-            case 4: LoadForumForTopic(4, path, "Relax");
+            case 4: LoadForumForTopic(4, path, getTitleForSection(v.getId(), isModule));
                 break;
                 default: Log.e("Error", "Probelms");
         }
@@ -118,6 +119,18 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
 
         startActivity(intent);
         finish();
+    }
+
+    private String getTitleForSection(int index, boolean isModule) // id rather sections be read in some other way
+    {
+        String[] subjects = {"Fundamentals of programming", "Networking", "Problem solving" ,"Web development"};
+        String[] sections = {"Modules", "Campus", "Area" ,"Transport", "Relax"};
+
+        if(isModule)
+            return  subjects[index];
+
+        return sections[index];
+
     }
 }
 

@@ -38,7 +38,6 @@
         <activity android:name=".MessageScreen" />
         <activity android:name=".DayView" />
         <activity android:name=".AddClass"/>
-        <service android:name=".MessageService"></service>
         <activity android:name=".ForumList"></activity>
     </application>
 

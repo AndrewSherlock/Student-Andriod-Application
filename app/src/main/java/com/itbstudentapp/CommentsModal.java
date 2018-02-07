@@ -3,13 +3,16 @@ package com.itbstudentapp;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,11 +119,11 @@ public class CommentsModal{
         }
     }
 
-    private void addMessageToView(Dialog dialog, Reply reply, String username)
+    private void addMessageToView(final Dialog dialog, Reply reply, final String username)
     {
         //TODO check if the view has the no replies message and remove if it does
 
-        LinearLayout linearLayout = dialog.findViewById(R.id.forum_modal_comment_list);
+        final LinearLayout linearLayout = dialog.findViewById(R.id.forum_modal_comment_list);
         View view = LayoutInflater.from(dialog.getContext()).inflate(R.layout.modal_reply, null);
 
         TextView userName = view.findViewById(R.id.forum_modal_user_comment_name);
@@ -129,7 +132,25 @@ public class CommentsModal{
         userName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("User clicked", "Listener");
+
+                PopupMenu popupMenu = new PopupMenu(dialog.getContext(), linearLayout);
+                popupMenu.getMenuInflater().inflate(R.menu.user_contact_menu, popupMenu.getMenu());
+                popupMenu.show();
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        if(item.getTitle().toString().equalsIgnoreCase("contact"))
+                        {
+                            Intent messageUser = new Intent(linearLayout.getContext(), MessageScreen.class);
+                            messageUser.putExtra("message_id", username);
+                            dialog.getContext().startActivity(messageUser);
+                            dialog.dismiss();
+                        }
+
+                        return true;
+                    }
+                });
             }
         });
 

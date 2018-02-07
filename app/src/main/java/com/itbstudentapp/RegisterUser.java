@@ -18,48 +18,31 @@ import com.google.firebase.database.Query;
 
 public class RegisterUser extends AppCompatActivity implements View.OnClickListener{
 
-    private Button submit, reset;
-    private RadioButton staff, student;
-    private EditText user_name, email, password, reenter;
-    private Spinner spinner;
+   private Button register_user, clear_fields;
+   private EditText user_name, user_password, user_repeat, user_email;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        submit = (Button) findViewById(R.id.reg_submit);
-        reset = (Button) findViewById(R.id.reg_reset);
+        user_name = findViewById(R.id.register_user_name);
+        user_email = findViewById(R.id.register_user_email);
+        user_password = findViewById(R.id.register_user_password);
+        user_repeat = findViewById(R.id.register_user_repeat);
 
-        staff = (RadioButton) findViewById(R.id.staff_acc);
-        student = (RadioButton) findViewById(R.id.student_acc);
+        register_user = findViewById(R.id.register_submit_button);
+        clear_fields = findViewById(R.id.register_clear_button);
 
-        user_name = (EditText) findViewById(R.id.reg_user_name);
-        email = (EditText) findViewById(R.id.reg_user_email);
-        password = (EditText) findViewById(R.id.reg_user_password);
-        reenter = (EditText) findViewById(R.id.reg_user_repeat);
-
-        spinner = (Spinner) findViewById(R.id.course_choice);
-
-        submit.setOnClickListener(this);
-        reset.setOnClickListener(this);
+        register_user.setOnClickListener(this);
+        clear_fields.setOnClickListener(this);
     }
 
-    private boolean ValidateUser(FirebaseAuth auth)
-    {
-       /* DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        Query search = db.child("users").equalTo();
-
-        search.addListenerForSingleValueEvent(); */
-
-       // Needs validation built
 
 
 
-
-        return true;
-    }
-
+/*
     private void AddUserToDatabase()
     {
         DatabaseReference db = FirebaseDatabase.getInstance().getReference();
@@ -82,13 +65,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         Toast.makeText(getApplicationContext(), "Account created.", Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, LoginScreen.class));
 
-    }
-
-
-    @Override
-    public void onClick(View v) {
-
-        if(v.getId() == R.id.reg_submit)
+         if(v.getId() == R.id.reg_submit)
         {
             FirebaseAuth auth = FirebaseAuth.getInstance();
             boolean valid = ValidateUser(auth);
@@ -104,5 +81,29 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         {
 
         }
+    } */
+
+
+    @Override
+    public void onClick(View v) {
+        if(v.getId() == register_user.getId())
+        {
+            UserManager userManager = new UserManager(this);
+            if(user_password.getText().toString().equals(user_repeat.getText().toString()))
+                userManager.registerUser(user_name.getText().toString(), user_email.getText().toString(), user_password.getText().toString());
+            else
+                Toast.makeText(getApplicationContext(), "Your passwords don't match", Toast.LENGTH_SHORT);
+        }
+
+        if(v.getId() == clear_fields.getId())
+            clearTextFields();
+    }
+
+    private void clearTextFields()
+    {
+        user_name.setText("");
+        user_password.setText("");
+        user_repeat.setText("");
+        user_email.setText("");
     }
 }

@@ -1,5 +1,6 @@
 package com.itbstudentapp;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -94,7 +95,7 @@ public class ForumManager {
 
     }
 
-    private void addMessageFunctionToView(String posterID, final LinearLayout forumDis) {
+    private void addMessageFunctionToView(final String posterID, final LinearLayout forumDis) {
 
         if(posterID.equalsIgnoreCase(UtilityFunctions.getUserNameFromFirebase()))
          //   return; // TODO uncomment so we dont message ourselves
@@ -113,8 +114,9 @@ public class ForumManager {
 
                        if(item.getTitle().toString().equalsIgnoreCase("contact"))
                        {
-                           Log.e("User press", "USER PRESSED");
-                           //TODO ensure that it opens the message intent
+                           Intent messageUser = new Intent(listView.getContext(), MessageScreen.class);
+                           messageUser.putExtra("message_id", posterID);
+                           listView.getContext().startActivity(messageUser);
                        }
 
                        return true;

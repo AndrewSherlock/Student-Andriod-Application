@@ -11,52 +11,101 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#2c9e09"
+            android:background="@color/bannerGreen"
             android:orientation="vertical"
             android:id="@+id/linearLayout2">
 
-           <LinearLayout
-               android:layout_width="match_parent"
-               android:layout_height="match_parent">
-               <TextView
-                   android:layout_width="250dp"
-                   android:layout_height="match_parent"
-                   android:text="Module name"
-                   android:textSize="30dp"
-                   android:textColor="#ffff"
-                   android:textAlignment="center"
-                   android:gravity="center"
-                   android:id="@+id/forum_title"
-                   />
-
-               <Button
-                   android:layout_width="80dp"
-                   android:layout_height="50dp"
-                   android:layout_marginLeft="20dp"
-                   android:text="+"
-                   android:textSize="30dp"
-                   android:id="@+id/forum_new_message_button"
-                   />
-           </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Section name"
+                android:textColor="#fff"
+                android:textSize="35sp"
+                android:gravity="center"
+                android:id="@+id/forum_title"
+                android:fontFamily="@font/cuprum"
+                />
         </LinearLayout>
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
+            android:layout_above="@+id/relativeLayout"
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/linearLayout2">
 
             <LinearLayout
+                android:id="@+id/forum_display"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:id="@+id/forum_display">
-
-
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"></LinearLayout>
 
         </ScrollView>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/relativeLayout">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/forum_strokes"
+                android:id="@+id/bottom_stroke_forum"
+                />
+
+            <LinearLayout
+                android:layout_below="@id/bottom_stroke_forum"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:background="@color/bannerGreen"
+                android:orientation="horizontal"
+                >
+
+                <LinearLayout
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="New Post"
+                    android:background="@drawable/forum_buttons"
+                    android:layout_margin="5dp"
+                    android:textColor="#fff"
+                    android:textSize="22sp"
+                    android:textAllCaps="false"
+                    android:fontFamily="@font/cuprum"
+                    android:id="@+id/forum_new_message_button"
+                    android:clickable="true"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal" >
+
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="Back to menu"
+                        android:background="@drawable/forum_buttons"
+                        android:layout_margin="5dp"
+                        android:textColor="#fff"
+                        android:textSize="22sp"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/cuprum"
+                        android:id="@+id/forum_go_back"
+                        android:clickable="true"/>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
-
-
 </android.support.constraint.ConstraintLayout>

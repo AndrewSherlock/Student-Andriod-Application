@@ -13,6 +13,9 @@ import java.util.Date;
 
 public class UtilityFunctions {
 
+    public static boolean isStaffMember;
+    public static String accountType;
+
     public static String getUserNameFromFirebase()
     {
         FirebaseAuth auth = FirebaseAuth.getInstance();

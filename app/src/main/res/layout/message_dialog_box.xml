@@ -1,48 +1,72 @@
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
+    android:layout_width="match_parent"
+
+    android:layout_height="wrap_content">
 
     <RelativeLayout
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="#42edd6"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:id="@+id/dialog_box"
-        android:layout_alignParentRight="false">
+        >
 
-        <TextView
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_margin="20dp"
+            android:layout_width="230sp"
             android:layout_height="wrap_content"
-            android:text="andrew says :"
-            android:textSize="15dp"
-            android:id="@+id/user_name_dialog"
-            />
+            android:background="@drawable/message_dialog_box"
+            android:backgroundTint="#CC000000"
+            android:layout_alignParentRight="false"
+            android:id="@+id/chat_message_dialog_box"
+            >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="I am a long message that the user has sent to me"
-            android:textSize="20dp"
-            android:id="@+id/dialog"
-            android:layout_below="@+id/user_name_dialog"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/cuprum"
+                android:text="Messager one"
+                android:textColor="#fff"
+                android:id="@+id/chat_message_user_name"
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="time"
-            android:textSize="15dp"
-            android:id="@+id/time_display"
-            android:layout_below="@+id/dialog"
-            android:gravity="right"
-            android:layout_marginRight="10dp"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:textSize="16sp"
+                android:textColor="#fff"
+                android:fontFamily="@font/cuprum"
+                android:text="21:00 18 april 2018"
+                android:id="@+id/chat_message_date"
+                android:layout_below="@id/chat_message_user_name"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textSize="20sp"
+                android:textColor="#fff"
+                android:fontFamily="@font/cuprum"
+                android:text="i am the users message a message that is used to test the message size"
+                android:id="@+id/chat_message_user_message"
+                android:layout_below="@id/chat_message_date"
+                />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:id="@+id/chat_message_image"
+                android:layout_below="@id/chat_message_user_message"
+                />
+        </RelativeLayout>
+
+
+
 
     </RelativeLayout>
+
 </RelativeLayout>

@@ -3,14 +3,7 @@ package com.itbstudentapp;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.media.Image;
-import android.net.Uri;
-import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,10 +18,10 @@ import java.util.UUID;
 public class NewForumPost  extends AppCompatActivity {
 
     private Dialog dialog;
-    private ImageUploader imageUploader;
+    private ImageController imageController;
     private Activity callingActivity;
 
-    public NewForumPost(final Context context, final String path, Activity callingActivity, ImageUploader imageUploader){
+    public NewForumPost(final Context context, final String path, Activity callingActivity, ImageController imageController){
 
         dialog = new Dialog(context);
         dialog.setContentView(R.layout.forum_new_post);
@@ -44,8 +37,8 @@ public class NewForumPost  extends AppCompatActivity {
 
         Button image = dialog.findViewById(R.id.modal_new_post_add_image);
 
-        this.imageUploader = imageUploader;
-        image.setOnClickListener(imageUploader);
+        this.imageController = imageController;
+        image.setOnClickListener(imageController);
 
         dialog.show();
 
@@ -67,11 +60,11 @@ public class NewForumPost  extends AppCompatActivity {
                 return;
             }
 
-            if(imageUploader.getUploadedUri() != null)
+            if(imageController.getUploadedUri() != null)
             {
-                imageUploader.ImageUpload(callingActivity, imageUploader.getUploadedUri());
+                imageController.ImageUpload(callingActivity, imageController.getUploadedUri());
                 post = new ForumPost(UUID.randomUUID().toString(), UtilityFunctions.getUserNameFromFirebase(),
-                        user_text, Calendar.getInstance().getTimeInMillis(), imageUploader.getFileId());
+                        user_text, Calendar.getInstance().getTimeInMillis(), imageController.getFileId());
             } else {
                 post = new ForumPost(UUID.randomUUID().toString(), UtilityFunctions.getUserNameFromFirebase(),
                         user_text, Calendar.getInstance().getTimeInMillis());

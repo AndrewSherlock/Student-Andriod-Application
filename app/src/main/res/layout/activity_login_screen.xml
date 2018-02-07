@@ -9,99 +9,111 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#53c60f"
+        android:background="@drawable/itb_home_screen"
         android:orientation="vertical"
         >
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/logo_itb"
             android:layout_marginTop="50dp"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:src="@drawable/app_logo"
             />
 
         <LinearLayout
-        android:layout_marginLeft="10dp"
-        >
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username :"
-            android:textSize="20dp"/>
-
-        <EditText
-            android:layout_width="250dp"
-            android:layout_height="60dp"
-            android:id="@+id/user_name_field"/>
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginLeft="10dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Password :"
-                android:textSize="20dp"
-              />
-
-            <EditText
-                android:layout_width="250dp"
-                android:layout_height="60dp"
-                android:inputType="textPassword"
-                android:id="@+id/password_field"
-                />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            >
-
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="Log In"
-                android:textSize="15dp"
-                android:id="@+id/login_button"
-                />
-            <Button
-                android:layout_width="150dp"
-                android:layout_height="50dp"
-                android:text="Forgot password"
-                android:textSize="12dp"
-                android:id="@+id/forgotten_password"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="vertical"
             >
-            <TextView
+
+            <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <!-- get logos -->
+
+                <EditText
+                    android:layout_width="250dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/user_name_field"
+                    android:hint="Email"
+                    android:textSize="22sp"
+                    android:textColor="#ffff"
+                    android:textColorHint="#fff"
+                    android:background="@android:color/transparent"
+                    android:fontFamily="@font/cuprumbold"
+                    android:drawableLeft="@drawable/login_drawable"
+                    android:drawablePadding="10dp"
+                    android:maxLines="1"
+                    />
+
+                <EditText
+                    android:layout_width="250dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/password_field"
+                    android:hint="Password"
+                    android:textSize="22sp"
+                    android:textColor="#ffff"
+                    android:textColorHint="#fff"
+                    android:fontFamily="@font/cuprumbold"
+                    android:background="@android:color/transparent"
+                    android:drawableLeft="@drawable/password"
+                    android:drawablePadding="10dp"
+                    android:inputType="textPassword"
+                    android:maxLines="1"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="Register here"
-                android:textSize="30dp"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"
+                android:background="@drawable/login_screen_button"
+                android:id="@+id/login_button"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/bannerGreen"
+                android:text="Login"
+                android:fontFamily="@font/cuprumbold"
+                android:textSize="20sp"
+                android:textColor="#fff"
                 />
 
             <Button
-                android:layout_width="120dp"
-                android:layout_height="50dp"
-                android:text="Register"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_screen_button"
                 android:id="@+id/register_button"
+                android:layout_margin="10dp"
+                android:backgroundTint="@color/registerButtonRed"
+                android:text="Register"
+                android:fontFamily="@font/cuprumbold"
+                android:textSize="20sp"
+                android:textColor="#fff"
                 />
-
         </LinearLayout>
 
+        <TextView
+            android:layout_marginBottom="50dp"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:text="Forgotten Password?"
+            android:id="@+id/forgotten_password"
+            android:textColor="#fff"
+            android:textSize="18dp"
+            android:fontFamily="@font/cuprumbold"
+            android:layout_marginLeft="40dp"
+            />
 
 
     </GridLayout>
