@@ -52,6 +52,9 @@ public class UtilityFunctions {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
 
-        return networkInfo.isConnectedOrConnecting() && networkInfo != null;
+        if(networkInfo == null)
+            return false;
+
+        return networkInfo.isConnected();
     }
 }

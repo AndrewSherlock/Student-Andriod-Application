@@ -105,6 +105,12 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     private void loginUser(String username, final String user_password)
     {
+        if(!UtilityFunctions.doesUserHaveConnection(this))
+        {
+            Toast.makeText(this, "No internet connection. Please try again later", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + prepareLink(username));
         ref.addValueEventListener(new ValueEventListener() {
             @Override

@@ -3,11 +3,16 @@ package com.itbstudentapp;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -115,13 +120,30 @@ public class UserManager
 
     private void askUserForCourse()
     {
-        //Dialog courseChoice = new Dialog(context);
-        //courseChoice.setContentView(R.layout.forum_comments_modal);
+        final Dialog courseChoice = new Dialog(context);
+        courseChoice.setContentView(R.layout.modal_course_choice);
+        LinearLayout modalLayout = courseChoice.findViewById(R.id.course_list);
 
-        String course = "bn104";
+        final String[] courses = context.getResources().getStringArray(R.array.courses);
+       
+        for(int i = 0; i < courses.length; i++)
+        {
+            View courseItem = LayoutInflater.from(context).inflate(R.layout.course_item_list,null);
+            final TextView textView = courseItem.findViewById(R.id.course_title);
+            textView.setText(courses[i]);
 
+            textView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    writeToDatabase(getUserAccountType(emailAddress), textView.getText().toString());
+                    courseChoice.dismiss();
+                }
+            });
 
-        writeToDatabase(getUserAccountType(emailAddress), course);
+            modalLayout.addView(courseItem);
+        }
+
+        courseChoice.show();
     }
 
     private String getUserAccountType(String emailAddress)

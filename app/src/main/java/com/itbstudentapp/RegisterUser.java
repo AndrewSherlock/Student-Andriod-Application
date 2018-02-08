@@ -40,50 +40,6 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
     }
 
 
-
-
-/*
-    private void AddUserToDatabase()
-    {
-        DatabaseReference db = FirebaseDatabase.getInstance().getReference();
-        String username = user_name.getText().toString();
-        String user_email = email.getText().toString();
-        String user_password = password.getText().toString();
-        boolean staffUser = staff.isSelected();
-        String courseId = spinner.getSelectedItem().toString();
-
-        String user_id = user_email.split("@")[0];
-
-        User user = new User(username, user_password, courseId, staffUser, user_email);
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child("users").child(user_id).setValue(user);
-
-        FirebaseAuth auth = FirebaseAuth.getInstance();
-        auth.createUserWithEmailAndPassword(user_email, user_password);
-
-        Toast.makeText(getApplicationContext(), "Account created.", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, LoginScreen.class));
-
-         if(v.getId() == R.id.reg_submit)
-        {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            boolean valid = ValidateUser(auth);
-
-            if(valid)
-            {
-                AddUserToDatabase();
-            } else
-            {
-                Toast.makeText(getApplicationContext(), "Information not valid. Please try again.", Toast.LENGTH_SHORT).show();
-            }
-        } else if(v.getId() == R.id.reg_reset)
-        {
-
-        }
-    } */
-
-
     @Override
     public void onClick(View v) {
         if(v.getId() == register_user.getId())
