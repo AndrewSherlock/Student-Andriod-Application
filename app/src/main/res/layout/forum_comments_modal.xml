@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="420dp"
+    android:layout_gravity="center"
+    >
+
+    <ScrollView
+        android:id="@+id/comments_list"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginBottom="20dp"
+       >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/forum_modal_comment_list"
+            android:orientation="vertical"
+            android:layout_marginBottom="10dp"
+            >
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="bottom"
+        android:layout_below="@+id/comments_list"
+        >
+
+        <EditText
+            android:layout_width="240dp"
+            android:layout_marginRight="10dp"
+            android:layout_height="50dp"
+            android:hint="Enter your reply"
+            android:id="@+id/forum_modal_text_box"/>
+
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Reply"
+            android:id="@+id/forum_modal_reply_button"
+            />
+    </LinearLayout>
+</RelativeLayout>

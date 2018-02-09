@@ -1,5 +1,6 @@
 package com.itbstudentapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,12 +29,19 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
     private DatabaseReference ref;
 
+    private int numOfQuestions = 10;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+
+
+        ref = FirebaseDatabase.getInstance().getReference("/quiz");
+        getNumberOfQuestions();
 
 
 
@@ -46,8 +54,6 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         buttons[2] = (Button)findViewById(R.id.choice3);
         buttons[3] = (Button)findViewById(R.id.choice4);
 
-        ref = FirebaseDatabase.getInstance().getReference("/quiz");
-
         buttons[0].setOnClickListener(this);
         buttons[1].setOnClickListener(this);
         buttons[2].setOnClickListener(this);
@@ -58,6 +64,20 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
     }
 
+    private void getNumberOfQuestions() {
+
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                numOfQuestions = (int) dataSnapshot.getChildrenCount();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
 
     private void updateScore(int score){
@@ -65,7 +85,15 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
     }
 
     private void updateQuestion(){
-        Log.e("Called", "called");
+
+        if(mQuestionNumber >= numOfQuestions)
+        {
+            // this is where you need to sort out the end of questions thing,
+            Intent intent = new Intent(this, MainActivity.class);
+            finish();
+            return;
+        }
+
         ref.child(String.valueOf(mQuestionNumber)).child("question").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

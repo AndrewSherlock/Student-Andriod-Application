@@ -1,5 +1,9 @@
 package com.itbstudentapp;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
@@ -9,11 +13,14 @@ import java.util.Date;
 
 public class UtilityFunctions {
 
+    public static boolean isStaffMember;
+    public static String accountType;
+
     public static String getUserNameFromFirebase()
     {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String user_name = auth.getCurrentUser().getEmail().toString();
-        user_name = user_name.split("@")[0].toUpperCase();
+        user_name = user_name.split("@")[0].toLowerCase();
 
         return  user_name;
     }
@@ -38,5 +45,16 @@ public class UtilityFunctions {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss dd-MM-yy");
         String date = simpleDateFormat.format(messageDate);
         return  date;
+    }
+
+    public static boolean doesUserHaveConnection(Context context)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if(networkInfo == null)
+            return false;
+
+        return networkInfo.isConnected();
     }
 }

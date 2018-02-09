@@ -110,7 +110,7 @@ public class Timetable extends AppCompatActivity {
             return convertView;
         }
     }
-    
+
     public String nextColour(int i){
         String [] colorArray = getResources().getStringArray(R.array.colours);
         return colorArray[i];

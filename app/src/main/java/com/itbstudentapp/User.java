@@ -6,18 +6,68 @@ package com.itbstudentapp;
 
 public class User {
 
-    public String username;
-    public String password;
-    public String courseID;
-    public boolean staffUser;
-    public String email;
+    private String username;
+    private String password;
+    private String courseID;
+    private String accountType;
+    private String email;
 
-    public User(String username, String password, String courseID, boolean staffUser, String email)
-    {
+    private boolean lockedAccount;
+
+    public User(String username, String password, String courseID, String accountType, String email, boolean lockedAccount) {
         this.username = username;
         this.password = password;
         this.courseID = courseID;
-        this.staffUser = staffUser;
+        this.accountType = accountType;
         this.email = email;
+        this.lockedAccount = lockedAccount;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isLockedAccount() {
+        return lockedAccount;
+    }
+
+    public void setLockedAccount(boolean lockedAccount) {
+        this.lockedAccount = lockedAccount;
     }
 }

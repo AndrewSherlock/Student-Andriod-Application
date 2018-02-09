@@ -32,4 +32,12 @@
         <item> Course 3 </item>
         <item> Course 4 </item>
     </string-array>
+
+    <string-array name="permitted_emails">
+        <item>student.itb.ie</item>
+        <item>itb.ie</item>
+        <item>nln.ie</item>
+        <item>admin.itbapp.ie</item> <!--NOT REAL EMAIL-->
+    </string-array>
+
 </resources>

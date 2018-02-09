@@ -4,6 +4,13 @@
     <color name="colorPrimaryDark">#005403</color>
     <color name="colorAccent">#FF4081</color>
 
+    <color name="bannerGreen">#1cba07</color>
+    <color name="registerButtonRed">#96201c</color>
+    <color name="forum_strokes">#a1a2a3</color>
+    <color name="message_user">#91bbff</color>
+    <color name="unread_message">#CCff8330</color>
+    <color name="read_message">#334286f4</color>
+
     <string-array name="colours" translatable="false">
         <item>#b4540101</item>
         <item>#b4605a00</item>

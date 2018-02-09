@@ -4,194 +4,329 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itbstudentapp.RegisterUser">
+    tools:context="com.itbstudentapp.LoginScreen">
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#53c60f"
-        android:orientation="vertical"
-        >
+        android:background="@drawable/itb_home_screen"
+        android:orientation="vertical">
+
+
 
         <TextView
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/cuprum"
             android:text="Register"
             android:textAlignment="center"
-            android:textSize="40dp"
-            />
+            android:textColor="#fff"
+            android:textSize="50sp" />
+
 
         <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            >
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="Name:"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
 
             <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:id="@+id/reg_user_name"
-                />
+                android:id="@+id/register_user_name"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/login_drawable"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cuprumbold"
+                android:hint="Full Name"
+                android:maxLines="1"
+                android:textColor="#ffff"
+                android:textColorHint="#fff"
+                android:textSize="18sp" />
+
+
+            <EditText
+                android:id="@+id/register_user_email"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/email_icon"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cuprumbold"
+                android:hint="Email address"
+                android:maxLines="1"
+                android:textColor="#ffff"
+                android:textColorHint="#fff"
+                android:textSize="18sp" />
+
+            <EditText
+                android:id="@+id/register_user_password"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cuprumbold"
+                android:hint="Password"
+                android:maxLines="1"
+                android:textColor="#ffff"
+                android:textColorHint="#fff"
+                android:textSize="18sp"
+                android:inputType="textPassword"/>
+
+            <EditText
+                android:id="@+id/register_user_repeat"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@drawable/password"
+                android:drawablePadding="10dp"
+                android:fontFamily="@font/cuprumbold"
+                android:hint="Repeat password"
+                android:maxLines="1"
+                android:textColor="#ffff"
+                android:textColorHint="#fff"
+                android:textSize="18sp"
+                android:inputType="textPassword"/>
+
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            >
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="email:"
-                android:layout_marginTop="10dp"
-                android:textSize="20dp"
-                />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
 
-            <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:id="@+id/reg_user_email"
-                />
+            <Button
+                android:id="@+id/register_submit_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/login_screen_button"
+                android:backgroundTint="@color/bannerGreen"
+                android:fontFamily="@font/cuprumbold"
+                android:text="Submit"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/register_clear_button"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/login_screen_button"
+                android:backgroundTint="@color/registerButtonRed"
+                android:fontFamily="@font/cuprumbold"
+                android:text="Clear"
+                android:textColor="#fff"
+                android:textSize="20sp" />
         </LinearLayout>
 
+    </GridLayout>
+</android.support.constraint.ConstraintLayout>
+
+
+    <!--<?xml version="1.0" encoding="utf-8"?>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.itbstudentapp.RegisterUser">
+
         <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#53c60f"
+            android:orientation="vertical"
             >
+
             <TextView
-                android:layout_marginTop="10dp"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:text="Account:"
-                android:textSize="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="Register"
+                android:textAlignment="center"
+                android:textSize="40dp"
                 />
 
-            <RadioGroup
-                android:layout_width="200dp"
+            <LinearLayout
+                android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:orientation="horizontal"
+                android:layout_gravity="center"
                 >
-
-                <RadioButton
+                <TextView
                     android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="Student"
-                    android:id="@+id/student_acc"
+                    android:layout_height="50dp"
+                    android:text="Name:"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20dp"
                     />
 
-                <RadioButton
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:text="staff"
-                    android:id="@+id/staff_acc"
-                    />
-            </RadioGroup>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            >
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="Course:"
-                android:textSize="20dp"
-                />
-
-                <Spinner
+                <EditText
                     android:layout_width="200dp"
                     android:layout_height="50dp"
-                    android:id="@+id/course_choice"
-                    android:entries="@array/courses"
-                    android:prompt="@string/course_prompt"
+                    android:id="@+id/reg_user_name"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="email:"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20dp"
+                    />
+
+                <EditText
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/reg_user_email"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:text="Account:"
+                    android:textSize="20dp"
+                    />
+
+                <RadioGroup
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal"
                     >
-                </Spinner>
 
-        </LinearLayout>
+                    <RadioButton
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:text="Student"
+                        android:id="@+id/student_acc"
+                        />
 
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            >
-            <TextView
-                android:layout_width="100dp"
+                    <RadioButton
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:text="staff"
+                        android:id="@+id/staff_acc"
+                        />
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:text="Password:"
-                android:textSize="20dp"
-                android:layout_marginTop="10dp"
-                />
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Course:"
+                    android:textSize="20dp"
+                    />
 
+                    <Spinner
+                        android:layout_width="200dp"
+                        android:layout_height="50dp"
+                        android:id="@+id/course_choice"
+                        android:entries="@array/courses"
+                        android:prompt="@string/course_prompt"
+                        >
+                    </Spinner>
 
-            <EditText
-                android:layout_width="200dp"
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:id="@+id/reg_user_password"
-                android:inputType="textPassword"
-                />
-        </LinearLayout>
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Password:"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    />
 
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            >
-            <TextView
-                android:layout_width="100dp"
+
+                <EditText
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/reg_user_password"
+                    android:inputType="textPassword"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="320dp"
                 android:layout_height="50dp"
-                android:text="Repeat:"
-                android:textSize="20dp"
-                android:layout_marginTop="10dp"
-                />
+                android:layout_gravity="center"
+                >
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="Repeat:"
+                    android:textSize="20dp"
+                    android:layout_marginTop="10dp"
+                    />
 
 
-            <EditText
-                android:layout_width="200dp"
-                android:layout_height="50dp"
-                android:id="@+id/reg_user_repeat"
-                android:inputType="textPassword"
-                />
-        </LinearLayout>
+                <EditText
+                    android:layout_width="200dp"
+                    android:layout_height="50dp"
+                    android:id="@+id/reg_user_repeat"
+                    android:inputType="textPassword"
+                    />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="240dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-            >
-
-            <Button
-                android:layout_width="120dp"
+            <LinearLayout
+                android:layout_width="240dp"
                 android:layout_height="60dp"
-                android:text="Submit"
-                android:id="@+id/reg_submit"
-                />
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                >
 
-            <Button
-                android:layout_width="120dp"
-                android:layout_height="60dp"
-                android:text="Reset"
-                android:id="@+id/reg_reset"
-                />
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:text="Submit"
+                    android:id="@+id/reg_submit"
+                    />
+
+                <Button
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:text="Reset"
+                    android:id="@+id/reg_reset"
+                    />
+
+
+
+            </LinearLayout>
+
 
 
 
         </LinearLayout>
 
-
-
-
-    </LinearLayout>
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+    -->
