@@ -38,10 +38,9 @@
         <activity android:name=".MessageScreen" />
         <activity android:name=".DayView" />
         <activity android:name=".AddClass"/>
-<<<<<<< HEAD
-=======
+
         <activity android:name=".ForumList"></activity>
->>>>>>> 32fcfb3e2f9b6ea7937dc9f7020482f6bcea66ff
+
     </application>
 
 </manifest>
