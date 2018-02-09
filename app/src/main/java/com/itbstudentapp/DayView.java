@@ -34,6 +34,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
     private ListView listView;
     private Button addNewClass;
     private String selectedDay;
+    private TextView dayViewing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +43,15 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         addNewClass = findViewById(R.id.addNewClass);
         addNewClass.setOnClickListener(this);
 
+        dayViewing = findViewById(R.id.dayName);
+        
         listView = findViewById(R.id.listCourseByDay);
         databaseHelper = new DatabaseHelper(this);
         Intent receivedIntent = getIntent();
 
         //now get the day we passed as an extra
         selectedDay = receivedIntent.getStringExtra("day");
+        dayViewing.setText(selectedDay);
         populateListView();
 
      }
@@ -58,15 +62,19 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         //get the data and append to a list
 
         Cursor data = databaseHelper.getDataByDay(selectedDay);
-        ArrayList<String> listData = new ArrayList<>();
+        ArrayList<String> listDataClassNames = new ArrayList<>();
+        ArrayList<String> listDataClassTimes = new ArrayList<>();
+        ArrayList<String> listDataClassRooms = new ArrayList<>();
         while(data.moveToNext()){
-            //get the value from the database in column 2
+            //get the value from the database in column 2 - class name
             //then add it to the ArrayList
-            listData.add(data.getString(2));
+            listDataClassNames.add(data.getString(2));
+            listDataClassTimes.add(data.getString(1));
+            listDataClassRooms.add(data.getString(4));
         }
         //create the list adapter and set the adapter
 
-        DayAdapter adapter = new DayAdapter(this, R.layout.content_day_view, listData);
+        DayAdapter adapter = new DayAdapter(this, R.layout.content_day_view, listDataClassNames, listDataClassTimes, listDataClassRooms);
         listView.setAdapter(adapter);
 
         //set an onItemClickListener to the ListView
@@ -132,11 +140,15 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         private int resource;
         private LayoutInflater layoutInflater;
         private String[] classes = new String[]{};
+        private String[] classTimes = new String[]{};
+        private String[] classRooms = new String[]{};
 
-        public DayAdapter(Context context, int resource, ArrayList<String> classNames) {
+        public DayAdapter(Context context, int resource, ArrayList<String> classNames, ArrayList<String> listDataClassTimes, ArrayList<String> listDataClassRooms) {
             super(context, resource, classNames);
             this.resource = resource;
             this.classes = classNames.toArray(new String[0]);
+            this.classTimes = listDataClassTimes.toArray(new String[0]);
+            this.classRooms = listDataClassRooms.toArray(new String[0]);
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         }
 
@@ -157,8 +169,8 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
             viewHolder.letterImageView.setOval(true);
             viewHolder.letterImageView.setLetter(classes[position].charAt(0));
             viewHolder.classTextView.setText(classes[position]);
-            viewHolder.classTimeText.setText("9.00 - 11.00");
-            viewHolder.classRoomText.setText("D025");
+            viewHolder.classTimeText.setText(classTimes[position]);
+            viewHolder.classRoomText.setText(classRooms[position]);
 
             return convertView;
         }

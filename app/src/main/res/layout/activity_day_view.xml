@@ -6,11 +6,19 @@
     tools:context="com.itbstudentapp.Timetable"
     android:background="#bbedc8">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Monday"
+        android:textSize="30sp"
+        android:textAlignment="center"
+        android:id="@id/dayName"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:id="@+id/addNewClass"
-        android:text="Add Class"
+        android:text="Add"
+        android:layout_below="@+id/dayName"
         />
     <ListView
         android:layout_width="match_parent"
