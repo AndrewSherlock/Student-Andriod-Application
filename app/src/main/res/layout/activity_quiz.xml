@@ -17,7 +17,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp">
+        android:layout_marginBottom="140dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginBottom="30sp"
+        android:layout_marginBottom="40sp"
         android:textSize="20sp" />
 
 
@@ -69,21 +69,22 @@
         android:textColor="#fff"
         android:layout_marginBottom="30sp"
         android:id="@+id/choice3"/>
+
     <Button
+        android:id="@+id/choice4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30sp"
         android:background="#0091EA"
-        android:textColor="#fff"
-        android:layout_marginBottom="30sp"
-        android:id="@+id/choice4"/>
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="quit"
-        android:background="#B71C1C"
-        android:textColor="#fff"
-        android:layout_marginBottom="30sp"
-        android:id="@+id/quit"/>
-
-</LinearLayout>
+        android:textColor="#fff" />
+    <!--
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="quit"
+            android:background="#B71C1C"
+            android:textColor="#fff"
+            android:layout_marginBottom="30sp"
+            android:id="@+id/quit"/>
+    -->
+    </LinearLayout>
