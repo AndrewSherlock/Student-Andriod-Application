@@ -16,8 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class UserManager
 {
@@ -85,7 +88,7 @@ public class UserManager
         return hasUppercase && hasLowercase && hasNumber;
     }
 
-    public void registerUser(String username, String emailAddress, String password)
+    public void registerUser(final String username, String emailAddress, String password)
     {
         if(areFieldsBlank(username, emailAddress, password))
         {
@@ -107,6 +110,23 @@ public class UserManager
             Toast.makeText(context, "Invalid password format", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(username.split("@")[0]).exists())
+                {
+                    Toast.makeText(context, "User is already signed up.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         this.username = username;
         this.emailAddress = emailAddress.toLowerCase();
@@ -174,6 +194,7 @@ public class UserManager
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("users").child(prepareFirebaseLink(emailAddress.split("@")[0])).setValue(user);
+        databaseReference.child("unapproved_users").child(prepareFirebaseLink(emailAddress.split("@")[0])).setValue(prepareFirebaseLink(emailAddress.split("@")[0]));
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(emailAddress, password);

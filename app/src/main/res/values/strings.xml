@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ITBStudentApp</string>
+    <string name="app_name">ITB App</string>
     <string name="title_activity_forum">Forum</string>
     <string name="title_activity_timetable">Timetable</string>
     <string name="title_activity_quiz">Quiz</string>
@@ -39,5 +39,11 @@
         <item>nln.ie</item>
         <item>admin.itbapp.ie</item> <!--NOT REAL EMAIL-->
     </string-array>
+
+    <string-array name="main_menu">
+        <item>forum_modules</item>
+
+    </string-array>
+    <string name="title_activity_maps">Map</string>
 
 </resources>

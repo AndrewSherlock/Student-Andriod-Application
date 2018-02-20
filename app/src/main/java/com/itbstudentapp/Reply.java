@@ -62,4 +62,5 @@ public class Reply {
     public void setImageLink(String imageLink) {
         this.imageLink = imageLink;
     }
+
 }

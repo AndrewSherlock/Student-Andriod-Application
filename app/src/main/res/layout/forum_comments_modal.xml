@@ -2,49 +2,111 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="350dp"
-    android:layout_height="420dp"
-    android:layout_gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/forum_panels"
     >
 
-    <ScrollView
-        android:id="@+id/comments_list"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:layout_marginBottom="20dp"
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:id="@+id/forum_reply_panel"
+       android:orientation="vertical"
+       android:layout_above="@id/forum_reply_bottom_panel"
+       android:layout_alignParentTop="true"
        >
+
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               android:id="@+id/forum_reply_posts">
+
+               <!-- reply -->
+
+
+
+
+               <!-- -->
+
+
+           </LinearLayout>
+       </ScrollView>
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/forum_reply_bottom_panel"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="3dp"
+            android:background="#000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/forum_modal_comment_list"
-            android:orientation="vertical"
-            android:layout_marginBottom="10dp"
-            >
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight=".7"
+                android:background="@android:color/transparent"
+                android:id="@+id/forum_reply_text"
+                android:hint="Enter your reply"
+                android:layout_marginLeft="10sp"
+                android:textSize="22sp"
+                android:maxLines="1"
+                android:fontFamily="@font/cuprumbold"
+                />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_margin="1sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:text="Image"
+                    android:id="@+id/forum_replay_image"
+                    android:textColor="#fff"
+                    android:fontFamily="@font/cuprumbold"
+                    android:background="@drawable/forum_buttons"
+                    />
+
+                <TextView
+                    android:layout_margin="1sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:text="Post"
+                    android:id="@+id/forum_reply_button"
+                    android:textColor="#fff"
+                    android:fontFamily="@font/cuprumbold"
+                    android:background="@drawable/forum_buttons"
+                    />
+
+
+
+            </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="bottom"
-        android:layout_below="@+id/comments_list"
-        >
-
-        <EditText
-            android:layout_width="240dp"
-            android:layout_marginRight="10dp"
-            android:layout_height="50dp"
-            android:hint="Enter your reply"
-            android:id="@+id/forum_modal_text_box"/>
-
-        <Button
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="Reply"
-            android:id="@+id/forum_modal_reply_button"
-            />
     </LinearLayout>
+
+
 </RelativeLayout>

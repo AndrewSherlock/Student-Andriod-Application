@@ -1,239 +1,142 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:paddingTop="20dp"
-    android:id="@+id/forum_user_post_layout"
-    android:background="@drawable/forum_background"
-    android:layout_marginBottom="20dp"
-    >
+    android:layout_margin="20dp"
+    android:background="@drawable/forum_panels"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/forum_user_section"
-        >
+        android:layout_margin="6sp"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80sp"
+            android:layout_height="80sp"
             android:src="@drawable/andrew_tester_profile"
-            android:id="@+id/forum_post_user_image"/>
+            android:id="@+id/forum_post_user_image"
+            app:civ_border_width="2sp"
+            app:civ_border_color="@color/common_google_signin_btn_text_light"
+            />
+
+
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80sp"
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Andrew Sherlock"
+                android:text="User name"
+                android:layout_marginLeft="10sp"
+                android:fontFamily="@font/cuprumbold"
                 android:textSize="22sp"
-                android:textAlignment="center"
-                android:id="@+id/forum_user_name"
-                android:fontFamily="@font/cuprum"/>
+                android:textColor="#fff"
+                android:id="@+id/forum_poster_name"
+                />
 
             <TextView
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="B00090936"
-                android:textSize="18dp"
-                android:textAlignment="center"
-                android:id="@+id/forum_user_id"/>
+                android:text="18:00 9 April 2018"
+                android:layout_marginLeft="10sp"
+                android:fontFamily="@font/cuprumbold"
+                android:textSize="18sp"
+                android:textColor="#fff"
+                android:id="@+id/forum_post_date"
+                />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="19:30 2nd April 18"
-                android:textSize="18dp"
-                android:textAlignment="center"
-                android:id="@+id/forum_post_time"/>
         </LinearLayout>
-
-
-
     </LinearLayout>
+    <LinearLayout
 
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:id="@+id/post_rel_layout"
-        android:layout_below="@+id/forum_user_section">
+        android:orientation="vertical"
+        >
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
             android:fontFamily="@font/cuprum"
-            android:text="I am the question that the user has asked. I wonder how many replies the questuin will get. i suppose this is one of the bigger sizes that we will render in one go"
-            android:textSize="24dp"
-            android:layout_margin="6dp"
-            android:layout_marginTop="5dp"
-            android:id="@+id/forum_user_post"
+            android:textSize="16sp"
+            android:textColor="#fff"
+            android:layout_margin="6sp"
+            android:id="@+id/forum_post"
             />
-    </RelativeLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/forum_linear_layout"
-        android:layout_below="@id/post_rel_layout">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/forum_post_image"
+                />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight=".25"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1sp">
+
+        <TextView
+            android:layout_margin="10sp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/cuprum"
-            android:textSize="22dp"
-            android:text="7 posts"
-            android:gravity="right"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/post_number"
+            android:layout_weight=".5"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:id="@+id/forum_reply_button"
+            android:text="New Post"
+            android:textColor="#fff"
+            android:fontFamily="@font/cuprumbold"
+            android:background="@drawable/forum_buttons"
             />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/forum_linear_layout">
-
-        <LinearLayout
+        <View
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/forum_buttons"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/forum_strokes"
-                android:text="Reply"
-                android:textSize="28sp"
-                android:fontFamily="@font/cuprum"
-                android:textColor="#fff"
-                android:id="@+id/forum_see_posts"
-                />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="0.5"
-            android:layout_height="wrap_content">
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/forum_buttons"
-                android:layout_margin="10dp"
-                android:backgroundTint="@color/registerButtonRed"
-                android:text="Report"
-                android:fontFamily="@font/cuprum"
-                android:textSize="22sp"
-                android:textColor="#fff"
-                android:id="@+id/forum_report"
-                />
-
-        </LinearLayout>
-
-    </LinearLayout>
-    </RelativeLayout>
-
-<!--<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="320dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:paddingTop="20dp"
-    android:id="@+id/forum_user_post_layout">
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/forum_user_section"
-    >
-
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="60dp"
-        android:src="@drawable/login"/>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_weight=".7"/>
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Andrew Sherlock"
-            android:textSize="20dp"
+            android:gravity="center_vertical"
             android:textAlignment="center"
-            android:id="@+id/forum_user_name"/>
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="B00090936"
-            android:textSize="18dp"
-            android:textAlignment="center"
-            android:id="@+id/forum_user_id"/>
-    </LinearLayout>
-</LinearLayout>
-<RelativeLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_below="@+id/forum_user_section">
-
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="I am the question that the user has asked. I wonder how many replies the questuin will get. i suppose this is one of the bigger sizes that we will render in one go"
-    android:textSize="20dp"
-    android:layout_marginTop="5dp"
-    android:id="@+id/forum_user_post"
-    />
-
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/forum_user_post"
-    android:orientation="vertical">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18dp"
-        android:text="7 posts"
-        android:gravity="right"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/post_number"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
+            android:layout_weight=".5"
+            android:layout_marginRight="5sp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="5dp"
-            android:text="Reply"
-            android:id="@+id/forum_see_posts"
-
+            android:text="7 Posts"
+            android:id="@+id/forum_number_of_posts"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:fontFamily="@font/cuprumbold"
             />
 
     </LinearLayout>
 
 </LinearLayout>
-</RelativeLayout>
-    </RelativeLayout>-->
+

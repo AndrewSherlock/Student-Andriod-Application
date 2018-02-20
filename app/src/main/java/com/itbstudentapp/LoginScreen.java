@@ -134,6 +134,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                                     if(task.isSuccessful())
                                     {
                                         UtilityFunctions.accountType = accountType;
+                                        Log.e("Login", UtilityFunctions.accountType + "/" + accountType );
                                         Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                                         startActivity(intent);
                                         progress.dismiss();

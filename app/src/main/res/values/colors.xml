@@ -10,6 +10,7 @@
     <color name="message_user">#91bbff</color>
     <color name="unread_message">#CCff8330</color>
     <color name="read_message">#334286f4</color>
+    <color name="forum_banners">#cc00990a</color>
 
     <string-array name="colours" translatable="false">
         <item>#b4540101</item>

@@ -27,7 +27,7 @@ public class NewForumPost  extends AppCompatActivity {
         dialog.setContentView(R.layout.forum_new_post);
         this.callingActivity = callingActivity;
 
-        Button new_post = dialog.findViewById(R.id.modal_new_post_post);
+      /*  Button new_post = dialog.findViewById(R.id.modal_new_post_post);
         new_post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,7 +40,7 @@ public class NewForumPost  extends AppCompatActivity {
         this.imageController = imageController;
         image.setOnClickListener(imageController);
 
-        dialog.show();
+        dialog.show(); */
 
     }
 
@@ -48,7 +48,7 @@ public class NewForumPost  extends AppCompatActivity {
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(path);
 
-        EditText user_message = dialog.findViewById(R.id.forum_new_post_text);
+      /*  EditText user_message = dialog.findViewById(R.id.forum_new_post_text);
         String user_text = user_message.getText().toString();
 
         if(user_text.length() > 0) {
@@ -76,7 +76,7 @@ public class NewForumPost  extends AppCompatActivity {
         } else{
             Toast.makeText(dialog.getContext(), "You must enter text to post", Toast.LENGTH_SHORT).show();
             return;
-        }
+        } */
 
     }
 }

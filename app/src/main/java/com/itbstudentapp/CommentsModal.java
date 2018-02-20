@@ -60,7 +60,7 @@ public class CommentsModal{
 
     private void setUpReplyView(final Dialog dialog)
     {
-        final EditText replyMessage = dialog.findViewById(R.id.forum_modal_text_box);
+      /*  final EditText replyMessage = dialog.findViewById(R.id.forum_modal_text_box);
 
         Button replyButton = dialog.findViewById(R.id.forum_modal_reply_button);
         replyButton.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +83,11 @@ public class CommentsModal{
 
                 addMessageToView(dialog,  user_reply, UtilityFunctions.getUserNameFromFirebase());
             }
-        });
+        }); */
     }
 
     private void addCommentsToModal(final Dialog dialog)
-    {
+    {/*
         final ArrayList<Reply> replies = forumPost.getPostReplies();
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users");
         setupListenerForNewMessages(topicPath);
@@ -116,12 +116,12 @@ public class CommentsModal{
 
                 }
             });
-        }
+        } */
     }
 
     private void addMessageToView(final Dialog dialog, Reply reply, final String username)
     {
-        //TODO check if the view has the no replies message and remove if it does
+       /* //TODO check if the view has the no replies message and remove if it does
 
         final LinearLayout linearLayout = dialog.findViewById(R.id.forum_modal_comment_list);
         View view = LayoutInflater.from(dialog.getContext()).inflate(R.layout.modal_reply, null);
@@ -160,11 +160,11 @@ public class CommentsModal{
         TextView userComment = view.findViewById(R.id.forum_modal_comment_reply);
         userComment.setText(reply.getPosterComment());
 
-        linearLayout.addView(view);
+        linearLayout.addView(view); */
     }
 
     private void setupListenerForNewMessages(String path)
-    {
+    {/*
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference(path + "/postReplies");
         ref.addChildEventListener(new ChildEventListener() {
             @Override
@@ -202,7 +202,7 @@ public class CommentsModal{
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        }); */
     }
 
     private void checkForListen() {

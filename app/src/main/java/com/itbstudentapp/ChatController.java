@@ -167,7 +167,7 @@ public class ChatController {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if (dataSnapshot.getKey().equalsIgnoreCase("read_status"))
+                if (dataSnapshot.getKey().equalsIgnoreCase("read_status") || dataSnapshot.getKey().equalsIgnoreCase("time_stamp"))
                     return;
 
                 Message currentMessage = dataSnapshot.getValue(Message.class);

@@ -1,0 +1,90 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#000"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="5sp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:id="@+id/forum_reply_user_image"
+            android:src="@drawable/andrew_tester_profile"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:civ_border_color="@color/common_google_signin_btn_text_light"
+            app:civ_border_width="2sp"
+            />
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="user name"
+                android:layout_marginLeft="10sp"
+                android:fontFamily="@font/cuprumbold"
+                android:id="@+id/forum_reply_name"
+                android:textSize="22sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="19:00 23 April 2018"
+                android:layout_marginLeft="10sp"
+                android:fontFamily="@font/cuprumbold"
+                android:textSize="18sp"
+                android:id="@+id/forum_reply_date"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:text="test"
+            android:layout_margin="6sp"
+            android:fontFamily="@font/cuprum"
+            android:id="@+id/forum_reply_comment"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/forum_reply_image"
+            android:layout_margin="12sp"
+            />
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#000"/>
+
+</LinearLayout>

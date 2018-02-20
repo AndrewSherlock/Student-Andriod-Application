@@ -1,12 +1,16 @@
 package com.itbstudentapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -17,9 +21,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+
 public class Forum extends AppCompatActivity implements View.OnClickListener{
 
+    private boolean isMenuMain;
+    private GridLayout gridLayout;
+    private ProgressDialog progress;
+    private ForumManager forumManager;
 
+    /* old varibles */
     private DatabaseReference ref;
     private Forum instance;
     private LinearLayout layout;
@@ -30,95 +41,101 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
+        forumManager = new ForumManager();
+        gridLayout = findViewById(R.id.forum_menu_grid);
+
         Bundle b = getIntent().getExtras();
         path = "forum/sections/";
 
-        if(b != null)
-        {
-            if(b.getString("sectionChoice").equals("0"))
-            {
-                path = "forum/sections/0/modules/";
+        if (b != null) {
+            if (b.getString("sectionChoice").equals("0")) {
+                path = "forum/sections/0/module/";
                 isModule = true;
             }
-        } else{
+        } else {
             path = "forum/sections/";
         }
 
-        instance = this;
-        ref = FirebaseDatabase.getInstance().getReference(path);
-        layout = findViewById(R.id.sections);
+        setUpMainMenu();
+    }
 
-        ref.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+    private void setUpMainMenu()
+    {
+        isMenuMain = true;
 
-                View v = LayoutInflater.from(instance).inflate(R.layout.forum_button, null);
-                ForumSection fs = dataSnapshot.getValue(ForumSection.class);
-                RelativeLayout rel = v.findViewById(R.id.section_button);
+        LinearLayout[] layouts = {findViewById(R.id.forum_modules), findViewById(R.id.forum_campus), findViewById(R.id.forum_area), findViewById(R.id.forum_transport),
+                findViewById(R.id.forum_group), findViewById(R.id.forum_relax)};
 
-                TextView section_title = v.findViewById(R.id.section_name);
-                section_title.setText(fs.getSectionName());
-
-                TextView section_desc = v.findViewById(R.id.section_desc);
-                section_desc.setText(fs.getSectionDesc());
-
-                rel.setOnClickListener(instance);
-
-                v.setId(Integer.parseInt(dataSnapshot.getKey()));
-                instance.layout.addView(v);
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) { }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) { }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
+        for(int i = 0; i < layouts.length; i++)
+        {
+            layouts[i].setOnClickListener(this);
+        }
     }
 
 
     @Override
     public void onClick(View v) {
+        handleMenuMain(v);
+    }
 
-        switch (v.getId())
+    private void handleMenuMain(View panel)
+    {
+        if(panel.getId() == R.id.forum_group || panel.getId() == R.id.forum_modules)
         {
-            case 0:
-                if(!isModule) {
-                    Intent thisIntent = getIntent();
-                    thisIntent.putExtra("sectionChoice", "0");
-                    startActivity(thisIntent);
-                    finish();
-                } else{
-                    LoadForumForTopic(1, path, getTitleForSection(v.getId(), isModule));
-                }
-                break;
-            case 1:  LoadForumForTopic(1, path, getTitleForSection(v.getId(), isModule));
-                break;
-            case 2: LoadForumForTopic(2, path, getTitleForSection(v.getId(), isModule));
-                break;
-            case 3: LoadForumForTopic(3, path, getTitleForSection(v.getId(), isModule));
-                break;
-            case 4: LoadForumForTopic(4, path, getTitleForSection(v.getId(), isModule));
-                break;
-                default: Log.e("Error", "Probelms");
+            String key = (panel.getId() == R.id.forum_group) ? "forum_groups" : "forum_module";
+            setUpProgress();
+            gridLayout.removeAllViews();
+            forumManager.getMenuFromDB(gridLayout, key, progress);
+
+        }
+        else
+        {
+            String sectionName = getSectionNameFromID(panel.getId());
+            Intent intent = new Intent(gridLayout.getContext(), ForumList.class);
+            intent.putExtra("path", sectionName);
+            gridLayout.getContext().startActivity(intent);
+
+            /*
+            String path = "forum/" + sectionName;
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(path);
+            Log.e("FML", "handleMenuMain: " + reference );
+
+            sectionName = sectionName.replace("forum", "");
+            sectionName = sectionName.replace("_", " ");
+            sectionName = sectionName.trim();
+            sectionName = sectionName.substring(0,1).toUpperCase() + sectionName.substring(1, sectionName.length()).toLowerCase(); */
+
         }
     }
 
-    private void LoadForumForTopic(int index, String path, String title)
+    private void setUpProgress()
     {
-        Intent intent = new Intent(this, ForumList.class);
-        intent.putExtra("index", index);
-        intent.putExtra("path", path);
-        intent.putExtra("title", title);
+        progress = new ProgressDialog(this);
+        progress.setTitle("Loading");
+        progress.setMessage("Please wait");
+        progress.setCancelable(false);
+        progress.show();
+    }
 
-        startActivity(intent);
-        finish();
+    private String getSectionNameFromID(int id)
+    {
+        switch (id)
+        {
+            case R.id.forum_modules:
+                return "forum_modules";
+            case R.id.forum_area:
+                return "forum_area";
+            case R.id.forum_transport:
+                return "forum_transport";
+            case R.id.forum_campus:
+                return "forum_campus";
+            case R.id.forum_group:
+                return "forum_group";
+            case R.id.forum_relax:
+                return "forum_relax";
+        }
+
+        return null;
     }
 
     private String getTitleForSection(int index, boolean isModule) // id rather sections be read in some other way

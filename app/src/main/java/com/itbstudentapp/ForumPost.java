@@ -88,4 +88,12 @@ public class ForumPost {
     public void setFileUpload(String fileUpload) {
         this.fileUpload = fileUpload;
     }
+
+    public void addReplyToList(Reply r)
+    {
+        if(postReplies == null)
+            postReplies = new ArrayList<Reply>();
+
+        this.postReplies.add(r);
+    }
 }

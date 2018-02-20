@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itbstudentapp.ForumList">
+    tools:context="com.itbstudentapp.Forum"
+    android:background="@drawable/forum_background_img">
 
-</android.support.constraint.ConstraintLayout>
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="50dp"
+       android:id="@+id/forum_banner"
+       android:layout_marginBottom="15sp">
+
+       <TextView
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="match_parent"
+           android:text="Forum topic"
+           android:fontFamily="@font/cuprumbold"
+           android:textColor="#fff"
+           android:textSize="30sp"
+           android:textAlignment="center"
+           android:gravity="center_vertical"
+           android:id="@+id/forum_banner_title"
+           />
+
+       <TextView
+           android:layout_marginRight="12sp"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight=".5"
+           android:textAlignment="center"
+           android:textSize="20sp"
+           android:text="New Post"
+           android:textColor="#fff"
+           android:fontFamily="@font/cuprumbold"
+           android:background="@drawable/forum_buttons"
+           android:id="@+id/forum_new_post"
+           />
+   </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@id/forum_banner">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/forum_post_section"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</RelativeLayout>
+

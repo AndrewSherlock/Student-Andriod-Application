@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -23,18 +25,26 @@ import com.google.firebase.storage.UploadTask;
 import java.net.URI;
 import java.util.UUID;
 
-public class ImageController implements View.OnClickListener {
+public class ImageController extends AppCompatActivity implements View.OnClickListener {
 
-    private Activity context;
+    private Context context;
+    private Activity caller;
     private static final int request_code = 1;
     private Uri uploadFile = null;
     private String fileId = null;
 
-    public ImageController() {
+    public ImageController()
+    {}
+
+    public ImageController(Context context)
+    {
+        this.context = context;
     }
 
-    public ImageController(Activity activity) {
-        context = activity; // we need to do this to use startActivityForResult
+    public ImageController(Activity activity)
+    {
+        this.context = activity.getBaseContext();
+        this.caller = activity;
     }
 
     public void setUploadUri(Uri file)
@@ -46,7 +56,7 @@ public class ImageController implements View.OnClickListener {
     public void onClick(View v) {
         Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
         gallery.setType("image/*");
-        context.startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code);
+        caller.startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code);
     }
 
     public void ImageUpload(final Context context, Uri filePath) {
