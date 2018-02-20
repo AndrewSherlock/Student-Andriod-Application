@@ -52,23 +52,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30sp"
         android:background="#0091EA"
+        android:textAllCaps="false"
         android:textColor="#fff" />
 
     <Button
+        android:id="@+id/choice2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0091EA"
-        android:textColor="#fff"
         android:layout_marginBottom="30sp"
-        android:id="@+id/choice2"/>
+        android:background="#0091EA"
+        android:textAllCaps="false"
+        android:textColor="#fff" />
 
     <Button
+        android:id="@+id/choice3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0091EA"
-        android:textColor="#fff"
         android:layout_marginBottom="30sp"
-        android:id="@+id/choice3"/>
+        android:background="#0091EA"
+        android:textAllCaps="false"
+        android:textColor="#fff" />
 
     <Button
         android:id="@+id/choice4"

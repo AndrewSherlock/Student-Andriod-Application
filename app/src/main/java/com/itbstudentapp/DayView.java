@@ -44,7 +44,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         addNewClass.setOnClickListener(this);
 
         dayViewing = findViewById(R.id.dayName);
-        
+
         listView = findViewById(R.id.listCourseByDay);
         databaseHelper = new DatabaseHelper(this);
         Intent receivedIntent = getIntent();
@@ -111,10 +111,6 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
 
-
-
-
-
     public void onClick(View view) {
 
         if(view.getId() == R.id.addNewClass)
@@ -123,18 +119,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
             startActivity(intent);
         }
     }
-//
-//    private void setupUIViews(){
-//        listView = findViewById(R.id.listCourseByDay);
-//    }
-//
-////    private void setupListView() {
-////        String[] mondayClasses = getResources().getStringArray(R.array.Classes);
-////        DayAdapter adapter = new DayAdapter(this, R.layout.content_day_view, mondayClasses);
-////        listView.setAdapter(adapter);
-////
-////    }
-//
+
     public class DayAdapter extends ArrayAdapter{
 
         private int resource;

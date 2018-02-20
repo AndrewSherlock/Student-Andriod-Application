@@ -57,6 +57,7 @@ public class Timetable extends AppCompatActivity {
                     case 2:{
                         Intent intent = new Intent(Timetable.this, DayView.class);
                         intent.putExtra("day","Wednesday");
+                        startActivity(intent);
                         break;
                     }
                     case 3:{
