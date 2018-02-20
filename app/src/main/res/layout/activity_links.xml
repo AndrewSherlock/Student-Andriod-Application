@@ -1,117 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="itbstudentapp.com.itbstudentapp.Links"
-    android:background="#0bb736">
+    tools:context="com.itbstudentapp.Links"
+    android:background="@drawable/forum_background_img">
 
-    <GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="60sp"
             android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:id="@+id/link_banner">
+
 
             <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="Quick Links"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Useful Links"
                 android:textSize="30sp"
-                android:textStyle="bold"/>
-            <Button
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:autoLink="web"
-                android:cursorVisible="true"
-                android:layout_width="match_parent"
-                android:id="@+id/button_moodle"
-                android:text="Moodle"
-                android:linksClickable="true"
-                android:onClick="goToMoodle"/>
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="ITB"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_ITB"
-                android:onClick="goToITB"/>
+                android:fontFamily="@font/cuprumbold"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
+                />
 
 
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="Student Email"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_Email"
-                android:onClick="goToEmail"/>
-
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="Student Password Reset"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_PassReset"
-                android:onClick="goToPassReset"/>
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="ITB One Drive"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_OneDrive"
-                android:onClick="goToITBOneDrive"/>
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="Exam Information"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_ExamInfo"
-                android:onClick="goToExamInfo"/>
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="Past Exam Papers"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_PastPapers"
-                android:onClick="goToPastPapers"/>
-
-            <Button
-                android:layout_height="wrap_content"
-                android:layout_width="match_parent"
-                android:text="ITB Portal"
-                android:autoLink="web"
-                android:clickable="true"
-                android:id="@+id/button_ITBPortal"
-                android:onClick="goToITBPortal"/>
-
-            <Button
-                android:id="@+id/home"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:text="Back"
-                tools:layout_editor_absoluteX="0sp"
-                tools:layout_editor_absoluteY="460sp" />
 
         </LinearLayout>
 
-    </GridLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/link_banner"
+            >
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/link_grid"
+                    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,140 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="itbstudentapp.com.itbstudentapp.Phone"
-    android:background="#0bb736">
+    tools:context="com.itbstudentapp.Phone"
+    android:background="@drawable/forum_background_img">
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-
-
-
-    <!--<GridLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="448dp"-->
-        <!--android:orientation="horizontal"-->
-        <!--tools:layout_editor_absoluteX= "0dp"-->
-        <!--tools:layout_editor_absoluteY="63dp">-->
-
-
-
-
-    <!--</GridLayout>-->
-
-
-
-
-    <GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Phone Numbers"
-            android:textSize="30sp"/>
-        <GridLayout
+        android:orientation="vertical">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnCount="2">
+            android:layout_height="60sp"
+            android:orientation="vertical"
+            android:id="@+id/forum_banner">
 
-            <Button
-                android:id="@+id/buttonSecurity"
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
 
-                android:width="30sp"
-                android:background="@drawable/itb"
-
-                android:backgroundTint="#b1ffffff"
-                android:backgroundTintMode="src_over"
-                android:gravity="center"
-                android:text="Security" />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:gravity="center"
-
-                android:width="30sp"
-                android:text="Nurse"
-                android:id="@+id/buttonNurse"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:gravity="center"
-                android:width="30sp"
-                android:text="Counsellor"
-                android:id="@+id/buttonCounsellor"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:gravity="center"
-                android:width="30sp"
-                android:text=" S.I.D."
-                android:id="@+id/buttonSid"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:gravity="center"
-                android:width="30dp"
-                android:text="student services"
-                android:id="@+id/buttonService"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:gravity="center"
-                android:width="30dp"
-                android:text="Exam Office"
-                android:id="@+id/buttonExam"
-                />
-
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="100sp"
-                android:layout_columnWeight="1"
-                android:layout_gravity="fill_horizontal"
-                android:gravity="center"
-                android:width="30dp"
-                android:text="Go Back"
-                android:id="@+id/home"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:text="Important contacts"
+                android:textSize="30sp"
+                android:fontFamily="@font/cuprumbold"
+                android:textColor="#ffffff"
+                android:textAlignment="center"
                 />
 
 
-        </GridLayout>
-    </GridLayout>
-    </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+        </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/forum_button_bar"
+            android:layout_below="@id/forum_banner"
+            >
 
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/contact_grid"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
