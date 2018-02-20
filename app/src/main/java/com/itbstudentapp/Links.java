@@ -1,60 +1,69 @@
 package com.itbstudentapp;
 
+
+
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class Links extends AppCompatActivity implements View.OnClickListener{
-    private Button home;
+
+public class Links extends AppCompatActivity {
+
+    private LinearLayout linearLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_links);
+        String[] contacts = getResources().getStringArray(R.array.links);
 
-        home = (Button) findViewById(R.id.home);
-        home.setOnClickListener(this);
-    }
+        linearLayout = findViewById(R.id.link_grid);
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.home:
-                startActivity(new Intent(this, MainActivity.class));
-                break;
+        for(int i = 0; i < contacts.length; i++) {
+            String temp[] = contacts[i].split("_");
+            String name = temp[0];
+            final String link = temp[1];
+
+            View view = LayoutInflater.from(this).inflate(R.layout.contact_button, null);
+            LinearLayout layout = view.findViewById(R.id.contact_button);
+            layout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + getHexColor(i))));
+
+            TextView textView = view.findViewById(R.id.contact_text);
+            textView.setText(name);
+
+            layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri uriUrl = Uri.parse(link);
+                    Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                    startActivity(launchBrowser);
+                }
+            });
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, 20);
+
+            linearLayout.addView(view, i, params);
         }
-    }
-    public void goToMoodle (View view) {
-        goToUrl ( "https://moodle.itb.ie");
-    }
-    public void goToITB (View view) {
-        goToUrl ( "http://www.itb.ie/");
+
     }
 
-    public void goToEmail (View view) {
-        goToUrl ( "https://outlook.office.com/owa/?realm=student.itb.ie");
-    }
-    public void goToPassReset(View view){
-        goToUrl("http://www.itb.ie/CurrentStudents/passwordrecovery.html");
+    private String getHexColor(int index)
+    {
+        String[] colorHexes = {"d6d322", "ce371c", "299308", "069b71", "91057c", "8c010a"};
+
+        return colorHexes[index % colorHexes.length];
     }
 
-    public void goToITBOneDrive(View view) {
-        goToUrl("https://studentitb-my.sharepoint.com");
-    }
-    public void goToExamInfo(View view) {
-        goToUrl("http://www.itb.ie/CurrentStudents/exams.html");
-    }
-    public void goToPastPapers(View view) {
-        goToUrl("http://itbstudenthub.ie/?p=62");
-    }
-    public void goToITBPortal(View view) {
-        goToUrl("https://portal.itb.ie/");
-    }
-
-    private void goToUrl (String url) {
-        Uri uriUrl = Uri.parse(url);
-        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
-        startActivity(launchBrowser);
-    }
 }
