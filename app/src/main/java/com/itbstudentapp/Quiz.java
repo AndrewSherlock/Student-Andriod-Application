@@ -17,7 +17,9 @@ import android.widget.Toast;
 
 public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
-
+    /**
+     * upload
+     */
 
     private TextView mScoreView;
     private TextView mQuestion;
