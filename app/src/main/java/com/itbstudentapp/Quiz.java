@@ -13,6 +13,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import android.widget.Toast;
 
 public class Quiz extends AppCompatActivity implements View.OnClickListener{
 
@@ -91,7 +92,9 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
             // this is where you need to sort out the end of questions thing,
             Intent intent = new Intent(this, MainActivity.class);
             finish();
+            Toast.makeText(getApplicationContext(),"Well done you got a score of "+mScore + " out of "+ mQuestionNumber  ,Toast.LENGTH_SHORT).show();
             return;
+
         }
 
         ref.child(String.valueOf(mQuestionNumber)).child("question").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -154,6 +157,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         }
 
         updateQuestion();
+
 
     }
 }
