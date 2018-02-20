@@ -79,6 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="30sp"
         android:background="#0091EA"
+        android:textAllCaps="false"
         android:textColor="#fff" />
     <!--
         <Button
