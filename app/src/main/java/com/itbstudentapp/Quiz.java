@@ -92,7 +92,14 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
             // this is where you need to sort out the end of questions thing,
             Intent intent = new Intent(this, MainActivity.class);
             finish();
-            Toast.makeText(getApplicationContext(),"Well done you got a score of "+mScore + " out of "+ mQuestionNumber  ,Toast.LENGTH_SHORT).show();
+            if(numOfQuestions ==mScore){
+                Toast.makeText(getApplicationContext(), "Wow you got top marks " + mScore + " out of " + mQuestionNumber, Toast.LENGTH_SHORT).show();
+            }
+            else if(mScore >5){
+                Toast.makeText(getApplicationContext(), "Well done you got a score of " + mScore + " out of " + mQuestionNumber, Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Looks like need get pencil out got score of " + mScore + " out of " + mQuestionNumber, Toast.LENGTH_SHORT).show();
+            }
             return;
 
         }
