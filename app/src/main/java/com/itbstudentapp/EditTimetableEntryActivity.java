@@ -14,11 +14,11 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
     private static final String TAG = "EditDataActivity";
 
     private Button btnSave, btnDelete;
-    private EditText class_event, day, time, room;
+    private EditText class_event, endTime, startTime, room;
 
     DatabaseHelper databaseHelper;
 
-    private String selectedClass;
+    private String selectedClass, selectedDay;
     private int selectedID;
 
     @Override
@@ -26,10 +26,10 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_timetable_entry_layout);
         btnSave = findViewById(R.id.btnSaveTimetableEntry);
-        btnDelete = (Button) findViewById(R.id.btnDeleteTimetableEntry);
+        btnDelete = findViewById(R.id.btnDeleteTimetableEntry);
         class_event = findViewById(R.id.classOrEvent);
-        day = findViewById(R.id.timetableDay);
-        time = findViewById(R.id.timetableTime);
+        startTime = findViewById(R.id.timetableStartTime);
+        endTime = findViewById(R.id.timetableEndTime);
         room = findViewById(R.id.timetableRoom);
         databaseHelper = new DatabaseHelper(this);
 
@@ -41,6 +41,7 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
 
         //now get the class we passed as an extra
         selectedClass = receivedIntent.getStringExtra("class/event");
+        selectedDay = receivedIntent.getStringExtra("day");
 
         //set the text to show the current selected class
         class_event.setText(selectedClass);
@@ -49,11 +50,13 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String class_event = EditTimetableEntryActivity.this.class_event.getText().toString();
-                String day = EditTimetableEntryActivity.this.day.getText().toString();
-                String time = EditTimetableEntryActivity.this.time.getText().toString();
+                String day = selectedDay;
+//                String day = EditTimetableEntryActivity.this.day.getText().toString();
+                String startTime = EditTimetableEntryActivity.this.startTime.getText().toString();
+                String endTime = EditTimetableEntryActivity.this.endTime.getText().toString();
                 String room = EditTimetableEntryActivity.this.room.getText().toString();
                 if(!class_event.equals("")){
-                    databaseHelper.updateTimetableEntry(selectedID, time,class_event,day,room);
+                    databaseHelper.updateTimetableEntry(selectedID, startTime, endTime, class_event,day,room);
                     Intent intent = new Intent(EditTimetableEntryActivity.this, DayView.class);
                     startActivity(intent);
                 }else{

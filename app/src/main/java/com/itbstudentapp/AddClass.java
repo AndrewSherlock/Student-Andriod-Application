@@ -11,7 +11,8 @@ import android.widget.Toast;
 public class AddClass extends AppCompatActivity {
 
     private Button btnSave;
-    private EditText class_event, day, time, room;
+    private EditText class_event, startTime, endTime, room;
+    private String selectedDay;
 
     DatabaseHelper databaseHelper;
     @Override
@@ -20,23 +21,28 @@ public class AddClass extends AppCompatActivity {
         setContentView(R.layout.activity_add_class);
         btnSave = findViewById(R.id.btnSaveTimetableEntry);
         class_event = findViewById(R.id.addClassOrEvent);
-        day = findViewById(R.id.addTimetableDay);
-        time = findViewById(R.id.addTimetableTime);
+        startTime = findViewById(R.id.addTimetableStartTime);
+        endTime = findViewById(R.id.addTimetableEndTime);
         room = findViewById(R.id.addTimetableRoom);
         databaseHelper = new DatabaseHelper(this);
+
+        Intent receivedIntent = getIntent();
+
+        //now get the day we passed as an extra
+        selectedDay = receivedIntent.getStringExtra("day");
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String class_event = AddClass.this.class_event.getText().toString();
-                String day = AddClass.this.day.getText().toString();
-                String time = AddClass.this.time.getText().toString();
+                String startTime = AddClass.this.startTime.getText().toString();
+                String endTime = AddClass.this.endTime.getText().toString();
                 String room = AddClass.this.room.getText().toString();
                 if(!class_event.equals("")){
-                    databaseHelper.addData(time, class_event, day, room);
+                    databaseHelper.addData(startTime, endTime, class_event, selectedDay, room);
                     toastMessage("Saved");
                     Intent intent = new Intent(AddClass.this, DayView.class);
-                    intent.putExtra("day",day);
+                    intent.putExtra("day",selectedDay);
                     startActivity(intent);
                 }else{
                     toastMessage("You must enter a class or event");

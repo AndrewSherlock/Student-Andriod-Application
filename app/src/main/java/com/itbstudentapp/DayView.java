@@ -68,9 +68,9 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         while(data.moveToNext()){
             //get the value from the database in column 2 - class name
             //then add it to the ArrayList
-            listDataClassNames.add(data.getString(2));
-            listDataClassTimes.add(data.getString(1));
-            listDataClassRooms.add(data.getString(4));
+            listDataClassNames.add(data.getString(3));
+            listDataClassTimes.add(data.getString(1)+ " - "+data.getString(2));
+            listDataClassRooms.add(data.getString(5));
         }
         //create the list adapter and set the adapter
 
@@ -94,6 +94,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
                     Intent editScreenIntent = new Intent(DayView.this, EditTimetableEntryActivity.class);
                     editScreenIntent.putExtra("id",itemID);
                     editScreenIntent.putExtra("class/event",class_event);
+                    editScreenIntent.putExtra("day",selectedDay);
                     startActivity(editScreenIntent);
                 }
                 else{
@@ -116,6 +117,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         if(view.getId() == R.id.addNewClass)
         {
             Intent intent = new Intent(this, AddClass.class);
+            intent.putExtra("day",selectedDay);
             startActivity(intent);
         }
     }

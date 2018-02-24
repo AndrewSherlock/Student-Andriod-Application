@@ -16,10 +16,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String TABLE_NAME = "timetable";
     private static final String COL1 = "ID";
-    private static final String COL2 = "time";
-    private static final String COL3 = "class_event";
-    private static final String COL4 = "day";
-    private static final String COL5 = "room";
+    private static final String COL2 = "startTime";
+    private static final String COL3 = "endTime";
+    private static final String COL4 = "class_event";
+    private static final String COL5 = "day";
+    private static final String COL6 = "room";
 
 
     public DatabaseHelper(Context context) {
@@ -29,8 +30,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COL2 +" TEXT, " + COL3 + " TEXT, "+ COL4 + " TEXT, "+ COL5 + " TEXT )";
+                COL2 + " TEXT, " + COL3 + " TEXT, "+ COL4 + " TEXT, "+ COL5 + " TEXT, "+ COL6 + " TEXT )";
         db.execSQL(createTable);
+
     }
 
     @Override
@@ -39,15 +41,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean addData(String time, String class_event, String day, String room) {
+    public boolean addData(String startTime, String endTime, String class_event, String day, String room) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2, time);
-        contentValues.put(COL3, class_event);
-        contentValues.put(COL4, day);
-        contentValues.put(COL5, room);
+        contentValues.put(COL2, startTime);
+        contentValues.put(COL3, endTime);
+        contentValues.put(COL4, class_event);
+        contentValues.put(COL5, day);
+        contentValues.put(COL6, room);
 
-        Log.d(TAG, "addData: Adding " + class_event + " to " + TABLE_NAME);
+        Log.d(TAG, "addData: Adding " + class_event + " to " + TABLE_NAME+" Content Values="+contentValues);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
 
@@ -78,7 +81,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getDataByDay(String day){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME +
-                " WHERE " + COL4 + " = '" + day + "'";
+                " WHERE " + COL5 + " = '" + day + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
     }
@@ -92,8 +95,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public Cursor getItemID(String class_event, String day){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT " + COL1 + " FROM " + TABLE_NAME +
-                " WHERE " + COL3 + " = '" + class_event + "'" +
-                " AND " + COL4 + " = '" + day + "'";
+                " WHERE " + COL4 + " = '" + class_event + "'" +
+                " AND " + COL5 + " = '" + day + "'";
         Cursor data = db.rawQuery(query, null);
         return data;
     }
@@ -101,18 +104,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Updates the timetable entry
      * @param id
-     * @param newTime
+     * @param newStartTime
      * @param newClass_event
      * @param newDay
      * @param newRoom
      */
-    public void updateTimetableEntry(int id, String newTime, String newClass_event, String newDay, String newRoom){
+    public void updateTimetableEntry(int id, String newStartTime,String newEndTime, String newClass_event, String newDay, String newRoom){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + TABLE_NAME + " SET " +
-                COL2 + " = '" + newTime +
-                COL3 + " = '" + newClass_event +
-                COL4 + " = '" + newDay +
-                COL5 + " = '" + newRoom +
+                COL2 + " = '" + newStartTime +
+                COL3 + " = '" + newEndTime +
+                COL4 + " = '" + newClass_event +
+                COL5 + " = '" + newDay +
+                COL6 + " = '" + newRoom +
                 "' WHERE " + COL1 + " = '" + id + "'";
         Log.d(TAG, "updateTimetableEntry: query: " + query);
         db.execSQL(query);
