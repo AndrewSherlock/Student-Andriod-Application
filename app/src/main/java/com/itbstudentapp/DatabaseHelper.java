@@ -112,12 +112,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void updateTimetableEntry(int id, String newStartTime,String newEndTime, String newClass_event, String newDay, String newRoom){
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "UPDATE " + TABLE_NAME + " SET " +
-                COL2 + " = '" + newStartTime +
-                COL3 + " = '" + newEndTime +
-                COL4 + " = '" + newClass_event +
-                COL5 + " = '" + newDay +
-                COL6 + " = '" + newRoom +
-                "' WHERE " + COL1 + " = '" + id + "'";
+                COL2 + " = '" + newStartTime + "'," +
+                COL3 + " = '" + newEndTime + "'," +
+                COL4 + " = '" + newClass_event + "'," +
+                COL5 + " = '" + newDay + "'," +
+                COL6 + " = '" + newRoom + "'" +
+                " WHERE " + COL1 + " = " + id ;
         Log.d(TAG, "updateTimetableEntry: query: " + query);
         db.execSQL(query);
     }
