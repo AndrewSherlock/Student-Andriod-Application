@@ -1,5 +1,8 @@
 package com.itbstudentapp;
 
+import android.app.ProgressDialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,42 +13,59 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import org.w3c.dom.Text;
 
-public class BusTimes extends AppCompatActivity {
+public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, OnThreadComplete {
 
     private  BusTimeInfo[] times;
+    int numOfRoutes = 0;
+
+    private String stop_long,stop_lat, route, stop, stop_name;
+    private BusTimeReciever btr;
+    private ProgressDialog progressDialog;
+    private Thread th;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_times);
 
-        final String route = getIntent().getStringExtra("route");
-        final String stop = getIntent().getStringExtra("stop");
-        final String stop_name = getIntent().getStringExtra("stop_name");
+        route = getIntent().getStringExtra("route");
+        stop = getIntent().getStringExtra("stop_num");
+        stop_name = getIntent().getStringExtra("stop_name");
+        stop_long = getIntent().getStringExtra("stop_long");
+        stop_lat = getIntent().getStringExtra("stop_lat");
 
-        Thread th = new Thread(new Runnable() {
+        btr = new BusTimeReciever(this); // gets the times from the server
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Retrieving times");
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+
+        th = new Thread(new Runnable() {
             @Override
             public void run() {
-                 BusTimeReciever btr = new BusTimeReciever(); // gets the times from the server
-                 times = btr.doInBackground(route, stop); // async class
+                 btr.execute(route, stop); // async class
             }
         });
 
         th.start();
 
-        try{
-            th.join(); // need to wait
-        } catch (InterruptedException e){}
-
-        populateList(route, stop, stop_name, times); // method that populates the screen
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
+        mapFragment.getMapAsync(this);
 
     }
 
     private void populateList(String route, String stop, String stop_name, BusTimeInfo times[])
     {
         LinearLayout layout = findViewById(R.id.times_list); // get the layout
-        Log.e("here", "populateList: " + times.length );
 
         if(times == null || times.length == 0) {
             Toast.makeText(getApplicationContext(), "No buses currently listed", Toast.LENGTH_LONG).show();
@@ -54,6 +74,7 @@ public class BusTimes extends AppCompatActivity {
         for(BusTimeInfo time : times) // for each loop
         {
             View v = LayoutInflater.from(this).inflate(R.layout.bus_time_display, layout, false); // new instance of view
+            v.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + UtilityFunctions.getHexColor(numOfRoutes))));
 
             TextView time_text = (TextView) v.findViewById(R.id.bus_time_text); // get textviews in that view
             TextView dest_text = (TextView) v.findViewById(R.id.dest_text);
@@ -65,6 +86,33 @@ public class BusTimes extends AppCompatActivity {
 
 
             ((LinearLayout) layout).addView(v); // add to the view
+        }
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.setMyLocationEnabled(true); // TODO show user position
+        LatLng lat = new LatLng(Double.parseDouble(stop_lat), Double.parseDouble(stop_long));
+        googleMap.setMinZoomPreference(15);
+        googleMap.setMaxZoomPreference(45);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(lat);
+        markerOptions.title(stop_name);
+        googleMap.addMarker(markerOptions);
+    }
+
+    @Override
+    public void onThreadCompleteCall()
+    {
+        times = btr.getTimes();
+        populateList(route, stop, stop_name, times); // method that populates the screen
+        progressDialog.dismiss();
+        try {
+            th.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

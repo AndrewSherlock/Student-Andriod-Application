@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="60sp"
             android:orientation="vertical"
-            android:id="@+id/forum_banner">
+            android:id="@+id/phone_banner">
 
 
             <TextView
@@ -37,8 +37,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/forum_button_bar"
-            android:layout_below="@id/forum_banner"
+            android:layout_below="@id/phone_banner"
             >
 
             <ScrollView

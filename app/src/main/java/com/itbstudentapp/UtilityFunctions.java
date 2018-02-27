@@ -154,4 +154,11 @@ public class UtilityFunctions {
         context.startActivity(intent);
         context.finish();
     }
+
+    public static String getHexColor(int index)
+    {
+        String[] colorHexes = {"d6d322", "ce371c", "299308", "069b71", "91057c", "8c010a"};
+
+        return colorHexes[index % colorHexes.length];
+    }
 }

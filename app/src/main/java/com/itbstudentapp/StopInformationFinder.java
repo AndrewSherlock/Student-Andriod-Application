@@ -13,13 +13,20 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
-public class StopInformationFinder extends AsyncTask<String, Void,Stop[]> {
+public class StopInformationFinder extends AsyncTask<String, Void,Void> {
 
     private String[] stopIdsInArea = {"4890", "2468", "2269", "1820", "1825", "1819", "2960", "7025", "7026", "4747"};
     private ArrayList<Stop> stops;
+    private OnThreadComplete sl;
+
+
+    public StopInformationFinder(OnThreadComplete sl)
+    {
+        this.sl = sl;
+    }
 
     @Override
-    protected Stop[] doInBackground(String... strings) {
+    protected Void doInBackground(String... strings) {
         stops = new ArrayList<Stop>();
 
         try {
@@ -29,7 +36,19 @@ public class StopInformationFinder extends AsyncTask<String, Void,Stop[]> {
         }
 
         Stop stopList[] = stops.toArray(new Stop[stops.size()]);
-        return stopList;
+        Log.e("Here", "doInBackground: " + strings[0] + " " + "Working" );
+        return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        sl.onThreadCompleteCall();
+    }
+
+    public ArrayList<Stop> getStops()
+    {
+        return stops;
     }
 
     private void GetRequest(String route) throws Exception
@@ -60,7 +79,9 @@ public class StopInformationFinder extends AsyncTask<String, Void,Stop[]> {
                 {
                     if(stopIdsInArea[x].equalsIgnoreCase(fields.getString("stopid")))
                     {
-                        Stop stop = new Stop(fields.getString("fullname"), fields.getString("stopid"));
+                        Stop stop = new Stop(fields.getString("fullname"), fields.getString("stopid")
+                                , fields.getString("longitude"),  fields.getString("latitude"));
+
                         stops.add(stop);
                     }
                 }

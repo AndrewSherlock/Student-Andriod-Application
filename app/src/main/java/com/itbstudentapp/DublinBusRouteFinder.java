@@ -14,24 +14,36 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
+public class DublinBusRouteFinder extends AsyncTask<Void, Void, Void>{
 
-    private String[] stopIdsInArea = {"2468", "1820", "1825", "1819", "2960", "7025", "7026", "4747"}; // stops in area
+    private RouteChoice routeChoice;
+
+    public DublinBusRouteFinder(RouteChoice routeChoice)
+    {
+        this.routeChoice = routeChoice;
+        stopIdsInArea = routeChoice.getResources().getStringArray(R.array.dublin_bus_stops);
+    }
+
+    private String[] stopIdsInArea;// // stops in area
 
     private String routes[]; // array of routes
 
     @Override
-    protected String[] doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         routes =  getAvailibleRouteNumbers(); // gets routes
-        return routes;
+        return null;
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-
     }
 
+    @Override
+    protected void onPostExecute(Void voids) {
+        super.onPostExecute(voids);
+        routeChoice.display(routes);
+    }
 
     public String[] getRoutes()
     {

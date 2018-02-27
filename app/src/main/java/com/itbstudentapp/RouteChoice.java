@@ -1,73 +1,74 @@
 package com.itbstudentapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.concurrent.ExecutionException;
 
+import static android.os.Process.THREAD_PRIORITY_BACKGROUND;
+
 public class RouteChoice extends AppCompatActivity{
 
-    private String travel;
-    private String[] routes;
-    private RouteChoice rc;
-
     private LinearLayout linearLayout;
+    private ProgressDialog progressDialog;
+    private Thread loader;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rc = this;
 
-        Thread th = new Thread(new Runnable() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Retrieving routes");
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+
+        final DublinBusRouteFinder dbhandler = new DublinBusRouteFinder(this);
+
+        loader = new Thread(new Runnable() {
             @Override
             public void run() {
-                DublinBusRouteFinder dbhandler = new DublinBusRouteFinder();
-                try {
-                    routes = dbhandler.execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+                dbhandler.execute();
             }
         });
-        th.start();
-        try {
-            th.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        loader.start();
+
 
         setContentView(R.layout.activity_route_choice);
         linearLayout = (LinearLayout) findViewById(R.id.butt_screen);
-        setUpPage();
     }
 
-    private void setUpPage()
-    {
-        Bundle typeOfTravel = getIntent().getExtras();
-       // String[] routes = typeOfTravel.getStringArray("routes");
 
-        for(String route : routes)
-        {
-            drawButtons(route);
-        }
-    }
-
+    int buttonCounter = 0;
     private void drawButtons(String route)
     {
-        final Button routeButton = new Button(this);
-        routeButton.setText(route);
-        routeButton.setTag(route);
+        View button = LayoutInflater.from(this).inflate(R.layout.contact_button, null);
+        button.setTag(route);
+        button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + UtilityFunctions.getHexColor(buttonCounter++))));
 
-        LinearLayout.LayoutParams linear = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        routeButton.setOnClickListener(new View.OnClickListener() {
+        TextView routeText = button.findViewById(R.id.contact_text);
+        routeText.setText(route);
+        routeText.setPadding(20,20,20,20);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT );
+        params.setMargins(0, 0, 0, 25);
+
+        final RouteChoice rc = this;
+
+        //LinearLayout.LayoutParams linear = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {
             Intent intent = new Intent(rc, StopList.class);
@@ -76,6 +77,22 @@ public class RouteChoice extends AppCompatActivity{
             }
         });
 
-        ((LinearLayout)linearLayout).addView(routeButton);
+        ((LinearLayout)linearLayout).addView(button, params);
+    }
+
+    public void display(String[] routes)
+    {
+        for(String route : routes)
+        {
+            drawButtons(route);
+        }
+
+        progressDialog.dismiss();
+
+        try {
+            loader.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

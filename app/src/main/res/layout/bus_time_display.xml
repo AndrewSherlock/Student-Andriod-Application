@@ -1,56 +1,61 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/contact_button"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:orientation="horizontal"
-    android:id="@+id/bus_time_container"
+    android:layout_height="70sp"
+    android:layout_margin="5sp"
+    android:layout_marginBottom="10sp"
+    android:background="@drawable/forum_panels"
+    android:backgroundTint="#cc0011cc"
     >
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_margin="10sp"
+        android:layout_width="0dp"
+        android:layout_weight=".5"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        >
+        android:id="@+id/dest_text"
+        android:layout_gravity="bottom"
+        android:fontFamily="@font/cuprumbold"
+        android:gravity="center_vertical"
+        android:text="38 Damastown"
+        android:textColor="#fff"
+        android:textSize="24sp"
+        />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight=".6"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left"
-            android:text="Destination"
-            android:textSize="30dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/dest_text"
+            android:layout_marginRight="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:id="@+id/bus_time_text"
+            android:layout_gravity="bottom"
+            android:gravity="right"
+            android:fontFamily="@font/cuprumbold"
+            android:text="20 Mins"
+            android:textColor="#fff"
+            android:textSize="22sp"
             />
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+        <TextView
+            android:layout_marginRight="10sp"
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:id="@+id/bus_src"
+            android:layout_gravity="bottom"
             android:gravity="right"
-            >
+            android:fontFamily="@font/cuprumbold"
+            android:text="via Blanchardstown"
+            android:textColor="#fff"
+            android:textSize="22sp"
+            />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="40 mins"
-                    android:textSize="20dp"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/bus_time_text"
-                    />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="via Blanchardstown"
-                    android:textSize="20dp"
-                    android:layout_marginRight="10dp"
-                    android:id="@+id/bus_src"
-                    />
 
-            </LinearLayout>
-        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
-
+</LinearLayout>

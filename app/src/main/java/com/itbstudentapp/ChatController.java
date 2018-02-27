@@ -100,7 +100,7 @@ public class ChatController {
             DatabaseReference db = FirebaseDatabase.getInstance().getReference("users/" + users.get(i) +"/messages/" + buildAddress(users.get(i), users)+ "/" + currentIndex);
             String read_status = ((UtilityFunctions.getUserNameFromFirebase().equalsIgnoreCase(users.get(i))? "1": "0" ));
             db.getParent().child("read_status").setValue(read_status);
-            db.getParent().child("time_stamp").setValue(-message.getSendTime());
+            db.getParent().child("time_stamp").setValue(message.getSendTime());
 
             db.setValue(message);
         }
@@ -263,8 +263,8 @@ public class ChatController {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 ContactCard contactCard = new ContactCard(dataSnapshot.getKey(),
-                        dataSnapshot.child("username").getValue().toString(),
-                        dataSnapshot.child("username").getValue().toString());
+                        dataSnapshot.child("username").getValue(String.class),
+                        dataSnapshot.child("username").getValue(String.class));
 
                 usersContactCards.add(contactCard);
             }

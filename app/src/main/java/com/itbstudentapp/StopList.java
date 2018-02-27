@@ -1,77 +1,132 @@
 package com.itbstudentapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-public class StopList extends AppCompatActivity {
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.ArrayList;
+
+public class StopList extends AppCompatActivity implements OnMapReadyCallback, OnThreadComplete {
 
     private String route;
     private Stop stops[];
     private LinearLayout linearLayout;
+
+    private ProgressDialog progressDialog;
+    private Thread loader;
+    private GoogleMap map;
+    private StopInformationFinder stopInformationFinder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_list);
         linearLayout = (LinearLayout) findViewById(R.id.bus_stop_list);
-
         route = getIntent().getStringExtra("route"); // get route from the last intent
 
-        Thread th = new Thread(new Runnable() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Retrieving stops");
+        progressDialog.setMessage("Loading");
+        progressDialog.show();
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
+        mapFragment.getMapAsync(this);
+
+        stopInformationFinder = new StopInformationFinder(this);
+        loader  = new Thread(new Runnable() {
             @Override
             public void run() {
-                StopInformationFinder si = new StopInformationFinder(); // get stops from resource class
-                stops = si.doInBackground(route); // async class that does work in background
+                stopInformationFinder.execute(route);
             }
         });
-        th.start();
 
-        try {
-            th.join(); // we need the thread to wait before starting the next action
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        for(Stop s : stops)
-        {
-            DrawButttons(s); // draws buttons
-        }
+        loader.start();
 
     }
 
-    private String choosenStop = null;
-    private void DrawButttons(Stop st)
+    int buttonCounter = 0;
+    private void drawButttons(final Stop st)
     {
-        final Button stopButton = new Button(this);
-        stopButton.setText(st.getStop_name());
-        stopButton.setTag(st.getStop_number() + ":" + st.getStop_name());
+        View button = LayoutInflater.from(this).inflate(R.layout.contact_button, null);
+        button.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + UtilityFunctions.getHexColor(buttonCounter++))));
 
-        stopButton.setOnClickListener(new View.OnClickListener() {
+        TextView routeText = button.findViewById(R.id.contact_text);
+        routeText.setText(st.getStop_name());
+        button.setTag(st.getStop_number() + ":" + st.getStop_name());
+        routeText.setPadding(20,20,20,20);
+
+        LatLng coord = new LatLng(Double.parseDouble(st.getLatitude()),Double.parseDouble(st.getLongatude()));
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(coord);
+        markerOptions.title(st.getStop_name());
+        map.addMarker(markerOptions);
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT );
+        params.setMargins(0, 0, 0, 25);
+
+        button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String info[] = v.getTag().toString().split(":"); // because we want to hold 2 bits of info in tag
-                choosenStop = info[1]; // to bundle
-                GetNextIntent(info[0]); // start next intenet
+                GetNextIntent(st); // start next intenet
 
             }
         });
 
         LinearLayout.LayoutParams linear = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        // we need to change this for something more stylish.
-        ((LinearLayout)linearLayout).addView(stopButton); // add to view
+        ((LinearLayout)linearLayout).addView(button, params); // add to view
     }
 
-    private void GetNextIntent(String stopNum)
+    private void GetNextIntent(Stop stop)
     {
         Intent intent = new Intent(this, BusTimes.class); // create new intent
         intent.putExtra("route", this.route); // bundle resources
-        intent.putExtra("stop", stopNum);
-        intent.putExtra("stop_name", choosenStop);
+        intent.putExtra("stop_num", stop.getStop_number());
+        intent.putExtra("stop_name", stop.getStop_name());
+        intent.putExtra("stop_long", stop.getLongatude());
+        intent.putExtra("stop_lat", stop.getLatitude());
         startActivity(intent); // start
+        finish();
+    }
+
+    public void onThreadCompleteCall()
+    {
+        giveStopList(stopInformationFinder.getStops());
+    }
+
+    public void giveStopList(ArrayList<Stop> stops)
+    {
+        for(Stop s : stops)
+        {
+            drawButttons(s);
+        }
+        progressDialog.dismiss();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap)
+    {
+        googleMap.setMyLocationEnabled(true); // TODO show user position
+        map = googleMap;
+        LatLng lat = new LatLng(53.4048029,-6.3791624);
+        googleMap.setMinZoomPreference(15);
+        googleMap.setMaxZoomPreference(45);
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
     }
 }
