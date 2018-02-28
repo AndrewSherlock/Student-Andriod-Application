@@ -65,7 +65,8 @@
             android:label="@string/title_activity_maps" />
         <activity android:name=".ProfileSettings" />
         <activity android:name=".ItbShuttleBus.ItbShuttleMenu" />
-        <activity android:name=".ItbShuttleBus.ItbShuttleTimes"></activity>
+        <activity android:name=".ItbShuttleBus.ItbShuttleTimes" />
+        <activity android:name=".TrainHandler.TrainTimeTable"></activity>
     </application>
 
 </manifest>

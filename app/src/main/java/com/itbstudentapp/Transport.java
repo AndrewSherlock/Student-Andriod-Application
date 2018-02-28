@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.itbstudentapp.DublinBus.RouteChoice;
 import com.itbstudentapp.ItbShuttleBus.ItbShuttleMenu;
+import com.itbstudentapp.TrainHandler.TrainTimeTable;
 
 public class Transport extends AppCompatActivity implements View.OnClickListener{
 
@@ -30,12 +31,6 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         bus_eir.setOnClickListener(this);
         irish_rail.setOnClickListener(this);
         itb_shuttle.setOnClickListener(this);
-
-        //TrainHandler th = new TrainHandler();
-        //try {
-          //  th.getXmlStringOfDetails();
-
-        //} catch (IOException e){}
 
 
     }
@@ -57,6 +52,7 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
             case R.id.bus_eir:
                 break;
             case R.id.iar_eir:
+                callIarEir();
                 break;
             case R.id.itb_shuttle:
                 CallItbShuttleBus();
@@ -77,6 +73,13 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
     private void CallItbShuttleBus()
     {
         Intent intent = new Intent(this, ItbShuttleMenu.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void callIarEir()
+    {
+        Intent intent = new Intent(this, TrainTimeTable.class);
         startActivity(intent);
         finish();
     }
