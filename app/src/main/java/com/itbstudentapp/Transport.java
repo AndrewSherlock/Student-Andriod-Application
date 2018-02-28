@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
+import com.itbstudentapp.DublinBus.RouteChoice;
+import com.itbstudentapp.ItbShuttleBus.ItbShuttleMenu;
 
 public class Transport extends AppCompatActivity implements View.OnClickListener{
 
@@ -32,9 +31,9 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         irish_rail.setOnClickListener(this);
         itb_shuttle.setOnClickListener(this);
 
-       // TrainHandler th = new TrainHandler();
+        //TrainHandler th = new TrainHandler();
         //try {
-         //   th.getXmlStringOfDetails();
+          //  th.getXmlStringOfDetails();
 
         //} catch (IOException e){}
 
@@ -53,13 +52,14 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         switch (v.getId())
         {
             case R.id.dub_bus:
-                CallBusScreen("dublin_bus");
+                CallBusScreen();
                 break;
             case R.id.bus_eir:
                 break;
             case R.id.iar_eir:
                 break;
             case R.id.itb_shuttle:
+                CallItbShuttleBus();
                 break;
             default:
                 Log.e("Error", "onClick: was unknown button.");
@@ -67,9 +67,16 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    private void CallBusScreen(String methodOfTravel)
+    private void CallBusScreen()
     {
         Intent intent = new Intent(this, RouteChoice.class);
+        startActivity(intent);
+        finish();
+    }
+
+    private void CallItbShuttleBus()
+    {
+        Intent intent = new Intent(this, ItbShuttleMenu.class);
         startActivity(intent);
         finish();
     }

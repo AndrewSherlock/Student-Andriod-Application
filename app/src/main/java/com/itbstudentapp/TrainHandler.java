@@ -24,10 +24,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-/**
- * Created by andrew on 21/02/2018.
- */
-
 public class TrainHandler extends AsyncTask{
 
     public String getXmlStringOfDetails() throws IOException

@@ -1,15 +1,13 @@
-package com.itbstudentapp;
+package com.itbstudentapp.DublinBus;
 
 import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +17,9 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
-import org.w3c.dom.Text;
+import com.itbstudentapp.OnThreadComplete;
+import com.itbstudentapp.R;
+import com.itbstudentapp.UtilityFunctions;
 
 public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, OnThreadComplete {
 

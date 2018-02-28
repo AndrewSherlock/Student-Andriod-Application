@@ -1,4 +1,4 @@
-package com.itbstudentapp;
+package com.itbstudentapp.DublinBus;
 
 public class Stop {
 

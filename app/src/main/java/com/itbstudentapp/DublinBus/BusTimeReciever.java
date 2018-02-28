@@ -1,10 +1,8 @@
-package com.itbstudentapp;
+package com.itbstudentapp.DublinBus;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
+
+import com.itbstudentapp.OnThreadComplete;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

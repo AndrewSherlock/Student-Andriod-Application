@@ -37,9 +37,9 @@
         <activity android:name=".Links" />
         <activity android:name=".Chat" />
         <activity android:name=".Phone" />
-        <activity android:name=".RouteChoice" />
-        <activity android:name=".StopList" />
-        <activity android:name=".BusTimes" />
+        <activity android:name=".DublinBus.RouteChoice" />
+        <activity android:name=".DublinBus.StopList" />
+        <activity android:name=".DublinBus.BusTimes" />
         <activity android:name=".MainActivity" />
         <activity android:name=".RegisterUser" />
         <activity android:name=".MessageScreen" />
@@ -63,7 +63,9 @@
         <activity
             android:name=".MapFragment"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ProfileSettings"></activity>
+        <activity android:name=".ProfileSettings" />
+        <activity android:name=".ItbShuttleBus.ItbShuttleMenu" />
+        <activity android:name=".ItbShuttleBus.ItbShuttleTimes"></activity>
     </application>
 
 </manifest>
