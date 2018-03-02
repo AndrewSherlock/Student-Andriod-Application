@@ -2,37 +2,34 @@ package com.itbstudentapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.itbstudentapp.utils.LetterImageView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class DayView extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "DayView";
     DatabaseHelper databaseHelper;
     private ListView listView;
-    private Button addNewClass;
+    private TextView addNewClassText, backTextView, homeTextView;
+    private LinearLayout addNewClass;
     private String selectedDay;
     private TextView dayViewing;
 
@@ -41,7 +38,26 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
         addNewClass = findViewById(R.id.addNewClass);
-        addNewClass.setOnClickListener(this);
+        addNewClassText = findViewById(R.id.addNewClassText);
+        addNewClassText.setOnClickListener(this);
+        backTextView = findViewById(R.id.backBtn);
+        backTextView.setOnClickListener(this);
+        homeTextView = findViewById(R.id.homeBtn);
+        homeTextView.setOnClickListener(this);
+
+//        To put random colours on the textviews
+//        Random r = new Random();
+//        int Low = 0;
+//        int High = getResources().getStringArray(R.array.colours).length;
+//        int index = r.nextInt(High-Low) + Low;
+//        addNewClass.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + getHexColor(index))));
+//
+//        index = r.nextInt(High-Low) + Low;
+//        backTextView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + getHexColor(index))));
+//
+//        index = r.nextInt(High-Low) + Low;
+//        homeTextView.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + getHexColor(index))));
+
 
         dayViewing = findViewById(R.id.dayName);
 
@@ -55,6 +71,12 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
         populateListView();
 
      }
+    private String getHexColor(int index)
+    {
+        String[] colorHexes = getResources().getStringArray(R.array.colours);
+
+        return colorHexes[index % colorHexes.length];
+    }
 
     private void populateListView() {
         Log.d(TAG, "populateListView: Displaying data in the ListView.");
@@ -69,8 +91,8 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
             //get the value from the database in column 2 - class name
             //then add it to the ArrayList
             listDataClassNames.add(data.getString(3));
-            listDataClassTimes.add(data.getString(1)+ " - "+data.getString(2));
-            listDataClassRooms.add(data.getString(5));
+            listDataClassTimes.add("Time: "+data.getString(1)+ " - "+data.getString(2));
+            listDataClassRooms.add("Room: "+data.getString(5));
         }
         //create the list adapter and set the adapter
 
@@ -114,10 +136,20 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
 
     public void onClick(View view) {
 
-        if(view.getId() == R.id.addNewClass)
+        if(view.getId() == R.id.addNewClassText)
         {
             Intent intent = new Intent(this, AddClass.class);
             intent.putExtra("day",selectedDay);
+            startActivity(intent);
+        }
+        if(view.getId() == R.id.backBtn)
+        {
+            Intent intent = new Intent(this, Timetable.class);
+            startActivity(intent);
+        }
+        if(view.getId() == R.id.homeBtn)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }

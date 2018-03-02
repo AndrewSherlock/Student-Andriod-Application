@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class AddClass extends AppCompatActivity {
 
-    private Button btnSave;
+    private Button btnSave, btnBack;
     private EditText class_event, startTime, endTime, room;
     private String selectedDay;
 
@@ -20,6 +20,7 @@ public class AddClass extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_class);
         btnSave = findViewById(R.id.btnSaveTimetableEntry);
+        btnBack = findViewById(R.id.btnBckTimetableEntry);
         class_event = findViewById(R.id.addClassOrEvent);
         startTime = findViewById(R.id.addTimetableStartTime);
         endTime = findViewById(R.id.addTimetableEndTime);
@@ -38,15 +39,24 @@ public class AddClass extends AppCompatActivity {
                 String startTime = AddClass.this.startTime.getText().toString();
                 String endTime = AddClass.this.endTime.getText().toString();
                 String room = AddClass.this.room.getText().toString();
-                if(!class_event.equals("")){
+                if(!class_event.equals("")&&!startTime.equals("")&&!endTime.equals("")&&!room.equals("")){
                     databaseHelper.addData(startTime, endTime, class_event, selectedDay, room);
                     toastMessage("Saved");
                     Intent intent = new Intent(AddClass.this, DayView.class);
                     intent.putExtra("day",selectedDay);
                     startActivity(intent);
                 }else{
-                    toastMessage("You must enter a class or event");
+                    toastMessage("All fields must be completed");
                 }
+            }
+        });
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddClass.this, DayView.class);
+                intent.putExtra("day",selectedDay);
+                startActivity(intent);
             }
         });
     }

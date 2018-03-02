@@ -61,8 +61,7 @@ public class Phone extends AppCompatActivity {
 
     private String getHexColor(int index)
     {
-        String[] colorHexes = {"d6d322", "ce371c", "299308", "069b71", "91057c", "8c010a"};
-
+        String[] colorHexes = getResources().getStringArray(R.array.colours);
         return colorHexes[index % colorHexes.length];
     }
 

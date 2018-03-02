@@ -1,6 +1,8 @@
 package com.itbstudentapp;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -46,21 +48,24 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
         //set the text to show the current selected class
         class_event.setText(selectedClass);
 
+
+
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String class_event = EditTimetableEntryActivity.this.class_event.getText().toString();
                 String day = selectedDay;
-//                String day = EditTimetableEntryActivity.this.day.getText().toString();
                 String startTime = EditTimetableEntryActivity.this.startTime.getText().toString();
                 String endTime = EditTimetableEntryActivity.this.endTime.getText().toString();
                 String room = EditTimetableEntryActivity.this.room.getText().toString();
-                if(!class_event.equals("")){
+                if(!class_event.equals("")&&!startTime.equals("")&&!endTime.equals("")&&!room.equals("")){
                     databaseHelper.updateTimetableEntry(selectedID, startTime, endTime, class_event,day,room);
                     Intent intent = new Intent(EditTimetableEntryActivity.this, DayView.class);
+                    intent.putExtra("day", selectedDay);
+
                     startActivity(intent);
                 }else{
-                    toastMessage("You must enter a class or event");
+                    toastMessage("All fields must be completed");
                 }
             }
         });
@@ -69,8 +74,9 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 databaseHelper.deleteTimetableEntry(selectedID);
-                toastMessage("removed from database");
+                toastMessage("Deleted");
                 Intent intent = new Intent(EditTimetableEntryActivity.this, DayView.class);
+                intent.putExtra("day", selectedDay);
                 startActivity(intent);
             }
         });

@@ -13,14 +13,16 @@
     <color name="forum_banners">#cc00990a</color>
 
     <string-array name="colours" translatable="false">
-        <item>#b4540101</item>
-        <item>#b4605a00</item>
-        <item>#b4005c5c</item>
-        <item>#b448005e</item>
-        <item>#b4006b14</item>
-        <item>#b4704701</item>
-        <item>#b4660169</item>
-        <item>#b4011966</item>
+        <item>d6d322</item>
+        <item>011966</item>
+        <item>ce371c</item>
+        <item>299308</item>
+        <item>069b71</item>
+        <item>91057c</item>
+        <item>8c010a</item>
+        <item>33b5e5</item>
+
+
     </string-array>
 
 

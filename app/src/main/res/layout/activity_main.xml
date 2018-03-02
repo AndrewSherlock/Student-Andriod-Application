@@ -19,7 +19,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/itb"
+        android:background="@drawable/itb_above1"
         >
 
     <GridLayout
@@ -35,12 +35,15 @@
             android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#b4540101"
+            android:background="@drawable/forum_panels"
+            android:backgroundTint="#ccd6d322"
 
             android:gravity="center"
             android:text="@string/title_activity_transport"
             android:textColor="@android:color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+
+            />
 
         <Button
             android:id="@+id/timetable"
@@ -48,7 +51,9 @@
             android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#b4605a00"
+            android:background="@drawable/forum_panels"
+
+            android:backgroundTint="#cc011966"
             android:gravity="center"
             android:text="@string/title_activity_timetable"
             android:textColor="@android:color/white"
@@ -60,7 +65,8 @@
             android:layout_height="140sp"
             android:layout_columnWeight="1"
             android:layout_gravity="fill_horizontal"
-            android:background="#b4005c5c"
+            android:background="@drawable/forum_panels"
+            android:backgroundTint="#ccce371c"
             android:gravity="center"
             android:text="@string/title_activity_quiz"
             android:textColor="@android:color/white"
@@ -73,7 +79,8 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#b448005e"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc299308"
                 android:text="@string/title_activity_map"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -85,7 +92,8 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#b4006b14"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc069b71"
                 android:text="@string/title_activity_forum"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -97,7 +105,8 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#b4704701"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc91057c"
                 android:text="@string/title_activity_chat"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -109,7 +118,8 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#b4660169"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc8c010a"
                 android:text="@string/title_activity_links"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
@@ -121,7 +131,8 @@
                 android:layout_columnWeight="1"
                 android:gravity="center"
                 android:layout_gravity="fill_horizontal"
-                android:background="#b4011966"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc33b5e5"
                 android:text="@string/title_activity_phone"
 
                 android:textColor="@android:color/white"

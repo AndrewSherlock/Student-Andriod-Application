@@ -3,6 +3,7 @@ package com.itbstudentapp;
 import android.content.Context;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -72,6 +74,18 @@ public class Timetable extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     }
+                    case 5:{
+                        Intent intent = new Intent(Timetable.this, DayView.class);
+                        intent.putExtra("day","Saturday");
+                        startActivity(intent);
+                        break;
+                    }
+                    case 6:{
+                        Intent intent = new Intent(Timetable.this, DayView.class);
+                        intent.putExtra("day","Sunday");
+                        startActivity(intent);
+                        break;
+                    }
                     default: break;
                 }
             }
@@ -110,19 +124,23 @@ public class Timetable extends AppCompatActivity {
         @Override
         public View getView(int i, View convertView, ViewGroup parent) {
             if(convertView == null) {
-                convertView = layoutInflater.inflate(R.layout.activity_timetable_single_item, null);
+                convertView = layoutInflater.inflate(R.layout.contact_button, null);
             }
-            days = convertView.findViewById(R.id.weekDay);
+            LinearLayout layout = convertView.findViewById(R.id.contact_button);
+            layout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + getHexColor(i))));
+
+            days = convertView.findViewById(R.id.contact_text);
             days.setText(dayArray[i]);
-            String colour = nextColour(i);
-            convertView.setBackgroundColor(Color.parseColor(colour));
+
             return convertView;
         }
     }
 
-    public String nextColour(int i){
-        String [] colorArray = getResources().getStringArray(R.array.colours);
-        return colorArray[i];
+    private String getHexColor(int index)
+    {
+        String[] colorHexes = getResources().getStringArray(R.array.colours);
+
+        return colorHexes[index % colorHexes.length];
     }
 
 
