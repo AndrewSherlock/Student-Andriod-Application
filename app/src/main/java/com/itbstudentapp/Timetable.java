@@ -18,13 +18,16 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class Timetable extends AppCompatActivity {
+public class Timetable extends AppCompatActivity implements View.OnClickListener{
 
     private ListView listView;
+    private TextView homeTextBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        homeTextBtn = findViewById(R.id.timetableHomeBtn);
+        homeTextBtn.setOnClickListener(this);
         setContentView(R.layout.activity_timetable);
 
         setupUIViews();
@@ -90,6 +93,15 @@ public class Timetable extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view.getId() == R.id.timetableHomeBtn)
+        {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 
     public class SimpleAdapter extends BaseAdapter{
