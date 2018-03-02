@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.itbstudentapp.EventSystem.EventsHandler;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -125,6 +126,7 @@ public class UtilityFunctions {
                     menu.getMenu().add("Set quiz");
                 } */
 
+                menu.getMenu().add("Events");
                 menu.getMenu().add("Contact us");
                 menu.getMenu().add("Logout");
 
@@ -146,6 +148,9 @@ public class UtilityFunctions {
                             case "set quiz":
                                 break;
                             case "contact us":
+                                break;
+                            case "events":
+                                context.startActivity(new Intent(context, EventsHandler.class));
                                 break;
                             case "logout":
                                 FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -200,5 +205,13 @@ public class UtilityFunctions {
 
             }
         });
+    }
+
+    public static String milliToDate(long time)
+    {
+        Date messageDate = new Date(time);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
+        String date = simpleDateFormat.format(messageDate);
+        return  date;
     }
 }

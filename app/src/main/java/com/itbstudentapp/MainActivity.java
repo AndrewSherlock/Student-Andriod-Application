@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -21,7 +22,7 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button forum, transport, map, timetable, quiz, chat, links, phone;
+    private RelativeLayout forum, transport, map, timetable, quiz, chat, links, phone;
     private Button TEMP_LOG_OUT;
 
     private EventDisplay eventDisplay;
@@ -34,14 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
-        forum = (Button) findViewById(R.id.forum);
-        transport =  (Button) findViewById(R.id.transport);
-        map = (Button)findViewById(R.id.map);
-        timetable = (Button) findViewById(R.id.timetable);
-        quiz = (Button)findViewById(R.id.quiz);
-        chat = (Button) findViewById(R.id.chat);
-        links = (Button) findViewById(R.id.links);
-        phone = (Button) findViewById(R.id.phone);
+        forum =  findViewById(R.id.forum);
+        transport = findViewById(R.id.transport);
+        map = findViewById(R.id.map);
+        timetable = findViewById(R.id.timetable);
+        quiz = findViewById(R.id.quiz);
+        chat = findViewById(R.id.chat);
+        links = findViewById(R.id.links);
+        phone = findViewById(R.id.phone);
 
         phone.setOnClickListener(this);
         transport.setOnClickListener(this);
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         timetable.setOnClickListener(this);
 
 //        TEMP_LOG_OUT.setOnClickListener(this);
-        eventDisplay = new EventDisplay(this, (TextView) findViewById(R.id.event_message), (TextView) findViewById(R.id.event_add));
+        eventDisplay = new EventDisplay(this, (TextView) findViewById(R.id.event_message));
 
 
     }
@@ -91,5 +92,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        eventDisplay.getEvents();
 
+    }
 }

@@ -3,7 +3,7 @@ package com.itbstudentapp.DublinBus;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.itbstudentapp.OnThreadComplete;
+import com.itbstudentapp.Interfaces.OnThreadComplete;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

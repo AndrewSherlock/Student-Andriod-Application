@@ -41,7 +41,7 @@
 
     <GridLayout
         android:layout_below="@id/event_system"
-        android:background="@drawable/itb"
+        android:background="@drawable/itb_above1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:columnCount="3"

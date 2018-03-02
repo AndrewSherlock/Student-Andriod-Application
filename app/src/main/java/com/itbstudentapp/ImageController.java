@@ -21,6 +21,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.itbstudentapp.Interfaces.OnImageUploaded;
 
 import java.net.URI;
 import java.util.UUID;
@@ -33,12 +34,20 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
     private Uri uploadFile = null;
     private String fileId = null;
 
+    private OnImageUploaded imageUploaded;
+
     public ImageController()
     {}
 
     public ImageController(Context context)
     {
         this.context = context;
+    }
+
+    public ImageController(Context context, OnImageUploaded imageUploaded)
+    {
+        this.context = context;
+        this.imageUploaded = imageUploaded;
     }
 
     public ImageController(Activity activity)
@@ -73,6 +82,9 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
                     progressDialog.dismiss();
                     Toast.makeText(context, "File uploaded", Toast.LENGTH_SHORT).show();
                     fileId = file;
+
+                    if(imageUploaded != null)
+                        imageUploaded.onImageUploaded(file);
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
