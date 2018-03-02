@@ -18,6 +18,17 @@
         <item>BN002</item>
     </string-array>
 
+    <string-array name="dublin_bus_stops">
+        <item>2468</item>
+        <item>1820</item>
+        <item>1825</item>
+        <item>1819</item>
+        <item>2960</item>
+        <item>7025</item>
+        <item>7026</item>
+        <item>4747</item>
+    </string-array>
+
     <string-array name="WeekDays">
         <item> Monday </item>
         <item> Tuesday </item>

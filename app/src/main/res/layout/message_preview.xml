@@ -19,11 +19,14 @@
         android:id="@+id/message_bg"
         >
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:civ_border_width="3dp"
+            app:civ_border_color="@color/common_google_signin_btn_text_light"
             android:layout_width="0dp"
             android:layout_weight=".3"
             android:layout_height="80dp"
-            android:src="@drawable/login"
+            android:src="@drawable/andrew_tester_profile"
             android:id="@+id/message_user_image"
             android:padding="5sp"
             />

@@ -1,10 +1,8 @@
-package com.itbstudentapp;
+package com.itbstudentapp.DublinBus;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.Toast;
+
+import com.itbstudentapp.OnThreadComplete;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,13 +13,25 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 
-public class BusTimeReciever extends AsyncTask<String, Void,BusTimeInfo[]>{
+public class BusTimeReciever extends AsyncTask<String, Void,Void>{
 
+    private OnThreadComplete threadComplete;
+    private BusTimeInfo[] times;
+
+    public BusTimeReciever(OnThreadComplete threadComplete)
+    {
+        this.threadComplete = threadComplete;
+    }
+
+    public BusTimeInfo[] getTimes()
+    {
+        return times;
+    }
 
     @Override
-    protected BusTimeInfo[] doInBackground(String... strings) {
+    protected Void doInBackground(String... strings) {
 
-        BusTimeInfo[] times = null;
+        times = null;
 
         try {
             times = getMinutesLeft(strings[0], strings[1]); // gets the times from server, using stop numbr and route number
@@ -29,10 +39,16 @@ public class BusTimeReciever extends AsyncTask<String, Void,BusTimeInfo[]>{
             e.printStackTrace();
         }
 
-        return times;
+        return null;
     }
 
-   private BusTimeInfo[] getMinutesLeft(String route, String stop_id) throws Exception
+    @Override
+    protected void onPostExecute(Void params) {
+        super.onPostExecute(params);
+        threadComplete.onThreadCompleteCall();
+    }
+
+    private BusTimeInfo[] getMinutesLeft(String route, String stop_id) throws Exception
    {
        HttpURLConnection connection; // http connection
        BusTimeInfo[] timesLeft = null;

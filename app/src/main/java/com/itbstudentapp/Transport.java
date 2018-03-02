@@ -1,27 +1,31 @@
 package com.itbstudentapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import java.util.concurrent.ExecutionException;
+import com.itbstudentapp.DublinBus.RouteChoice;
+import com.itbstudentapp.ItbShuttleBus.ItbShuttleMenu;
+import com.itbstudentapp.TrainHandler.TrainTimeTable;
 
 public class Transport extends AppCompatActivity implements View.OnClickListener{
 
-    private RelativeLayout dub_bus, bus_eir, irish_rail, itb_shuttle;
+    private LinearLayout dub_bus, bus_eir, irish_rail, itb_shuttle;
+    private ProgressDialog progressDialog;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport);
 
-        dub_bus = (RelativeLayout) findViewById(R.id.dub_bus);
-        bus_eir = (RelativeLayout) findViewById(R.id.bus_eir);
-        irish_rail = (RelativeLayout) findViewById(R.id.iar_eir);
-        itb_shuttle = (RelativeLayout) findViewById(R.id.shut_bus);
+        dub_bus = (LinearLayout) findViewById(R.id.dub_bus);
+        bus_eir = (LinearLayout) findViewById(R.id.bus_eir);
+        irish_rail = (LinearLayout) findViewById(R.id.iar_eir);
+        itb_shuttle = (LinearLayout) findViewById(R.id.itb_shuttle);
 
         dub_bus.setOnClickListener(this);
         bus_eir.setOnClickListener(this);
@@ -34,17 +38,24 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
+        if(!UtilityFunctions.doesUserHaveConnection(this))
+        {
+            Toast.makeText(this, "No network connection. Please try again.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         switch (v.getId())
         {
             case R.id.dub_bus:
-                Toast.makeText(getApplicationContext(), "Getting available routes.", Toast.LENGTH_SHORT).show();
-                CallBusScreen("dublin_bus");
+                CallBusScreen();
                 break;
             case R.id.bus_eir:
                 break;
             case R.id.iar_eir:
+                callIarEir();
                 break;
-            case R.id.shut_bus:
+            case R.id.itb_shuttle:
+                CallItbShuttleBus();
                 break;
             default:
                 Log.e("Error", "onClick: was unknown button.");
@@ -52,13 +63,24 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         }
     }
 
-    String[] routes = null;
-    private void CallBusScreen(String methodOfTravel)
+    private void CallBusScreen()
     {
         Intent intent = new Intent(this, RouteChoice.class);
-        intent.putExtra("routes", routes);
         startActivity(intent);
+        finish();
+    }
 
+    private void CallItbShuttleBus()
+    {
+        Intent intent = new Intent(this, ItbShuttleMenu.class);
+        startActivity(intent);
+        finish();
+    }
 
+    private void callIarEir()
+    {
+        Intent intent = new Intent(this, TrainTimeTable.class);
+        startActivity(intent);
+        finish();
     }
 }

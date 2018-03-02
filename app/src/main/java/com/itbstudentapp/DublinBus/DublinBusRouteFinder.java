@@ -1,10 +1,9 @@
-package com.itbstudentapp;
+package com.itbstudentapp.DublinBus;
 
-import android.content.Context;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
+
+import com.itbstudentapp.R;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,24 +13,36 @@ import java.net.URL;
 import java.util.ArrayList;
 
 
-public class DublinBusRouteFinder extends AsyncTask<Void, Void,String[]>{
+public class DublinBusRouteFinder extends AsyncTask<Void, Void, Void>{
 
-    private String[] stopIdsInArea = {"2468", "1820", "1825", "1819", "2960", "7025", "7026", "4747"}; // stops in area
+    private RouteChoice routeChoice;
+
+    public DublinBusRouteFinder(RouteChoice routeChoice)
+    {
+        this.routeChoice = routeChoice;
+        stopIdsInArea = routeChoice.getResources().getStringArray(R.array.dublin_bus_stops);
+    }
+
+    private String[] stopIdsInArea;// // stops in area
 
     private String routes[]; // array of routes
 
     @Override
-    protected String[] doInBackground(Void... voids) {
+    protected Void doInBackground(Void... voids) {
         routes =  getAvailibleRouteNumbers(); // gets routes
-        return routes;
+        return null;
     }
 
     @Override
     protected void onProgressUpdate(Void... values) {
         super.onProgressUpdate(values);
-
     }
 
+    @Override
+    protected void onPostExecute(Void voids) {
+        super.onPostExecute(voids);
+        routeChoice.display(routes);
+    }
 
     public String[] getRoutes()
     {
