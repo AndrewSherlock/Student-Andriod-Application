@@ -1,26 +1,36 @@
 package com.itbstudentapp;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
+import android.view.animation.AlphaAnimation;
 import android.widget.Button;
+import android.widget.TextView;
 
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.itbstudentapp.ChatSystem.Chat;
+import com.itbstudentapp.EventSystem.EventDisplay;
+
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button forum, transport, map, timetable, quiz, chat, links, phone;
     private Button TEMP_LOG_OUT;
 
+    private EventDisplay eventDisplay;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
@@ -43,21 +53,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         timetable.setOnClickListener(this);
 
 //        TEMP_LOG_OUT.setOnClickListener(this);
+        eventDisplay = new EventDisplay(this, (TextView) findViewById(R.id.event_message), (TextView) findViewById(R.id.event_add));
+
 
     }
 
-
     // this interputs the button which clicked
     public void onClick(View view) {
-
-      /*  if(view.getId() == R.id.logout)
-        {
-            FirebaseAuth auth = FirebaseAuth.getInstance();
-            auth.signOut();
-
-            Intent intent = new Intent(this, LoginScreen.class);
-            startActivity(intent);
-        } */
 
         switch (view.getId()){
             case R.id.transport:

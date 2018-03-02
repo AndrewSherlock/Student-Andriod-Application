@@ -35,7 +35,7 @@
         <activity android:name=".Timetable" />
         <activity android:name=".Quiz" />
         <activity android:name=".Links" />
-        <activity android:name=".Chat" />
+        <activity android:name=".ChatSystem.Chat" />
         <activity android:name=".Phone" />
         <activity android:name=".DublinBus.RouteChoice" />
         <activity android:name=".DublinBus.StopList" />

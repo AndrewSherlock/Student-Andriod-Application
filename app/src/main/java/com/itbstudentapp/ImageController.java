@@ -64,20 +64,23 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            fileId = UUID.randomUUID().toString();
+            final String file = UUID.randomUUID().toString();
 
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("forumImages/" + fileId);
+            StorageReference ref = FirebaseStorage.getInstance().getReference().child("forumImages/" + file);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     progressDialog.dismiss();
                     Toast.makeText(context, "File uploaded", Toast.LENGTH_SHORT).show();
+                    fileId = file;
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     progressDialog.dismiss();
                     Toast.makeText(context, "File uploaded", Toast.LENGTH_SHORT).show();
+                    fileId = "";
                 }
             }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                 @Override

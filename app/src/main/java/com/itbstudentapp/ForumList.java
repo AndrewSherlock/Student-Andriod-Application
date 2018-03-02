@@ -1,6 +1,5 @@
 package com.itbstudentapp;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +20,7 @@ public class ForumList extends AppCompatActivity implements View.OnClickListener
         forum_topic = getIntent().getStringExtra("path");
 
         forum_title = findViewById(R.id.forum_banner_title);
-        forum_title.setText(UtilityFunctions.formatForumTitles(forum_topic));
+        forum_title.setText(UtilityFunctions.formatTitles(forum_topic));
 
         post_button = findViewById(R.id.forum_new_post);
 

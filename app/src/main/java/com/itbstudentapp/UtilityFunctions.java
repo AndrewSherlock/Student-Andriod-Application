@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,7 +15,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -29,6 +41,9 @@ public class UtilityFunctions {
     public static String accountType;
     public static String studentCourse = "bn104";
     public static String student_group = "group_1";
+
+    public static final int READ = 0;
+    public static final int UNREAD = 1;
 
     public static String getUserNameFromFirebase()
     {
@@ -72,7 +87,7 @@ public class UtilityFunctions {
         return networkInfo.isConnected();
     }
 
-    public static String formatForumTitles(String forum_topic)
+    public static String formatTitles(String forum_topic)
     {
         String topicArray[] = forum_topic.split("/");
         String topic = topicArray[topicArray.length - 1];
@@ -160,5 +175,30 @@ public class UtilityFunctions {
         String[] colorHexes = {"d6d322", "ce371c", "299308", "069b71", "91057c", "8c010a"};
 
         return colorHexes[index % colorHexes.length];
+    }
+
+    public static void loadImageToView(final String userName, final Context context, final ImageView imageView)
+    {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + userName);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.child("imageLink") != null) {
+                    String imageUrl = dataSnapshot.child("imageLink").getValue(String.class);
+                    StorageReference storageReference = FirebaseStorage.getInstance().getReference("userImages/" + imageUrl);
+                    storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(context).load(uri).into(imageView);
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

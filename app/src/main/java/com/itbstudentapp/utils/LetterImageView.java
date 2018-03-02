@@ -76,6 +76,7 @@ public class LetterImageView extends android.support.v7.widget.AppCompatImageVie
             mTextPaint.getTextBounds(String.valueOf(mLetter), 0, 1, textBounds);
             float textWidth = mTextPaint.measureText(String.valueOf(mLetter));
             float textHeight = textBounds.height();
+
             // Draw the text
             canvas.drawText(String.valueOf(mLetter), canvas.getWidth() / 2f - textWidth / 2f,
                     canvas.getHeight() / 2f + textHeight / 2f, mTextPaint);

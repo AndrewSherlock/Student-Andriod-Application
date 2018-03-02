@@ -1,4 +1,4 @@
-package com.itbstudentapp;
+package com.itbstudentapp.ChatSystem;
 
 public class Message {
 

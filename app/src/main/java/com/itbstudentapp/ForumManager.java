@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.ChildEventListener;
@@ -72,7 +70,7 @@ public class ForumManager {
                     if (key.equalsIgnoreCase("forum_module")) {
                         counter++;
                         String permittedCourse = data.child("permitted").getValue(String.class);
-                        topic_name.add(UtilityFunctions.formatForumTitles(data.getKey()));
+                        topic_name.add(UtilityFunctions.formatTitles(data.getKey()));
                         if (permittedCourse != null) {
                             String[] courses = permittedCourse.split("_");
                             for (int i = 0; i < courses.length; i++) {
@@ -86,7 +84,7 @@ public class ForumManager {
                         }
                     } else if (key.equalsIgnoreCase("forum_groups")) {
                         counter++;
-                        topic_name.add(UtilityFunctions.formatForumTitles(data.getKey()));
+                        topic_name.add(UtilityFunctions.formatTitles(data.getKey()));
                         String permitted = data.child("permitted").getValue(String.class);
                         if (permitted.equalsIgnoreCase("all") || (permitted.equalsIgnoreCase(UtilityFunctions.student_group))) {
                             isPermitted = true;
@@ -96,7 +94,7 @@ public class ForumManager {
                     if (isPermitted) {
                         View view = LayoutInflater.from(gridLayout.getContext()).inflate(R.layout.forum_section_panel, null);
                         TextView text = view.findViewById(R.id.section_text_box);
-                        text.setText(UtilityFunctions.formatForumTitles(data.getKey()));
+                        text.setText(UtilityFunctions.formatTitles(data.getKey()));
 
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override

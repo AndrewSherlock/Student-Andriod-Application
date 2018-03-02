@@ -3,26 +3,132 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#cc000000"
     >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#33000000"
         android:id="@+id/contact_title">
 
         <TextView
-            android:layout_width="250dp"
-            android:layout_marginRight="20dp"
-            android:layout_height="wrap_content"
-            android:text="Contacts"
-            android:textSize="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="Contact List"
+            android:fontFamily="@font/cuprumbold"
+            android:textSize="30sp"
+            android:textColor="#ffff"
             android:textAlignment="center"
-            android:textColor="#fff"
             />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/contact_title"
+        android:orientation="vertical"
+        android:id="@+id/filter_area">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Filter contacts"
+            android:textSize="20sp"
+            android:fontFamily="@font/cuprumbold"
+            android:textColor="#fff"
+            android:textAlignment="center"
+            android:layout_marginBottom="5sp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_margin="5sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:fontFamily="@font/cuprumbold"
+            android:textColor="#fff"
+            android:clickable="true"
+            android:background="@drawable/contat_dialog"
+            android:text="Student"
+            android:padding="10sp"
+            android:id="@+id/user_student"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_margin="5sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:fontFamily="@font/cuprumbold"
+            android:textColor="#fff"
+            android:clickable="true"
+            android:background="@drawable/contat_dialog"
+            android:text="Lecturer"
+            android:padding="10sp"
+            android:id="@+id/user_lecturer"
+            android:textAlignment="center"
+            />
+
+        <TextView
+            android:layout_margin="5sp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:fontFamily="@font/cuprumbold"
+            android:textColor="#fff"
+            android:clickable="true"
+            android:background="@drawable/contat_dialog"
+            android:text="Staff"
+            android:padding="10sp"
+            android:id="@+id/user_staff"
+            android:textAlignment="center"
+            />
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter username"
+            android:textColorHint="#fff"
+            android:textSize="28sp"
+            android:fontFamily="@font/cuprumbold"
+            android:layout_margin="10sp"
+            android:backgroundTint="#fff"
+            android:id="@+id/user_search_box"
+            />
+
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/filter_area"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/contact_holder"
+            >
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+   <!-- <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/contact_title"
@@ -70,8 +176,9 @@
 
             </LinearLayout>
         </ScrollView>
-    </LinearLayout>
 
+    </LinearLayout>
+-->
 </RelativeLayout>
 
 
