@@ -22,21 +22,25 @@
             android:fontFamily="@font/cuprumbold"
             android:gravity="center_vertical"
             android:paddingLeft="10sp"
-            android:text="Event"
-            android:textSize="30sp" />
+            android:text="aaaaaaaaaaaaaaaaaaa"
+            android:id="@+id/event_title"
+            android:textSize="25sp"
+            android:maxLines="1"/>
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".3"
-            android:src="@drawable/cross" />
+            android:src="@drawable/cross"
+            android:id="@+id/event_remove"/>
 
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight=".3"
-            android:src="@drawable/plus" />
+            android:src="@drawable/plus"
+            android:id="@+id/event_edit"/>
 
     </LinearLayout>
 

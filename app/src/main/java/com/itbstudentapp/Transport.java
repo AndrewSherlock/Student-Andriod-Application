@@ -83,4 +83,9 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         startActivity(intent);
         finish();
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
 }

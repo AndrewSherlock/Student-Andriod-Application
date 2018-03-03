@@ -65,4 +65,9 @@ public class Links extends AppCompatActivity {
         return colorHexes[index % colorHexes.length];
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
 }

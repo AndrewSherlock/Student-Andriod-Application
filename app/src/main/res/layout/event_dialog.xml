@@ -54,9 +54,9 @@
                 android:layout_margin="10sp"
                 android:backgroundTint="#fff"
                 android:fontFamily="@font/cuprumbold"
-                android:text="Enter date valid till"
                 android:inputType="datetime"
                 android:paddingLeft="10sp"
+                android:text="Enter date valid till"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:textSize="28sp" />
@@ -90,7 +90,7 @@
                 android:backgroundTint="#fff"
                 android:fontFamily="@font/cuprumbold"
                 android:paddingLeft="10sp"
-                android:text="No imagge uploaded"
+                android:text="No image uploaded"
                 android:textColor="#fff"
                 android:textColorHint="#fff"
                 android:textSize="28sp" />

@@ -155,5 +155,9 @@ public class Timetable extends AppCompatActivity implements View.OnClickListener
         return colorHexes[index % colorHexes.length];
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
 }

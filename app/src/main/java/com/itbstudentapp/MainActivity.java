@@ -65,37 +65,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.transport:
                 startActivity(new Intent(this, Transport.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.forum:
                 startActivity(new Intent(this, Forum.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.map:
                 startActivity(new Intent(this, Map.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.quiz:
                 startActivity(new Intent(this, Quiz.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.links:
                 startActivity(new Intent(this, Links.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.chat:
                 startActivity(new Intent(this, Chat.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.phone:
                 startActivity(new Intent(this, Phone.class));
+                onActivityChange();
+                finish();
                 break;
             case R.id.timetable:
                 startActivity(new Intent(this, Timetable.class));
+                onActivityChange();
+                finish();
                 break;
 
         }
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        eventDisplay.getEvents();
-
+    private void onActivityChange()
+    {
+        eventDisplay.displayHandler.removeCallbacksAndMessages(null);
     }
 }

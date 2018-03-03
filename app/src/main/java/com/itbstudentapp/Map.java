@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -293,5 +294,10 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback, View.O
                     Toast.makeText(this, "Permission Denied!", Toast.LENGTH_SHORT).show();
                 }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

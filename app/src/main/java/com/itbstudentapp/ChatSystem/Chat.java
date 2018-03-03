@@ -21,6 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.itbstudentapp.MainActivity;
 import com.itbstudentapp.MessageScreen;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
@@ -106,6 +107,11 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     {
         message_scrollview.removeAllViews();
         csr.loadGroupMessageList(message_scrollview);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
 

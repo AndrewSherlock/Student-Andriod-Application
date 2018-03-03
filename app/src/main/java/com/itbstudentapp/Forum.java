@@ -94,17 +94,6 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
             Intent intent = new Intent(gridLayout.getContext(), ForumList.class);
             intent.putExtra("path", sectionName);
             gridLayout.getContext().startActivity(intent);
-
-            /*
-            String path = "forum/" + sectionName;
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference(path);
-            Log.e("FML", "handleMenuMain: " + reference );
-
-            sectionName = sectionName.replace("forum", "");
-            sectionName = sectionName.replace("_", " ");
-            sectionName = sectionName.trim();
-            sectionName = sectionName.substring(0,1).toUpperCase() + sectionName.substring(1, sectionName.length()).toLowerCase(); */
-
         }
     }
 
@@ -148,6 +137,11 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
 
         return sections[index];
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 }
 

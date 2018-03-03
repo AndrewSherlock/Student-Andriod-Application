@@ -48,6 +48,7 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
     {
         this.context = context;
         this.imageUploaded = imageUploaded;
+        this.caller = (Activity) context;
     }
 
     public ImageController(Activity activity)
@@ -68,14 +69,14 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
         caller.startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code);
     }
 
-    public void ImageUpload(final Context context, Uri filePath) {
+    public void ImageUpload(final Context context, Uri filePath, String directory) {
         if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
             final String file = UUID.randomUUID().toString();
 
-            StorageReference ref = FirebaseStorage.getInstance().getReference().child("forumImages/" + file);
+            StorageReference ref = FirebaseStorage.getInstance().getReference().child(directory + "/" + file);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {

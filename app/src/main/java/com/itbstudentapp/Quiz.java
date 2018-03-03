@@ -166,7 +166,10 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener{
         }
 
         updateQuestion();
+    }
 
-
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

@@ -338,7 +338,7 @@ public class ChatSystemController {
 
         if (fileUpload != null) {
             ImageController ic = new ImageController();
-            ic.ImageUpload(context, fileUpload);
+            ic.ImageUpload(context, fileUpload, "chat");
         }
 
         Message message = new Message(myUsername, userInput, time, filePath);
@@ -448,7 +448,7 @@ public class ChatSystemController {
 
         if (imageUpload != null) {
             ImageController ic = new ImageController();
-            ic.ImageUpload(context, imageUpload);
+            ic.ImageUpload(context, imageUpload, "chat");
 
             while (filePath == null)
             {

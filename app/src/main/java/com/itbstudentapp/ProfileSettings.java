@@ -110,6 +110,11 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
 
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
+
     private void changeUserPassword()
     {
         final Dialog dialog = new Dialog(this);

@@ -207,6 +207,20 @@ public class UtilityFunctions {
         });
     }
 
+    public static void loadEventImageToView(final String event, final Context context, final ImageView imageView)
+    {
+
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference("events/" + event);
+        storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(context).load(uri).into(imageView);
+            }
+        });
+    }
+
+
+
     public static String milliToDate(long time)
     {
         Date messageDate = new Date(time);
