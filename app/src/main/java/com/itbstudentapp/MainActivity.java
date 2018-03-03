@@ -13,8 +13,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.itbstudentapp.ChatSystem.Chat;
 import com.itbstudentapp.EventSystem.EventDisplay;
+import com.itbstudentapp.NotificationSystem.FirebaseNotificationManager;
 
 import java.util.Calendar;
 import java.util.Timer;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //FirebaseNotificationManager.sendNotificationToUser("B00090936", "New notification");
+        Log.e("", "onCreate: " + FirebaseStorage.getInstance().getReference("events"));
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
