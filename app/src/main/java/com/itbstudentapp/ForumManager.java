@@ -32,6 +32,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.itbstudentapp.NotificationSystem.FirebaseNotificationManager;
+import com.itbstudentapp.NotificationSystem.Notification;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -147,9 +149,9 @@ public class ForumManager {
                 Looper.prepare();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("forum/" + forumLink + "/topics/");
                 reference.child(post.getPostTitle()).setValue(post);
-                reference.child(post.getPostTitle()).child("subscribed_users").child(UtilityFunctions.getUserNameFromFirebase()).setValue(UtilityFunctions.getUserNameFromFirebase());
-
+                reference.child(post.getPostTitle()).child("subscribed_users").child(UtilityFunctions.getUserNameFromFirebase()).setValue(UtilityFunctions.getUserNameFromFirebase() + ",");
                 Toast.makeText(context, "Topic posted successfully", Toast.LENGTH_SHORT).show();
+                sendNotificationsToUsers(reference.child(post.getPostTitle()).child("subscribed_users").getRef());
                 newPostModal.postMessage();
             }
         });
@@ -157,6 +159,34 @@ public class ForumManager {
         delayThread.start();
 
         return true;
+    }
+
+    private void sendNotificationsToUsers(final DatabaseReference reference)
+    {
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                String userList = dataSnapshot.getValue(String.class);
+
+                String[] usersArray = userList.split(",");
+                Log.e("AG", "onDataChange: " + dataSnapshot.getRef( ) + "/" +dataSnapshot.getChildrenCount());
+
+                for(DataSnapshot name : dataSnapshot.getChildren())
+                {
+                    //String notificationType, String title, String body, String messageSender
+                    Notification notification = new Notification("forum", "New reply to a topic you posted in.", "", name.getKey().toLowerCase());
+                    FirebaseNotificationManager.sendNotificationToUser(notification);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     boolean hasUploaded = false;
@@ -349,7 +379,7 @@ public class ForumManager {
                     }
 
                     addMessageFunctionToView(dataSnapshot.getKey(), userImage);
-
+                    Log.d("teste", "onDataChange: " + dataSnapshot.getKey() + " "  + userImage);
                     messageSection.addView(view);
 
                     if (counter == posts.size() - 1) {

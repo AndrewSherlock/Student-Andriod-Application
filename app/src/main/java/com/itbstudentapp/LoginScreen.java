@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener{
 
@@ -111,6 +112,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
+        final Intent fBase = new Intent(this, MyFirebaseMessagingService.class);
+        final Intent fbaseId = new Intent(this, MyFirebaseInstanceIDService.class);
+
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + prepareLink(username));
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,6 +142,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                                         Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                                         startActivity(intent);
                                         progress.dismiss();
+                                        startService(fBase);
+                                        startService(fbaseId);
+                                        MyFirebaseInstanceIDService.saveTokenToDb();
                                         finish();
                                     }
                                     else {

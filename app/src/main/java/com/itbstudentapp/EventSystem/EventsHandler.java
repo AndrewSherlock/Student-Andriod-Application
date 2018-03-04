@@ -23,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.itbstudentapp.MainActivity;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
+import com.itbstudentapp.utils.UserSettings;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_handler);
+        UserSettings.currentIntent = this.getIntent();
 
         addEvent = findViewById(R.id.add_event);
         addEvent.setOnClickListener(this);
@@ -112,6 +114,11 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
         if (v.getId() == addEvent.getId()) {
             eventDialog = new EventDialog(this, this);
         }
+    }
+
+    public void reloadIntent()
+    {
+        startActivity(getIntent());
     }
 
     @Override

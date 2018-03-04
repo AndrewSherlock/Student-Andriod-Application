@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Transport" />
-        <activity android:name=".Map" />
+        <activity android:name=".MapActivity" />
         <activity android:name=".Forum" />
         <activity android:name=".Timetable" />
         <activity android:name=".Quiz" />
@@ -68,6 +68,20 @@
         <activity android:name=".ItbShuttleBus.ItbShuttleTimes" />
         <activity android:name=".TrainHandler.TrainTimeTable" />
         <activity android:name=".EventSystem.EventsHandler"></activity>
+
+        <service
+            android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

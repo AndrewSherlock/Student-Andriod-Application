@@ -1,6 +1,7 @@
 package com.itbstudentapp.EventSystem;
 
 import android.app.Dialog;
+import android.app.Notification;
 import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.itbstudentapp.ImageController;
 import com.itbstudentapp.Interfaces.OnImageUploaded;
+import com.itbstudentapp.NotificationSystem.FirebaseNotificationManager;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
 
@@ -204,7 +206,15 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
         String event_id = UUID.randomUUID().toString();
         FirebaseDatabase.getInstance().getReference("events").child(event_id).setValue(event);
 
+        //String notificationType, String title, String body
+        com.itbstudentapp.NotificationSystem.Notification notification =
+                new com.itbstudentapp.NotificationSystem.Notification("event", "New event posted", title);
+
+        FirebaseNotificationManager.sendNotificationToUser(notification);
+
+
         dismiss();
+        eventsHandler.reloadIntent();
     }
 
     @Override

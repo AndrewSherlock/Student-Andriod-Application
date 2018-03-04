@@ -39,7 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private TextView addRoomButton, submit;
     private EditText enterRoomBox;

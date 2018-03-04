@@ -1,27 +1,19 @@
 package com.itbstudentapp;
 
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
 import com.itbstudentapp.ChatSystem.Chat;
 import com.itbstudentapp.EventSystem.EventDisplay;
 import com.itbstudentapp.NotificationSystem.FirebaseNotificationManager;
-
-import java.util.Calendar;
-import java.util.Timer;
-import java.util.TimerTask;
+import com.itbstudentapp.NotificationSystem.Notification;
+import com.itbstudentapp.utils.UserSettings;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,9 +26,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        UserSettings.currentIntent = this.getIntent();
 
-        //FirebaseNotificationManager.sendNotificationToUser("B00090936", "New notification");
-        Log.e("", "onCreate: " + FirebaseStorage.getInstance().getReference("events"));
+
+        //startService(new Intent(this, MyFirebaseMessagingService.class));
+
+//        Notification notification = new Notification("chat", "Test notification", "This is a notifcation", "b00090936");
+//        FirebaseNotificationManager.sendNotificationToUser(notification);
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
@@ -79,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.map:
-                startActivity(new Intent(this, Map.class));
+                startActivity(new Intent(this, MapActivity.class));
                 onActivityChange();
                 finish();
                 break;

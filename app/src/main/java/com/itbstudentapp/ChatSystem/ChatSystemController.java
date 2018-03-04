@@ -25,10 +25,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.itbstudentapp.ImageController;
 import com.itbstudentapp.MessageScreen;
+import com.itbstudentapp.NotificationSystem.FirebaseNotificationManager;
+import com.itbstudentapp.NotificationSystem.Notification;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
 
@@ -351,6 +354,8 @@ public class ChatSystemController {
                 reference.child("message_info").child("read_status").setValue(String.valueOf(UtilityFunctions.READ));
             } else {
                 reference.child("message_info").child("read_status").setValue(String.valueOf(UtilityFunctions.UNREAD));
+                Notification notification = new Notification("chat", myUsername + " sent you a message!", userInput,  users[i]);
+                FirebaseNotificationManager.sendNotificationToUser(notification);
             }
             reference.child("message_info").child("time_stamp").setValue(time);
 
