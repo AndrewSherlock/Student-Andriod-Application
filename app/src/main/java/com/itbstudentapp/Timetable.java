@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -18,7 +19,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class Timetable extends AppCompatActivity implements View.OnClickListener{
+public class Timetable extends AppCompatActivity{
 
     private ListView listView;
     private TextView homeTextBtn;
@@ -26,8 +27,7 @@ public class Timetable extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        homeTextBtn = findViewById(R.id.timetableHomeBtn);
-        homeTextBtn.setOnClickListener(this);
+
         setContentView(R.layout.activity_timetable);
 
         setupUIViews();
@@ -36,6 +36,14 @@ public class Timetable extends AppCompatActivity implements View.OnClickListener
 
     private void setupUIViews(){
        listView=findViewById(R.id.timetable);
+        homeTextBtn = findViewById(R.id.timetableHomeBtn);
+        homeTextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Timetable.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void setupListView(){
@@ -93,15 +101,6 @@ public class Timetable extends AppCompatActivity implements View.OnClickListener
                 }
             }
         });
-    }
-
-    @Override
-    public void onClick(View view) {
-        if(view.getId() == R.id.timetableHomeBtn)
-        {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
     }
 
     public class SimpleAdapter extends BaseAdapter{

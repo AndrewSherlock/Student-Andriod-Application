@@ -57,6 +57,7 @@ public class UtilityFunctions {
 
     public static String[] getNumberOfColors(int numberOfUsers)
     {
+
         String[] colors = {"#a5d389","#84ceb7","#dbd64a", "#a5d389","#84ceb7","#dbd64a"};
 
         String[] returnColors = new String[numberOfUsers];
@@ -177,7 +178,8 @@ public class UtilityFunctions {
 
     public static String getHexColor(int index)
     {
-        String[] colorHexes = {"d6d322", "ce371c", "299308", "069b71", "91057c", "8c010a"};
+
+        String[] colorHexes = {"d6d322", "011966","ce371c", "299308", "069b71", "91057c", "8c010a", "33b5e5"};
 
         return colorHexes[index % colorHexes.length];
     }
