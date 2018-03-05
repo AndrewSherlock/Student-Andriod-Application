@@ -111,6 +111,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void onActivityChange()
     {
-        eventDisplay.displayHandler.removeCallbacksAndMessages(null);
+        if(eventDisplay.displayHandler!=null){
+            eventDisplay.displayHandler.removeCallbacksAndMessages(null);
+        }
+
     }
 }

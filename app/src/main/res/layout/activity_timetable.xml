@@ -14,8 +14,8 @@
         android:gravity="center"
         android:text="Home"
         android:textColor="#fff"
-        android:background="@drawable/forum_panels"
-        android:backgroundTint="#cc0011cc"
+        android:background="@drawable/forum_buttons"
+        android:backgroundTint="#8b003101"
         android:textSize="25sp"
         />
 
