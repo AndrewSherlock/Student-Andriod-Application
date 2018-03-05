@@ -210,7 +210,7 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
         com.itbstudentapp.NotificationSystem.Notification notification =
                 new com.itbstudentapp.NotificationSystem.Notification("event", "New event posted", title);
 
-        FirebaseNotificationManager.sendNotificationToUser(notification);
+       // FirebaseNotificationManager.sendNotificationToUser(notification);
 
 
         dismiss();

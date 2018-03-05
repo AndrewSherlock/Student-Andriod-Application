@@ -46,6 +46,8 @@ public class UtilityFunctions {
     public static final int READ = 0;
     public static final int UNREAD = 1;
 
+    public static final int noImageUser = R.drawable.ic_launcher_web;
+
     public static String getUserNameFromFirebase()
     {
         FirebaseAuth auth = FirebaseAuth.getInstance();
