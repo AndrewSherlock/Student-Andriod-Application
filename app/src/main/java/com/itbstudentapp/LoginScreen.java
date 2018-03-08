@@ -2,6 +2,7 @@ package com.itbstudentapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -51,11 +52,11 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         forgotten_password.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
+        Log.e("Auth", "onCreate: " + (auth == null) );
 
         if(auth.getCurrentUser() != null)
         {
-            Log.e("User", "onCreate: " + auth.getCurrentUser().getEmail());
-            Intent intent = new Intent(this, MainActivity.class);
+           Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
     }
@@ -118,7 +119,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + prepareLink(username));
         ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
+            public void onDataChange(final DataSnapshot dataSnapshot)
             {
                 if(!dataSnapshot.exists())
                 {
@@ -128,29 +129,31 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                 }
 
                 boolean isLocked = dataSnapshot.child("lockedAccount").getValue(boolean.class);
-                final String accountType = dataSnapshot.child("accountType").getValue(String.class);
+
                 if(!isLocked)
                 {
+                    Log.e("Debug", "onDataChange: " + (auth == null) + "/" + dataSnapshot.getKey());
+
                     auth.signInWithEmailAndPassword(dataSnapshot.child("email").getValue(String.class), user_password)
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if(task.isSuccessful())
                                     {
-                                        UtilityFunctions.accountType = accountType;
-                                        Log.e("Login", UtilityFunctions.accountType + "/" + accountType );
+
                                         Intent intent = new Intent(LoginScreen.this, MainActivity.class);
-                                        startActivity(intent);
                                         progress.dismiss();
                                         startService(fBase);
                                         startService(fbaseId);
                                         MyFirebaseInstanceIDService.saveTokenToDb();
+                                        startActivity(intent);
                                         finish();
                                     }
                                     else {
                                         Toast.makeText(getApplicationContext(), "Sign in failed.", Toast.LENGTH_SHORT);
                                         user.setText("");
                                         password.setText("");
+                                        progress.dismiss();
                                     }
                                 }
                             });

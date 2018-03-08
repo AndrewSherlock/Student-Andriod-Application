@@ -10,7 +10,7 @@
     android:paddingTop="16sp"
     android:orientation="vertical"
 
-    tools:context="itbstudentapp.com.itbstudentapp.Quiz">
+    tools:context="com.itbstudentapp.Quiz">
 
 
 

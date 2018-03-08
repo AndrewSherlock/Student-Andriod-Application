@@ -1,22 +1,21 @@
 package com.itbstudentapp;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import com.bumptech.glide.Glide;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,30 +26,33 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.itbstudentapp.EventSystem.EventsHandler;
+import com.itbstudentapp.QuizSystem.QuizPanel;
+import com.itbstudentapp.utils.UserSettings;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 
 public class UtilityFunctions {
 
-    //Unexpected response code 400 for https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?alt=proto&key=AIzaSyB9mqThE6rggW05s69Zb2p82oiIxlnonZg
-    // TODO, values not retained. help me
 
-    public static boolean isStaffMember;
-    public static String accountType;
     public static String studentCourse = "bn104";
     public static String student_group = "group_1";
 
     public static final int READ = 0;
     public static final int UNREAD = 1;
 
+    public static final String PREF_FILE = "user_pref.xml";
+
     public static final int noImageUser = R.drawable.ic_launcher_web;
 
     public static String getUserNameFromFirebase()
     {
         FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        if(auth.getCurrentUser() == null)
+            return  null;
+
         String user_name = auth.getCurrentUser().getEmail().toString();
         user_name = user_name.split("@")[0].toLowerCase();
 
@@ -110,6 +112,7 @@ public class UtilityFunctions {
     public static Toolbar getApplicationToolbar(final Activity context)
     {
         Toolbar toolbar = (Toolbar) context.findViewById(R.id.tool_bar);
+        final SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
 
         final ImageView menuButton = toolbar.findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {
@@ -118,18 +121,20 @@ public class UtilityFunctions {
                 PopupMenu menu = new PopupMenu(context.getBaseContext(), menuButton);
 
                 menu.getMenu().add("Profile Settings");
-               /*
-                if(accountType.equalsIgnoreCase("itb-staff"))
+
+                if(preferences.getString("accountType", "").equalsIgnoreCase("itb-staff"))
                 {
                     menu.getMenu().add("Admin panel");
+                    menu.getMenu().add("Events");
                 }
 
-                if(accountType .equalsIgnoreCase("lecturer") || accountType.equalsIgnoreCase( "itb-staff"))
+                if(preferences.getString("accountType", "").equalsIgnoreCase("lecturer")
+                        ||preferences.getString("accountType", "").equalsIgnoreCase( "itb-staff"))
                 {
                     menu.getMenu().add("Set quiz");
-                } */
+                }
 
-                menu.getMenu().add("Events");
+
                 menu.getMenu().add("Contact us");
                 menu.getMenu().add("Logout");
 
@@ -147,10 +152,15 @@ public class UtilityFunctions {
                                 loadMenuIntent(context, ProfileSettings.class);
                                 break;
                             case "admin panel":
+                                context.startActivity(new Intent(context, AdminPanel.class));
                                 break;
                             case "set quiz":
+                                context.startActivity(new Intent(context, QuizPanel.class));
                                 break;
                             case "contact us":
+                                Intent contact = new Intent(context, MessageScreen.class);
+                                contact.putExtra("message_id", "b00090936");
+                                context.startActivity(contact);
                                 break;
                             case "events":
                                 context.startActivity(new Intent(context, EventsHandler.class));
@@ -159,6 +169,7 @@ public class UtilityFunctions {
                                 FirebaseAuth auth = FirebaseAuth.getInstance();
                                 auth.signOut();
                                 Intent intent = new Intent(context, LoginScreen.class);
+                                UserSettings.clearFile(context);
                                 context.startActivity(intent);
                                 break;
                         }
@@ -231,5 +242,16 @@ public class UtilityFunctions {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
         String date = simpleDateFormat.format(messageDate);
         return  date;
+    }
+
+    public static boolean askForLocationPermission(Activity activity)
+    {
+        if(ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(activity, android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)
+        {
+            return true;
+        } else{
+            return false;
+        }
     }
 }

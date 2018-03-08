@@ -3,6 +3,7 @@ package com.itbstudentapp.ItbShuttleBus;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.Time;
@@ -223,6 +224,13 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(25);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
+
+        if(UtilityFunctions.askForLocationPermission(this))
+        {
+            googleMap.setMyLocationEnabled(true);
+        } else{
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
     private LatLng findCoordForStop(String stop)

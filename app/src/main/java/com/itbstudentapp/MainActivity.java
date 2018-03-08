@@ -1,18 +1,20 @@
 package com.itbstudentapp;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.itbstudentapp.ChatSystem.Chat;
 import com.itbstudentapp.EventSystem.EventDisplay;
-import com.itbstudentapp.NotificationSystem.FirebaseNotificationManager;
-import com.itbstudentapp.NotificationSystem.Notification;
+import com.itbstudentapp.QuizSystem.QuizHome;
 import com.itbstudentapp.utils.UserSettings;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -28,11 +30,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         UserSettings.currentIntent = this.getIntent();
 
+        SharedPreferences editor = getSharedPreferences(UtilityFunctions.PREF_FILE, MODE_PRIVATE);
+        UserSettings.checkIfInit(this, UtilityFunctions.getUserNameFromFirebase());
 
-        //startService(new Intent(this, MyFirebaseMessagingService.class));
+        Log.e("here", "onCreate: " + editor.getBoolean("vibrate", true));
 
-//        Notification notification = new Notification("chat", "Test notification", "This is a notifcation", "b00090936");
-//        FirebaseNotificationManager.sendNotificationToUser(notification);
+        Log.e("username", "onCreate: " + editor.getString("username", "unknown"));
+        Log.e("accountType", "onCreate: " + editor.getString("accountType", "unknown"));
+        Log.e("course", "onCreate: " + editor.getString("courseID", "unknown"));
+        Log.e("course", "onCreate: " + editor.getString("studentGroups", "unknown"));
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
@@ -80,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.quiz:
-                startActivity(new Intent(this, Quiz.class));
+                //startActivity(new Intent(this, Quiz.class));
+                startActivity(new Intent(this, QuizHome.class));
                 onActivityChange();
                 finish();
                 break;

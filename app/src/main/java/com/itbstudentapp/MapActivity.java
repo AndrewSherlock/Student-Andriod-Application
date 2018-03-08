@@ -107,6 +107,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(25);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(lat));
+
+        if(UtilityFunctions.askForLocationPermission(this))
+        {
+            googleMap.setMyLocationEnabled(true);
+        } else{
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
 

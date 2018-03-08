@@ -3,6 +3,7 @@ package com.itbstudentapp.DublinBus;
 import android.app.ProgressDialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -90,7 +91,7 @@ public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, O
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        googleMap.setMyLocationEnabled(true); // TODO show user position
+
         LatLng lat = new LatLng(Double.parseDouble(stop_lat), Double.parseDouble(stop_long));
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(45);
@@ -100,6 +101,13 @@ public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, O
         markerOptions.position(lat);
         markerOptions.title(stop_name);
         googleMap.addMarker(markerOptions);
+
+        if(UtilityFunctions.askForLocationPermission(this))
+        {
+            googleMap.setMyLocationEnabled(true);
+        } else{
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 
     @Override

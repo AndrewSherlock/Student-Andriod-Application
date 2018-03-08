@@ -62,6 +62,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         Map<String, String> params = remoteMessage.getData();
 
+        for(Map.Entry map : params.entrySet())
+        {
+            Log.e("", "onMessageReceived: " + map.getValue() + " Value <-/->Key " + map.getKey() );
+        }
+
         if(params.get("type").equalsIgnoreCase("event"))
             setupNotifyOfNewEvent(params);
         else if(params.get("type").equalsIgnoreCase("chat"))
@@ -80,6 +85,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this);
+        nBuilder.setSmallIcon(R.drawable.ic_launcher_web);
 
         setNotificationForUserSettings(nBuilder);
         nBuilder.setContentText(params.get("body"));
@@ -96,7 +102,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                nBuilder.setSmallIcon(UtilityFunctions.noImageUser);
                 String[] name = dataSnapshot.child("username").getValue(String.class).split(" ");
                 String formattedName = "";
 

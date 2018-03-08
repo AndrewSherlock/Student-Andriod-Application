@@ -1,9 +1,12 @@
 package com.itbstudentapp.DublinBus;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +22,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.itbstudentapp.Interfaces.OnThreadComplete;
+import com.itbstudentapp.Manifest;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
 
@@ -124,11 +128,17 @@ public class StopList extends AppCompatActivity implements OnMapReadyCallback, O
     @Override
     public void onMapReady(GoogleMap googleMap)
     {
-        googleMap.setMyLocationEnabled(true); // TODO show user position
         map = googleMap;
         LatLng lat = new LatLng(53.4048029,-6.3791624);
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(45);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
+
+        if(UtilityFunctions.askForLocationPermission(this))
+        {
+            googleMap.setMyLocationEnabled(true);
+        } else{
+            ActivityCompat.requestPermissions(this,new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 }

@@ -31,8 +31,6 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
         bus_eir.setOnClickListener(this);
         irish_rail.setOnClickListener(this);
         itb_shuttle.setOnClickListener(this);
-
-
     }
 
     @Override

@@ -164,6 +164,7 @@
                     android:background="@drawable/forum_buttons"
                     android:textAlignment="center"
                     android:textColor="#ffff"
+                    android:id="@+id/switch_vibrate"
                     />
             </LinearLayout>
             <LinearLayout
@@ -190,6 +191,7 @@
                     android:background="@drawable/forum_buttons"
                     android:textAlignment="center"
                     android:textColor="#ffff"
+                    android:id="@+id/switch_sound"
                     />
 
             </LinearLayout>
@@ -218,6 +220,7 @@
                     android:background="@drawable/forum_buttons"
                     android:textAlignment="center"
                     android:textColor="#ffff"
+                    android:id="@+id/switch_led"
                     />
 
 
@@ -246,6 +249,7 @@
                     android:background="@drawable/forum_buttons"
                     android:textAlignment="center"
                     android:textColor="#ffff"
+                    android:id="@+id/switch_location"
                     />
 
             </LinearLayout>

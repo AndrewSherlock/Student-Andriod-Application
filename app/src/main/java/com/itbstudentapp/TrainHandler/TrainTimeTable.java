@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.itbstudentapp.MainActivity;
 import com.itbstudentapp.Interfaces.OnThreadComplete;
 import com.itbstudentapp.R;
+import com.itbstudentapp.Transport;
 import com.itbstudentapp.UtilityFunctions;
 
 import java.util.ArrayList;
@@ -107,5 +108,12 @@ public class TrainTimeTable extends AppCompatActivity implements OnThreadComplet
         }
 
         progressDialog.dismiss();
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+
+        startActivity(new Intent(this, Transport.class));
     }
 }

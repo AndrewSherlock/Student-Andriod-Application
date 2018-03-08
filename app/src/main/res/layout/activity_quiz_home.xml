@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.itbstudentapp.DublinBus.BusTimes"
+    tools:context="com.itbstudentapp.QuizSystem.QuizHome"
     android:background="@drawable/forum_background_img">
 
     <RelativeLayout
@@ -16,20 +16,19 @@
             android:layout_width="match_parent"
             android:layout_height="60sp"
             android:orientation="vertical"
-            android:id="@+id/_banner">
+            android:id="@+id/Quiz_header">
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
-                android:text="Coolmine Train Times"
-                android:textSize="28sp"
+                android:text="Quiz"
+                android:textSize="30sp"
                 android:fontFamily="@font/cuprumbold"
                 android:textColor="#ffffff"
                 android:textAlignment="center"
                 />
-
 
 
         </LinearLayout>
@@ -37,8 +36,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/_banner"
-            android:id="@+id/map_below"
+            android:layout_below="@id/Quiz_header"
             >
 
             <ScrollView
@@ -48,12 +46,13 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/times_list"
+                    android:id="@+id/quiz_subjects"
                     android:orientation="vertical">
 
                 </LinearLayout>
 
             </ScrollView>
+
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

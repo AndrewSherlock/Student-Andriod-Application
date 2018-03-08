@@ -4,14 +4,17 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.itbstudentapp.utils.UserSettings;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.KeySpec;
@@ -36,9 +40,10 @@ import java.util.UUID;
 import javax.crypto.SecretKeyFactory;
 import javax.microedition.khronos.opengles.GL;
 
-public class ProfileSettings extends AppCompatActivity implements View.OnClickListener{
+public class ProfileSettings extends AppCompatActivity implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private TextView changeProfilePicture, changePassword, backToHome;
+    private Switch led, vibrate, sound, geo;
     private static final int request_code = 1;
 
     @Override
@@ -48,6 +53,18 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
 
         changeProfilePicture = findViewById(R.id.profile_change_image);
         changeProfilePicture.setOnClickListener(this);
+
+        led = findViewById(R.id.switch_led);
+        vibrate = findViewById(R.id.switch_vibrate);
+        sound = findViewById(R.id.switch_sound);
+        geo = findViewById(R.id.switch_location);
+
+        led.setOnCheckedChangeListener(this);
+        vibrate.setOnCheckedChangeListener(this);
+        sound.setOnCheckedChangeListener(this);
+        geo.setOnCheckedChangeListener(this);
+
+        getCurrentPrefs();
 
         changePassword = findViewById(R.id.profile_reset_password);
         changePassword.setOnClickListener(this);
@@ -237,5 +254,60 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
                 progressDialog.setMessage((int) progress + "% complete.");
             }
         });
+    }
+
+    private void getCurrentPrefs()
+    {
+        SharedPreferences preferences = getSharedPreferences(UtilityFunctions.PREF_FILE, MODE_PRIVATE);
+
+        vibrate.setChecked(preferences.getBoolean("vibrate", true));
+        sound.setChecked(preferences.getBoolean("sound", true));
+        led.setChecked(preferences.getBoolean("led", true));
+        geo.setChecked(preferences.getBoolean("geo", true));
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+    {
+        if(buttonView.getId() == vibrate.getId())
+            handleChange("vibrate", isChecked);
+        else if(buttonView.getId() == sound.getId())
+            handleChange("sound", isChecked);
+        else if(buttonView.getId() == led.getId())
+            handleChange("led", isChecked);
+        else if(buttonView.getId() == geo.getId())
+            handleChange("geo", isChecked);
+
+    }
+
+    private void handleChange(String option, boolean isChecked)
+    {
+        SharedPreferences.Editor editor = getSharedPreferences(UtilityFunctions.PREF_FILE, MODE_PRIVATE).edit();
+
+        if(option.equalsIgnoreCase("vibrate"))
+        {
+            UserSettings.vibrate = isChecked;
+            editor.putBoolean("vibrate", UserSettings.vibrate);
+        }
+
+        if(option.equalsIgnoreCase("sound"))
+        {
+            UserSettings.play_sounds = isChecked;
+            editor.putBoolean("sound", UserSettings.play_sounds);
+        }
+
+        if(option.equalsIgnoreCase("geo"))
+        {
+            UserSettings.location = isChecked;
+            editor.putBoolean("geo", UserSettings.location);
+        }
+
+        if(option.equalsIgnoreCase("led"))
+        {
+            UserSettings.flash = isChecked;
+            editor.putBoolean("led", UserSettings.flash);
+        }
+
+        editor.apply();
     }
 }
