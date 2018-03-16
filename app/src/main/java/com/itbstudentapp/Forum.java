@@ -63,7 +63,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
     {
         isMenuMain = true;
 
-        LinearLayout[] layouts = {findViewById(R.id.forum_modules), findViewById(R.id.forum_campus), findViewById(R.id.forum_area), findViewById(R.id.forum_transport),
+        RelativeLayout[] layouts = {findViewById(R.id.forum_modules), findViewById(R.id.forum_campus), findViewById(R.id.forum_area), findViewById(R.id.forum_transport),
                 findViewById(R.id.forum_group), findViewById(R.id.forum_relax)};
 
         for(int i = 0; i < layouts.length; i++)

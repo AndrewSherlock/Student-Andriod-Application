@@ -42,6 +42,8 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap map;
     private boolean noBuses = true;
 
+    private LatLng coord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +148,11 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
                             params.setMargins(0, 0, 0, 25);
 
                             stopTimesLayout.addView(v, params);
-                            findCoordForStop(startingPoint);
+                            coord = findCoordForStop(startingPoint);
+
+                            if(map != null)
+                                map.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 15f));
+
                             continue;
                         }
                     }
@@ -220,7 +226,12 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap)
     {
         map = googleMap;
-        LatLng lat = new LatLng(53.4048029,-6.3791624);
+        LatLng lat;
+        if(coord == null)
+            lat = new LatLng(53.4048029,-6.3791624);
+        else
+            lat = coord;
+
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(25);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
@@ -242,9 +253,10 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         switch (stop.toLowerCase())
         {
             case "itb_campus":
-                 coord = getResources().getStringArray(R.array.itb);
-                lat = Double.parseDouble(coord[0]);
+                coord = getResources().getStringArray(R.array.itb);
+                lat = Double.parseDouble(coord[0]); //todo code breaking
                 lng = Double.parseDouble(coord[1]);
+                Log.e("Test", "findCoordForStop: " + lat +"/" + lng );
                 return new LatLng(lat, lng);
             case "coolmine _train_station":
                 coord = getResources().getStringArray(R.array.coolmine_stop);

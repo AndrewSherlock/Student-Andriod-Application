@@ -37,7 +37,7 @@
         android:id="@+id/profile_image"
         android:layout_width="80sp"
         android:layout_height="80sp"
-        android:src="@drawable/andrew_tester_profile"
+        android:src="@drawable/user_outline"
         android:layout_marginTop="1sp"
         android:elevation="10dp"
         android:layout_centerHorizontal="true"

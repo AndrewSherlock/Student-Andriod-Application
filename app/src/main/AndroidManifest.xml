@@ -86,7 +86,7 @@
         <activity android:name=".QuizSystem.Quiz" />
         <activity android:name=".QuizSystem.QuizPanel" />
         <activity android:name=".QuizSystem.QuizManagement" />
-        <activity android:name=".AdminPanel"></activity>
+        <activity android:name=".AdminSystem.AdminPanel"></activity>
     </application>
 
 </manifest>

@@ -54,7 +54,7 @@
                 android:layout_height="250sp"
                 android:layout_margin="20sp"
                 android:id="@+id/event_image"
-                android:src="@drawable/andrew_tester_profile"/>
+                android:src="@drawable/placeholder_image"/>
 
             <TextView
                 android:id="@+id/event_till"

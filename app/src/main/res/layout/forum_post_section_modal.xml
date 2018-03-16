@@ -20,7 +20,7 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:id="@+id/forum_reply_user_image"
-            android:src="@drawable/andrew_tester_profile"
+            android:src="@drawable/user_outline"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             app:civ_border_color="@color/common_google_signin_btn_text_light"
             app:civ_border_width="2sp"
@@ -79,6 +79,38 @@
             android:layout_margin="12sp"
             />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10sp">
+
+            <View
+                android:layout_width="0sp"
+                android:layout_weight="4"
+                android:layout_height="50sp"/>
+
+            <ImageView
+                android:backgroundTint="#000"
+                android:layout_width="0sp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/delete_fp_black"
+                android:id="@+id/forum_post_delete"
+                android:visibility="visible"/>
+
+            <ImageView
+                android:backgroundTint="#000"
+                android:layout_width="0sp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:src="@drawable/report_fp_black"
+                android:id="@+id/forum_post_report"
+                />
+
+
+        </LinearLayout>
+
+
     </LinearLayout>
 
 
@@ -86,5 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="3dp"
         android:background="#000"/>
+
+
 
 </LinearLayout>

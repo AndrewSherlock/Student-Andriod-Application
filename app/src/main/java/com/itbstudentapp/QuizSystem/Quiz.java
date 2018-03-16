@@ -132,7 +132,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
 
         for(int i = 0; i < askedQuestions.length; i++)
         {
-            View questions_panel = LayoutInflater.from(this).inflate(R.layout.question_panel, null);
+            View questions_panel = LayoutInflater.from(this).inflate(R.layout.question_panel, null); // TODO Ken crash
             TextView question = questions_panel.findViewById(R.id.question);
             question.setText(askedQuestions[i].getQuestion());
 

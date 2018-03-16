@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -42,7 +44,7 @@ import java.util.UUID;
 public class ForumManager {
 
     private Context context;
-    private boolean shouldListenToReplies;
+    private boolean shouldListenToReplies = false;
 
     public ForumManager() {
     }
@@ -238,7 +240,11 @@ public class ForumManager {
                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(20, 20, 20, 20);
 
-                View view = LayoutInflater.from(context).inflate(R.layout.forum_topic_post, null);
+                View view = LayoutInflater.from(context).inflate(R.layout.forum_topic_post, null); //TODO ken crash
+                view.setTag(dataSnapshot.getKey());
+
+                subscribeReportFunctions(view, dataSnapshot.getRef().toString());
+                subscribeThreadDeleteButton(view, dataSnapshot.getRef().toString());
                 view.setTag(dataSnapshot.getKey());
                 TextView nameText = view.findViewById(R.id.forum_poster_name);
                 final ImageView user_image = view.findViewById(R.id.forum_post_user_image);
@@ -252,6 +258,7 @@ public class ForumManager {
 
                 if (forumPost.getFileUpload() != null) {
                     final ImageView imageView = view.findViewById(R.id.forum_post_image);
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(0, 300, 1));
                     StorageReference reference = FirebaseStorage.getInstance().getReference("forumImages/" + forumPost.getFileUpload());
 
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -276,7 +283,7 @@ public class ForumManager {
                     @Override
                     public void onClick(View v) {
                         ReplyModal replyModal = ReplyModal.newInstance();
-                        replyModal.init(forumPost, forum_topic + "/topics/" + dataSnapshot.getKey());
+                        replyModal.init(forumPost, "forum/" + forum_topic + "/topics/" + dataSnapshot.getKey());
                         replyModal.show(fragmentManager, "reply");
                     }
                 };
@@ -292,7 +299,17 @@ public class ForumManager {
             }
 
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+                for(int i = 0; i < postSection.getChildCount(); i++)
+                {
+                    Log.e("Stupd", "onChildRemoved: " + i + "/" + postSection.getChildAt(i).getTag());
+                    if(postSection.getChildAt(i).getTag().toString().equalsIgnoreCase( dataSnapshot.getKey()))
+                    {
+                        ((ViewGroup)postSection.getChildAt(i).getParent()).removeView(postSection.getChildAt(i));
+                       Toast.makeText(context, "Topic just got deleted by moderator", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
 
             @Override
@@ -303,6 +320,82 @@ public class ForumManager {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
+    }
+
+    private void subscribeThreadDeleteButton(View view, final String ref)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
+        if(preferences.getString("accountType", "").equalsIgnoreCase("itb-staff"))
+        {
+            View deleteButton = view.findViewById(R.id.forum_post_delete);
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseDatabase.getInstance().getReferenceFromUrl(ref).setValue(null);
+                }
+            });
+        }
+
+    }
+
+    private void subscribePostDeleteButton(View view, final String ref, final int replyNum)
+    {
+        SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
+        if(preferences.getString("accountType", "").equalsIgnoreCase("itb-staff"))
+        {
+            final View deleteButton = view.findViewById(R.id.forum_post_delete);
+            deleteButton.setVisibility(View.VISIBLE);
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl(ref + "/replies/");
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                            int i = 0;
+
+                            for(DataSnapshot d : dataSnapshot.getChildren())
+                            {
+                                if(i == replyNum) {
+                                    d.getRef().setValue(null);
+                                    View buttonParent = (View) deleteButton.getParent().getParent().getParent();
+                                    ((ViewGroup) buttonParent.getParent()).removeView(buttonParent);
+                                    Toast.makeText(context, "Post deleted", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
+                                i++;
+                            }
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            });
+        }
+
+    }
+
+
+    private void subscribeReportFunctions(View view, final String ref)
+    {
+        View reportButton = view.findViewById(R.id.forum_post_report);
+        reportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("reported_posts");
+                reference.child(UUID.randomUUID().toString()).setValue(ref);
+                Toast.makeText(context, "Post reported", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     private void loadUserInformationIntoSection(final TextView nameText, final ImageView user_image, final String posterID) {
@@ -335,12 +428,15 @@ public class ForumManager {
         });
     }
 
-    public void addReplysToModal(final LinearLayout messageSection, ForumPost forumPost) {
+    private int valueCheck = 0;
+    public void addReplysToModal(final LinearLayout messageSection, ForumPost forumPost, String postLink) {
+        valueCheck = 0;
         final ArrayList<Reply> posts = forumPost.getPostReplies();
         shouldListenToReplies = false;
         for (int i = 0; i < posts.size(); i++) {
-            final int counter = i;
             final View view = LayoutInflater.from(context).inflate(R.layout.forum_post_section_modal, null);
+            subscribeReportFunctions(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink);
+            subscribePostDeleteButton(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink, i);
             TextView reply = view.findViewById(R.id.forum_reply_comment);
             reply.setText(posts.get(i).getPosterComment());
 
@@ -357,6 +453,14 @@ public class ForumManager {
                 }
             });
 
+            valueCheck++;
+
+            Log.e("Loop_check", "addReplysToModal: " + i );
+            if(i == posts.size() - 1)
+            {
+                shouldListenToReplies = true;
+            }
+
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + posts.get(i).getPosterID());
             reference.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -365,7 +469,7 @@ public class ForumManager {
                     TextView username = view.findViewById(R.id.forum_reply_name);
                     username.setText(user.getUsername());
 
-                    final ImageView userImage = view.findViewById(R.id.forum_user_post_image);
+                    final ImageView userImage = view.findViewById(R.id.forum_post_user_image);
 
                     if (user.getImageLink() != null) {
                         StorageReference reference = FirebaseStorage.getInstance().getReference("forumImages/" + user.getImageLink());
@@ -379,12 +483,7 @@ public class ForumManager {
                     }
 
                     addMessageFunctionToView(dataSnapshot.getKey(), userImage);
-                    Log.d("teste", "onDataChange: " + dataSnapshot.getKey() + " "  + userImage);
                     messageSection.addView(view);
-
-                    if (counter == posts.size() - 1) {
-                        shouldListenToReplies = true;
-                    }
                 }
 
                 @Override
@@ -392,7 +491,23 @@ public class ForumManager {
 
                 }
             });
+
+            listenForReplys(messageSection, postLink);
+//            if (posts.size() == valueCheck) {
+//                Log.e("post_size", "addReplysToModal: " + "Here");
+//                shouldListenToReplies = true;
+//                listenForReplys(messageSection, postLink);
+//            } else if(valueCheck == posts.size() - 1)
+//            {
+//                Log.e("post_size", "addReplysToModal: " + "Here" + posts.size());
+//                shouldListenToReplies = true;
+//                listenForReplys(messageSection, postLink);
+//            }
+
+
         }
+
+
     }
 
     public boolean addReplyToDatabase(final String postLink, final int size, final String posterComment, final Uri image) {
@@ -480,11 +595,13 @@ public class ForumManager {
     public void listenForReplys(final LinearLayout messageSection, String postLink)
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(postLink + "/replies/");
+        Log.e("Link", "listenForReplys: " + reference );
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Log.e("Link", "listenForReplys: " + dataSnapshot.getKey() );
                 if (shouldListenToReplies) {
-                    Log.e("Child", "onChildAdded: " + "new child" );
+                    Log.e("Child", "onChildAdded: " + dataSnapshot.getKey());
                     final View view = LayoutInflater.from(context).inflate(R.layout.forum_post_section_modal, null);
                     final Reply r = dataSnapshot.getValue(Reply.class);
 
@@ -512,7 +629,7 @@ public class ForumManager {
                             TextView username = view.findViewById(R.id.forum_reply_name);
                             username.setText(user.getUsername());
 
-                            final ImageView userImage = view.findViewById(R.id.forum_user_post_image);
+                            final ImageView userImage = view.findViewById(R.id.forum_post_user_image);
                             addMessageFunctionToView(r.getPosterID(), userImage);
 
                             if (user.getImageLink() != null) {
@@ -557,5 +674,10 @@ public class ForumManager {
 
             }
         });
+    }
+
+    public void setListenerBoolToFalse()
+    {
+        shouldListenToReplies = false;
     }
 }

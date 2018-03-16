@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.DialogFragment;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.UUID;
 
 public class ReplyModal extends DialogFragment implements View.OnClickListener {
 
@@ -37,6 +43,7 @@ public class ReplyModal extends DialogFragment implements View.OnClickListener {
 
     public void init(ForumPost forumPost, String dbPath)
     {
+        setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
         this.forumPost = forumPost;
         this.postLink = dbPath;
     }
@@ -62,9 +69,9 @@ public class ReplyModal extends DialogFragment implements View.OnClickListener {
     private void addCommentsToModal()
     {
         ForumManager forumManager = new ForumManager(v.getContext());
+        forumManager.setListenerBoolToFalse();
         forumManager.giveFragmentManager(getFragmentManager());
-        forumManager.addReplysToModal(messageSection, forumPost);
-        forumManager.listenForReplys(messageSection, postLink);
+        forumManager.addReplysToModal(messageSection, forumPost, postLink);
     }
 
     @Override
@@ -84,6 +91,12 @@ public class ReplyModal extends DialogFragment implements View.OnClickListener {
 
         ForumManager forumManager = new ForumManager(v.getContext());
         boolean success = forumManager.addReplyToDatabase(postLink, forumPost.getPostReplies().size(), userReply.getText().toString(), image);
+
+        if(success)
+        {
+            userReply.setText("");
+            image = null;
+        }
 
     }
 

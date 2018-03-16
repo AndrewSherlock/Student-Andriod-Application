@@ -6,6 +6,7 @@ import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.itbstudentapp.utils.LetterImageView;
 
+import java.security.Permission;
 import java.util.ArrayList;
 import java.util.Random;
 

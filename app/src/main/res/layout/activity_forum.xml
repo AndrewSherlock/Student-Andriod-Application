@@ -43,176 +43,246 @@
 
             <GridLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:columnCount="2"
+                android:rowCount="3"
                 android:id="@+id/forum_menu_grid"
                 >
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="5sp"
+                    android:layout_margin="15sp"
                     android:background="@drawable/forum_panels"
                     android:backgroundTint="#cc0011cc"
                     android:orientation="vertical"
                     android:id="@+id/forum_modules"
                     >
 
-
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="20sp"
-                        android:fontFamily="@font/cuprumbold"
-                        android:text="Modules"
-                        android:textAlignment="center"
-                        android:textColor="#fff"
-                        android:textSize="22sp"
+                        android:layout_height="85sp"
+                        android:id="@+id/modules"
+                        android:src="@drawable/module"
+                        android:padding="10sp"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/modules">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Module"
+                            android:fontFamily="@font/cuprumbold"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            />
 
-                <LinearLayout
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="5sp"
+                    android:layout_margin="15sp"
                     android:background="@drawable/forum_panels"
                     android:backgroundTint="#ccbc0315"
                     android:orientation="vertical"
                     android:id="@+id/forum_campus"
                     >
 
-
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Campus"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="20sp"
-                        android:textAlignment="center"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cuprumbold"
-                        android:textColor="#ffff"
+                        android:layout_height="85sp"
+                        android:id="@+id/forum"
+                        android:src="@drawable/campus"
+                        android:padding="10sp"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/forum">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Campus"
+                            android:fontFamily="@font/cuprumbold"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            />
 
-                <LinearLayout
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="5sp"
+                    android:layout_margin="15sp"
                     android:background="@drawable/forum_panels"
                     android:backgroundTint="#cc21bc03"
                     android:orientation="vertical"
                     android:id="@+id/forum_area"
                     >
 
-
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Area"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="20sp"
-                        android:textAlignment="center"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cuprumbold"
-                        android:textColor="#ffff"
+                        android:layout_height="85sp"
+                        android:id="@+id/area"
+                        android:src="@drawable/area"
+                        android:padding="10sp"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/area">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Area"
+                            android:fontFamily="@font/cuprumbold"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            />
 
-                <LinearLayout
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="5sp"
+                    android:layout_margin="15sp"
                     android:background="@drawable/forum_panels"
                     android:backgroundTint="#cc03bca9"
                     android:orientation="vertical"
                     android:id="@+id/forum_transport"
                     >
 
-
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Transport"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="20sp"
-                        android:textAlignment="center"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cuprumbold"
-                        android:textColor="#ffff"
+                        android:layout_height="85sp"
+                        android:id="@+id/transport_image"
+                        android:src="@drawable/transport_f"
+                        android:padding="10sp"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/transport_image">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transport"
+                            android:fontFamily="@font/cuprumbold"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            />
 
-                <LinearLayout
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="5sp"
+                    android:layout_margin="15sp"
                     android:background="@drawable/forum_panels"
                     android:backgroundTint="#ccbc5a03"
                     android:orientation="vertical"
                     android:id="@+id/forum_group"
                     >
 
-
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Groups"
-                        android:layout_gravity="bottom"
-                        android:layout_marginBottom="20sp"
-                        android:textAlignment="center"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cuprumbold"
-                        android:textColor="#ffff"
+                        android:layout_height="85sp"
+                        android:id="@+id/group"
+                        android:src="@drawable/group"
+                        android:padding="10sp"
                         />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/group">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Group"
+                            android:fontFamily="@font/cuprumbold"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            />
 
-                <LinearLayout
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="0dp"
-                    android:layout_height="80dp"
+                    android:layout_height="0dp"
                     android:layout_rowWeight="1"
                     android:layout_columnWeight="1"
-                    android:layout_margin="5sp"
+                    android:layout_margin="15sp"
                     android:background="@drawable/forum_panels"
                     android:backgroundTint="#cc600057"
                     android:orientation="vertical"
                     android:id="@+id/forum_relax"
                     >
 
-
-                    <TextView
+                    <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Relax"
-                        android:layout_gravity="center"
-                        android:textAlignment="center"
-                        android:textSize="22sp"
-                        android:fontFamily="@font/cuprumbold"
-                        android:textColor="#ffff"
+                        android:layout_height="85sp"
+                        android:id="@+id/relax"
+                        android:src="@drawable/relax"
+                        android:padding="10sp"
                         />
 
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/relax">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Transport"
+                            android:fontFamily="@font/cuprumbold"
+                            android:textSize="20sp"
+                            android:textAlignment="center"
+                            android:textColor="#fff"
+                            />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </GridLayout>
 
 

@@ -17,7 +17,7 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="80sp"
             android:layout_height="80sp"
-            android:src="@drawable/andrew_tester_profile"
+            android:src="@drawable/user_outline"
             android:id="@+id/forum_post_user_image"
             app:civ_border_width="2sp"
             app:civ_border_color="@color/common_google_signin_btn_text_light"
@@ -83,8 +83,9 @@
 
             <ImageView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="0sp"
+                android:layout_weight="4"
+                android:src="@drawable/placeholder_image"
                 android:id="@+id/forum_post_image"
                 />
 
@@ -135,6 +136,43 @@
             android:textSize="18sp"
             android:fontFamily="@font/cuprumbold"
             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:layout_margin="5sp"
+        >
+
+        <View
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"/>
+
+       <LinearLayout
+           android:layout_width="0sp"
+           android:layout_weight=".7"
+           android:layout_height="match_parent">
+
+           <ImageView
+               android:layout_width="0sp"
+               android:layout_weight="1"
+               android:layout_height="match_parent"
+               android:src="@drawable/delete_fp"
+               android:id="@+id/forum_post_delete"
+               android:visibility="invisible"/>
+
+           <ImageView
+               android:layout_width="0sp"
+               android:layout_weight="1"
+               android:layout_height="match_parent"
+               android:src="@drawable/report_fp"
+               android:id="@+id/forum_post_report"
+              />
+
+
+       </LinearLayout>
 
     </LinearLayout>
 
