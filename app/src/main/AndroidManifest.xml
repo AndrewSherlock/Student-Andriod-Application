@@ -35,7 +35,6 @@
         <activity android:name=".MapActivity" />
         <activity android:name=".Forum" />
         <activity android:name=".Timetable" />
-        <activity android:name=".Quiz" />
         <activity android:name=".Links" />
         <activity android:name=".ChatSystem.Chat" />
         <activity android:name=".Phone" />
