@@ -20,19 +20,16 @@ public class ContactRepository
     {
         userInformation = new ArrayList<>();
         getUserInformation();
-        Log.e("here", "ContactRepository: " );
     }
 
     private void getUserInformation()
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-        Log.e("here", "getUserInformation: " );
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot d : dataSnapshot.getChildren())
                 {
-                    Log.e("here", "getUserInformation: " + d.getKey());
                     String user_id = d.getKey();
                     String username = d.child("username").getValue(String.class);
                     String userImage = d.child("imageLink").getValue(String.class);

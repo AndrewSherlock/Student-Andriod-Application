@@ -243,7 +243,7 @@ public class ForumManager {
                 View view = LayoutInflater.from(context).inflate(R.layout.forum_topic_post, null); //TODO ken crash
                 view.setTag(dataSnapshot.getKey());
 
-                subscribeReportFunctions(view, dataSnapshot.getRef().toString());
+                subscribeReportFunctions(view, dataSnapshot.getRef().toString(), forumPost.getPostComment());
                 subscribeThreadDeleteButton(view, dataSnapshot.getRef().toString());
                 view.setTag(dataSnapshot.getKey());
                 TextView nameText = view.findViewById(R.id.forum_poster_name);
@@ -258,7 +258,7 @@ public class ForumManager {
 
                 if (forumPost.getFileUpload() != null) {
                     final ImageView imageView = view.findViewById(R.id.forum_post_image);
-                    imageView.setLayoutParams(new LinearLayout.LayoutParams(0, 300, 1));
+                    imageView.setLayoutParams(new LinearLayout.LayoutParams(0, 500, 4));
                     StorageReference reference = FirebaseStorage.getInstance().getReference("forumImages/" + forumPost.getFileUpload());
 
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -303,7 +303,6 @@ public class ForumManager {
             {
                 for(int i = 0; i < postSection.getChildCount(); i++)
                 {
-                    Log.e("Stupd", "onChildRemoved: " + i + "/" + postSection.getChildAt(i).getTag());
                     if(postSection.getChildAt(i).getTag().toString().equalsIgnoreCase( dataSnapshot.getKey()))
                     {
                         ((ViewGroup)postSection.getChildAt(i).getParent()).removeView(postSection.getChildAt(i));
@@ -384,14 +383,21 @@ public class ForumManager {
     }
 
 
-    private void subscribeReportFunctions(View view, final String ref)
+    private void subscribeReportFunctions(View view, final String ref, final String post_name)
     {
         View reportButton = view.findViewById(R.id.forum_post_report);
         reportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("reported_posts");
-                reference.child(UUID.randomUUID().toString()).setValue(ref);
+                String title = post_name;
+
+                if(title.length() > 15)
+                {
+                    title = title.substring(0,14) + "...";
+                }
+
+                reference.child(title).setValue(ref);
                 Toast.makeText(context, "Post reported", Toast.LENGTH_SHORT).show();
             }
         });
@@ -435,7 +441,7 @@ public class ForumManager {
         shouldListenToReplies = false;
         for (int i = 0; i < posts.size(); i++) {
             final View view = LayoutInflater.from(context).inflate(R.layout.forum_post_section_modal, null);
-            subscribeReportFunctions(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink);
+            subscribeReportFunctions(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink, forumPost.getPostComment());
             subscribePostDeleteButton(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink, i);
             TextView reply = view.findViewById(R.id.forum_reply_comment);
             reply.setText(posts.get(i).getPosterComment());

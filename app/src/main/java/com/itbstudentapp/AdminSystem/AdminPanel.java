@@ -51,12 +51,18 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
 
         } else if(v.getId() == R.id.admin_quiz_panel)
         {
-
+            setQuizMaster();
         } else if(v.getId() == R.id.admin_forum_reports)
         {
-
+            startActivity(new Intent(this, ReportedPost.class));
+            finish();
         }
 
+    }
+
+    private void setQuizMaster()
+    {
+        new QuizMasterManager(this);
     }
 
     private void showMentorDialog() {

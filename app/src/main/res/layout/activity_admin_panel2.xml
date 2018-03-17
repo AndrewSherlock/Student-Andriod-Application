@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="fill_parent"
         android:layout_below="@id/tool_bar"
         android:layout_margin="30sp"
         android:background="@drawable/forum_background"
