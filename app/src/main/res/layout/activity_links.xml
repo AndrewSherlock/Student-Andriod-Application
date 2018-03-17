@@ -26,6 +26,7 @@
                 android:text="Useful Links"
                 android:textSize="30sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textColor="#ffffff"
                 android:textAlignment="center"
                 />

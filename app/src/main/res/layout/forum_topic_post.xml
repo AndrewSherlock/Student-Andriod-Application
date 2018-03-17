@@ -36,6 +36,7 @@
                 android:text="User name"
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="22sp"
                 android:textColor="#fff"
                 android:id="@+id/forum_poster_name"
@@ -47,6 +48,7 @@
                 android:text="18:00 9 April 2018"
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="18sp"
                 android:textColor="#fff"
                 android:id="@+id/forum_post_date"
@@ -66,6 +68,7 @@
             android:layout_height="wrap_content"
             android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. "
             android:fontFamily="@font/cuprum"
+            android:textAppearance="@style/cuprum_reg"
             android:textSize="16sp"
             android:textColor="#fff"
             android:layout_margin="6sp"
@@ -115,6 +118,7 @@
             android:text="New Post"
             android:textColor="#fff"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:background="@drawable/forum_buttons"
             />
 
@@ -135,6 +139,7 @@
             android:textColor="#fff"
             android:textSize="18sp"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             />
 
     </LinearLayout>

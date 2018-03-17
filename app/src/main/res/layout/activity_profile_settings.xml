@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Profile Settings"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textSize="22sp"
             android:textColor="#fff"
             android:textAlignment="center"
@@ -76,6 +77,7 @@
                     android:layout_height="wrap_content"
                     android:text="Change profile image"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textSize="18sp"
                     />
 
@@ -85,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:background="@drawable/forum_buttons"
                     android:text="Upload"
                     android:textAlignment="center"
@@ -107,6 +110,7 @@
                     android:layout_height="wrap_content"
                     android:text="Reset password"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textSize="18sp"
                     />
 
@@ -116,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:background="@drawable/forum_buttons"
                     android:text="Reset"
                     android:id="@+id/profile_reset_password"
@@ -135,6 +140,7 @@
                     android:layout_height="wrap_content"
                     android:text="Notifications"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textAlignment="center"
                     android:textSize="18sp"
                     />
@@ -152,6 +158,7 @@
                     android:layout_height="wrap_content"
                     android:text="Vibrate"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textSize="18sp"
                     />
 
@@ -179,6 +186,7 @@
                     android:layout_height="wrap_content"
                     android:text="Sound"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textSize="18sp"
                     />
 
@@ -208,6 +216,7 @@
                     android:layout_height="wrap_content"
                     android:text="LED"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textSize="18sp"
                     />
 
@@ -237,6 +246,7 @@
                     android:layout_height="wrap_content"
                     android:text="Location"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textSize="18sp"
                     />
 
@@ -246,6 +256,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:background="@drawable/forum_buttons"
                     android:textAlignment="center"
                     android:textColor="#ffff"
@@ -271,6 +282,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:background="@drawable/forum_buttons"
                     android:text="Back to home"
                     android:textAlignment="center"

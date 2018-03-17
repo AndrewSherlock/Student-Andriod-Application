@@ -36,6 +36,7 @@
                 android:textSize="24sp"
                 android:text="user name"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textColor="#fff"
                 android:id="@+id/contact_name"
                 />
@@ -46,6 +47,7 @@
                 android:textSize="20sp"
                 android:text="Lecturer"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textColor="#fff"
                 android:id="@+id/contact_account"
                 />
@@ -57,6 +59,7 @@
                 android:text="B00090936"
                 android:textAllCaps="true"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textColor="#fff"
                 android:id="@+id/contact_id"
                 />

@@ -87,7 +87,7 @@ public class TrainTimeTable extends AppCompatActivity implements OnThreadComplet
             duein.setText(t.getDuein() + " Mins");
 
             TextView late = v.findViewById(R.id.train_late);
-            late.setText(t.getLate() + " Mins");
+            late.setText("Late : " + t.getLate() + " Mins");
 
             TextView status = v.findViewById(R.id.train_status);
             status.setText(t.getStatus());

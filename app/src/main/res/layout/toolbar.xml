@@ -20,6 +20,7 @@
             android:gravity="center_vertical"
             android:textSize="25sp"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textColor="#fff"
             />
 
@@ -31,7 +32,9 @@
             <ImageView
                 android:src="@drawable/menu_button"
                 android:layout_height="match_parent"
-                android:layout_width="40dp"
+                android:layout_width="match_parent"
+                android:layout_marginTop="2sp"
+                android:layout_marginBottom="2sp"
                 android:id="@+id/menu_button"
                 android:layout_gravity="center_horizontal"
                 />

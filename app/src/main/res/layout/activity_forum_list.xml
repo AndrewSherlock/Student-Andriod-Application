@@ -19,6 +19,7 @@
            android:layout_height="match_parent"
            android:text="Forum topic"
            android:fontFamily="@font/cuprumbold"
+           android:textAppearance="@style/cuprum_bold"
            android:textColor="#fff"
            android:textSize="30sp"
            android:textAlignment="center"
@@ -36,6 +37,7 @@
            android:text="New Post"
            android:textColor="#fff"
            android:fontFamily="@font/cuprumbold"
+           android:textAppearance="@style/cuprum_bold"
            android:background="@drawable/forum_buttons"
            android:id="@+id/forum_new_post"
            />

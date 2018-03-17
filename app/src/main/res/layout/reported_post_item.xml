@@ -18,6 +18,7 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:text="Sample title"
         android:fontFamily="@font/cuprumbold"
+        android:textAppearance="@style/cuprum_bold"
         android:textSize="25sp"
         android:layout_marginLeft="5sp"
         android:textColor="#000"

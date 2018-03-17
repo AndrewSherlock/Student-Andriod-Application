@@ -26,6 +26,7 @@
                 android:text="Transport"
                 android:textSize="30sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textColor="#ffffff"
                 android:textAlignment="center"
                 />
@@ -62,6 +63,7 @@
                     android:textAlignment="center"
                     android:textSize="22sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textColor="#ffff"
                     />
 
@@ -70,39 +72,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/dublin_bus"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="20sp"
-                android:background="@drawable/forum_panels"
-                android:backgroundTint="#cc605a00"
-                android:orientation="vertical"
-                android:id="@+id/bus_eir"
-                >
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Bus Eireann"
-                    android:layout_gravity="center"
-                    android:textAlignment="center"
-                    android:textSize="22sp"
-                    android:fontFamily="@font/cuprumbold"
-                    android:textColor="#ffff"
-                    />
-
-                <ImageView
-                    android:layout_margin="5sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/bus_eir"
                     />
 
             </LinearLayout>
@@ -128,6 +97,7 @@
                     android:textAlignment="center"
                     android:textSize="22sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textColor="#ffff"
                     />
 
@@ -160,6 +130,7 @@
                     android:textAlignment="center"
                     android:textSize="22sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:textColor="#ffff"
                     />
 
@@ -167,6 +138,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:src="@drawable/itb_shut"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:visibility="invisible"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_margin="20sp"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc605a00"
+                android:orientation="vertical"
+                android:id="@+id/bus_eir"
+                >
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bus Eireann"
+                    android:layout_gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="22sp"
+                    android:fontFamily="@font/cuprumbold"
+                    android:textColor="#ffff"
+                    />
+
+                <ImageView
+                    android:layout_margin="5sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bus_eir"
                     />
 
             </LinearLayout>

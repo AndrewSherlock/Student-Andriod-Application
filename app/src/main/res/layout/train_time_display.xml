@@ -23,6 +23,7 @@
             android:layout_marginLeft="10sp"
             android:layout_weight="1"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:text="D332 Damastown"
             android:textColor="#fff"
             android:textSize="30sp" />
@@ -53,6 +54,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:text="Train information"
                 android:textAlignment="center"
                 android:textColor="#fff"
@@ -65,6 +67,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:text="Northbound"
                 android:textColor="#fff"
                 android:textSize="20sp" />
@@ -76,6 +79,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:text="Due : 40 Mins"
                 android:textColor="#fff"
                 android:textSize="20sp" />
@@ -100,6 +104,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginBottom="10sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:text="Train Status"
                     android:textAlignment="center"
                     android:textColor="#fff"
@@ -112,6 +117,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:text="En-Route"
                     android:textColor="#fff"
                     android:textSize="20sp" />
@@ -123,9 +129,10 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10sp"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:text="Late : 40 Mins"
                     android:textColor="#fff"
-                    android:textSize="20sp" />
+                    android:textSize="17sp" />
 
             </LinearLayout>
         </LinearLayout>

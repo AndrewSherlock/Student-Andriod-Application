@@ -23,6 +23,7 @@ android:orientation="vertical">
             android:layout_height="wrap_content"
             android:layout_margin="5sp"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:text="Networking"
             android:textColor="#000"
             android:textSize="30sp" />

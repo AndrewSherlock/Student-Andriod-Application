@@ -46,6 +46,7 @@
                 android:textSize="33sp"
                 android:textColor="#fff"
                 android:fontFamily="@font/cuprum"
+                android:textAppearance="@style/cuprum_reg"
                 android:id="@+id/message_sender"
                 />
 
@@ -56,6 +57,7 @@
                 android:textSize="18sp"
                 android:textColor="#fff"
                 android:fontFamily="@font/cuprum"
+                android:textAppearance="@style/cuprum_reg"
                 android:id="@+id/message_date"
                 />
 

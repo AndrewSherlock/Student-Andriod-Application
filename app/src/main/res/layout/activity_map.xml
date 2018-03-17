@@ -20,6 +20,7 @@
             android:textColor="#fff"
             android:textSize="32sp"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textAlignment="center"
             />
 
@@ -49,6 +50,7 @@
             android:text="Pick your search location"
             android:textAlignment="center"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textColor="#fff"
             android:textSize="22sp"
             />
@@ -67,6 +69,7 @@
                 android:background="@android:color/transparent"
                 android:textSize="22sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:layout_margin="5sp"
                 android:id="@+id/room_choice"
                 />
@@ -101,6 +104,7 @@
                 android:textAlignment="center"
                 android:textColor="#fff"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:background="@drawable/forum_buttons"
                 android:id="@+id/map_submit"
                 />
@@ -124,6 +128,7 @@
                 android:layout_weight="1"
                 android:text="Add room to our list."
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="22sp"
                 android:textColor="#fff"
                 android:layout_marginLeft="5sp"/>
@@ -138,6 +143,7 @@
                 android:layout_weight=".6"
                 android:text="Add room"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="22sp"
                 android:textColor="#fff"
                 android:layout_marginLeft="5sp"

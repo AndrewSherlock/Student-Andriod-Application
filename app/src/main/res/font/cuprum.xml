@@ -9,4 +9,14 @@
         android:fontStyle="italic"
         android:fontWeight="400"
         android:font="@font/cuprumitalic" />
+
+    <font
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        android:font="@font/cuprumbold" />
+
+    <font
+        android:fontStyle="italic"
+        android:fontWeight="400"
+        android:font="@font/cuprumboldttalic" />
 </font-family>

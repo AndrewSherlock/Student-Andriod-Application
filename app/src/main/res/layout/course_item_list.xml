@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/cuprum"
+        android:textAppearance="@style/cuprum_reg"
         android:text="BN104"
         android:textAlignment="center"
         android:textColor="#000"

@@ -26,6 +26,7 @@
                 android:text="ITB Shuttle Bus"
                 android:textSize="30sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textColor="#ffffff"
                 android:textAlignment="center"
                 />
@@ -40,6 +41,7 @@
             android:text="Pick your starting point"
             android:textSize="25sp"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textColor="#ffffff"
             android:textAlignment="center"
             android:id="@+id/user_choice"
@@ -83,6 +85,7 @@
                         android:text="ITB Campus"
                         android:textSize="20sp"
                         android:fontFamily="@font/cuprumbold"
+                        android:textAppearance="@style/cuprum_bold"
                         android:textColor="#ffffff"
                         android:textAlignment="center"
                         />
@@ -109,6 +112,7 @@
                         android:text="National Aquatic Centre"
                         android:textSize="20sp"
                         android:fontFamily="@font/cuprumbold"
+                        android:textAppearance="@style/cuprum_bold"
                         android:textColor="#ffffff"
                         android:textAlignment="center"
                         />
@@ -134,6 +138,7 @@
                         android:text="Blanchardstown Shopping Centre"
                         android:textSize="20sp"
                         android:fontFamily="@font/cuprumbold"
+                        android:textAppearance="@style/cuprum_bold"
                         android:textColor="#ffffff"
                         android:textAlignment="center"
                         />
@@ -159,6 +164,7 @@
                         android:text="Coolmine Train Station"
                         android:textSize="20sp"
                         android:fontFamily="@font/cuprumbold"
+                        android:textAppearance="@style/cuprum_bold"
                         android:textColor="#ffffff"
                         android:textAlignment="center"
                         />

@@ -17,4 +17,12 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="cuprum_reg" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">@font/cuprumregular</item>
+    </style>
+
+    <style name="cuprum_bold" parent="@android:style/TextAppearance.Medium">
+        <item name="android:fontFamily">@font/cuprumbold</item>
+    </style>
+
 </resources>

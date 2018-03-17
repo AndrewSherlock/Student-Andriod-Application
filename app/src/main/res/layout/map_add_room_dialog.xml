@@ -15,6 +15,7 @@
             android:layout_height="wrap_content"
             android:text="Add"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textColor="#ffffff"
             android:textSize="26sp"
             android:textAlignment="center"
@@ -37,6 +38,7 @@
                 android:background="@android:color/transparent"
                 android:textSize="22sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:id="@+id/add_location_text"
                 />
 
@@ -52,6 +54,7 @@
                 android:background="@drawable/forum_buttons"
                 android:textSize="22sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:id="@+id/add_location_button"
                 />
 

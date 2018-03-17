@@ -9,6 +9,8 @@
         android:text="B00090913"
         android:textSize="25dp"
         android:textAlignment="center"
+        android:textAppearance="@style/cuprum_reg"
+        android:fontFamily="@font/cuprumregular"
         android:paddingTop="10dp"
         android:visibility="visible"
         android:id="@+id/message_top_bar"

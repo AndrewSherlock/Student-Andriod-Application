@@ -17,6 +17,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
         android:fontFamily="@font/cuprumbold"
+        android:textAppearance="@style/cuprum_bold"
         android:gravity="center_vertical"
         android:text="Modules"
         android:textAlignment="center"

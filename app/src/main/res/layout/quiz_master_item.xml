@@ -24,6 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:text="Networking"
                 android:textColor="#000"
                 android:textSize="30sp" />
@@ -34,6 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:text="Andrew sherlock"
                 android:textColor="#000"
                 android:textSize="25sp" />

@@ -19,6 +19,7 @@
         android:text="Select the correct answers"
         android:textColor="#fff"
         android:fontFamily="@font/cuprum"
+        android:textAppearance="@style/cuprum_reg"
         android:textSize="20sp"
         android:id="@+id/answer_text"
         />

@@ -21,6 +21,7 @@ android:id="@+id/forum_relax"
     android:textAlignment="center"
     android:textSize="22sp"
     android:fontFamily="@font/cuprumbold"
+    android:textAppearance="@style/cuprum_bold"
     android:textColor="#ffff"
     android:id="@+id/section_text_box"
     />

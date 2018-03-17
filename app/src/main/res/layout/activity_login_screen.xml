@@ -34,8 +34,6 @@
                 android:orientation="vertical"
                 android:gravity="center">
 
-                <!-- get logos -->
-
                 <EditText
                     android:layout_width="250dp"
                     android:layout_marginBottom="20dp"
@@ -47,6 +45,7 @@
                     android:textColorHint="#fff"
                     android:background="@android:color/transparent"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:drawableLeft="@drawable/login_drawable"
                     android:drawablePadding="10dp"
                     android:maxLines="1"
@@ -62,6 +61,7 @@
                     android:textColor="#ffff"
                     android:textColorHint="#fff"
                     android:fontFamily="@font/cuprumbold"
+                    android:textAppearance="@style/cuprum_bold"
                     android:background="@android:color/transparent"
                     android:drawableLeft="@drawable/password"
                     android:drawablePadding="10dp"
@@ -85,6 +85,7 @@
                 android:backgroundTint="@color/bannerGreen"
                 android:text="Login"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="20sp"
                 android:textColor="#fff"
                 />
@@ -98,6 +99,7 @@
                 android:backgroundTint="@color/registerButtonRed"
                 android:text="Register"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="20sp"
                 android:textColor="#fff"
                 />
@@ -112,6 +114,7 @@
             android:textColor="#fff"
             android:textSize="18dp"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:layout_marginLeft="40dp"
             />
 

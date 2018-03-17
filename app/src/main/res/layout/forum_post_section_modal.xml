@@ -39,6 +39,7 @@
                 android:text="user name"
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:id="@+id/forum_reply_name"
                 android:textSize="22sp"
                 />
@@ -49,6 +50,7 @@
                 android:text="19:00 23 April 2018"
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
                 android:textSize="18sp"
                 android:id="@+id/forum_reply_date"
                 />
@@ -69,6 +71,7 @@
             android:text="test"
             android:layout_margin="6sp"
             android:fontFamily="@font/cuprum"
+            android:textAppearance="@style/cuprum_reg"
             android:id="@+id/forum_reply_comment"
             />
 

@@ -22,6 +22,7 @@
         android:layout_marginRight="40sp"
         android:backgroundTint="#fff"
         android:fontFamily="@font/cuprum"
+        android:textAppearance="@style/cuprum_reg"
         android:hint="Enter Answer"
         android:maxLines="1"
         android:textColor="#ffffff"

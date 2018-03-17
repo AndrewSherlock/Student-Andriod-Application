@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:gravity="center_vertical"
             android:paddingLeft="10sp"
             android:text="aaaaaaaaaaaaaaaaaaa"
