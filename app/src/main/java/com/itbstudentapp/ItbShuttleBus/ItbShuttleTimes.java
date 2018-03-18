@@ -48,6 +48,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itb_shuttle_times);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         stopTimesLayout = findViewById(R.id.times_list);
 
         Bundle b = getIntent().getExtras();

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 public class ContactList extends Dialog implements View.OnClickListener, TextWatcher {
 
     private ChatSystemController csr;
+    private ContactCard choosenCard;
 
     private TextView studentButton, staffButton, lecturerButton;
     private EditText enteredText;
@@ -47,6 +48,27 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
 
         populateList(csr.filterByType(currentChoice));
 
+
+        show();
+    }
+
+    public ContactList(@NonNull Context context, ContactRepository contactRepository)
+    {
+        super(context, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
+        setContentView(R.layout.contact_list);
+
+        studentButton = findViewById(R.id.user_student);
+        staffButton = findViewById(R.id.user_staff);
+        lecturerButton = findViewById(R.id.user_lecturer);
+
+        enteredText = findViewById(R.id.user_search_box);
+        enteredText.addTextChangedListener(this);
+
+        studentButton.setOnClickListener(this);
+        staffButton.setOnClickListener(this);
+        lecturerButton.setOnClickListener(this);
+
+        populateList(contactRepository.filterByType(currentChoice));
 
         show();
     }
@@ -80,7 +102,10 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    csr.setCurrentContact(card);
+                    if(csr != null)
+                        csr.setCurrentContact(card);
+
+                    choosenCard = card;
                     dismiss();
                 }
             });
@@ -134,6 +159,10 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    public ContactCard getChoosenCard() {
+        return choosenCard;
     }
 }
 

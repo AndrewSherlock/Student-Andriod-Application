@@ -21,6 +21,7 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_transport);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         dub_bus = (LinearLayout) findViewById(R.id.dub_bus);
         bus_eir = (LinearLayout) findViewById(R.id.bus_eir);

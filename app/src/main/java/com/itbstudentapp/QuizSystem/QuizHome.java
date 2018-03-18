@@ -30,6 +30,7 @@ public class QuizHome extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_home);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         quizSection = findViewById(R.id.quiz_subjects);
         
         UserSettings.checkIfInit(this, UtilityFunctions.getUserNameFromFirebase());

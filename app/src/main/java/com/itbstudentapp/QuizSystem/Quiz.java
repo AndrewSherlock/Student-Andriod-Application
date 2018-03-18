@@ -51,6 +51,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
         }
 
         setContentView(R.layout.activity_quiz2);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         questions = new ArrayList<>();
 
         Bundle bundle = getIntent().getExtras();

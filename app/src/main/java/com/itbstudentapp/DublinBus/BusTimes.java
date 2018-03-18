@@ -36,6 +36,7 @@ public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_times);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         route = getIntent().getStringExtra("route");
         stop = getIntent().getStringExtra("stop_num");

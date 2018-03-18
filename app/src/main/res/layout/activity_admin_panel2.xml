@@ -61,45 +61,6 @@
                     android:layout_width="0sp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Mentor panel"
-                    android:textSize="25sp"
-                    android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/cuprum"
-                    android:textAppearance="@style/cuprum_reg"
-                    android:textColor="#000000"
-                    />
-
-                <TextView
-                    android:id="@+id/admin_mentor_panel"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10sp"
-                    android:layout_weight=".5"
-                    android:background="@drawable/forum_buttons"
-                    android:fontFamily="@font/cuprumbold"
-                    android:textAppearance="@style/cuprum_bold"
-                    android:text="show"
-                    android:textAlignment="center"
-                    android:textColor="#ffff"
-                    android:textSize="18sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginTop="0sp"
-                android:layout_marginLeft="10sp"
-                android:layout_marginRight="10sp"
-                android:layout_marginBottom="10sp"
-                >
-
-                <TextView
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Moderator panel"
                     android:textSize="25sp"
                     android:layout_gravity="center_vertical"

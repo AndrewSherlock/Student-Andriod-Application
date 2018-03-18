@@ -39,6 +39,7 @@ public class MessageScreen extends AppCompatActivity implements View.OnClickList
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_screen);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         Bundle b = getIntent().getExtras();
         isNewMessage = (b.getString("message_id").equalsIgnoreCase("none"));
 

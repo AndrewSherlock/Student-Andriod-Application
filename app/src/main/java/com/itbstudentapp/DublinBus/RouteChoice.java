@@ -41,6 +41,7 @@ public class RouteChoice extends AppCompatActivity{
 
 
         setContentView(R.layout.activity_route_choice);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         linearLayout = (LinearLayout) findViewById(R.id.butt_screen);
     }
 

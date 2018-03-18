@@ -18,10 +18,6 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
-/**
- * Created by andrew on 04/03/2018.
- */
-
 public class UserSettings
 {
     public static boolean play_sounds = true;
@@ -64,6 +60,11 @@ public class UserSettings
         final SharedPreferences pref = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
 
+        if(!pref.contains("moderator")) {
+            checkIfUserModerator(username, ct);
+            Log.e("ERROR", "checkIfInit: " + "Check failed" );
+        }
+
         if(pref.getBoolean("hasChecked", false))
         {
             if(username == null || username == "")
@@ -98,6 +99,30 @@ public class UserSettings
             }
         });
 
+        checkIfUserModerator(username, ct);
+    }
+
+    private static void checkIfUserModerator(final String username, final Context ct)
+    {
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("moderators");
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child(username).exists())
+                {
+                    SharedPreferences.Editor editor = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE).edit();
+                    editor.putBoolean("moderator", true);
+                    editor.apply();
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static void clearFile(Context ct)

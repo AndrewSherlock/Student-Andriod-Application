@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.itbstudentapp.R;
+import com.itbstudentapp.UtilityFunctions;
 
 public class ItbShuttleMenu extends AppCompatActivity implements View.OnClickListener{
 
@@ -21,6 +22,7 @@ public class ItbShuttleMenu extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_itb_shuttle_menu);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         userPrompt = findViewById(R.id.user_choice);
 
         nac = findViewById(R.id.nac);

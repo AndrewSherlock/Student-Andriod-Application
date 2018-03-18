@@ -50,6 +50,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         changeProfilePicture = findViewById(R.id.profile_change_image);
         changeProfilePicture.setOnClickListener(this);

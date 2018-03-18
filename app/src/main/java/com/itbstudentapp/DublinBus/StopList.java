@@ -43,6 +43,7 @@ public class StopList extends AppCompatActivity implements OnMapReadyCallback, O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_list);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         linearLayout = (LinearLayout) findViewById(R.id.bus_stop_list);
         route = getIntent().getStringExtra("route"); // get route from the last intent
 

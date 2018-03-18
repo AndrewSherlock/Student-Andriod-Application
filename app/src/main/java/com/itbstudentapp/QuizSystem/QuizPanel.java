@@ -29,6 +29,7 @@ public class QuizPanel extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz_panel);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         quizSection = findViewById(R.id.quiz_subjects);
 
 

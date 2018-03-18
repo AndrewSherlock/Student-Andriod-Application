@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
@@ -43,6 +44,8 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_forum);
         forumManager = new ForumManager();
         gridLayout = findViewById(R.id.forum_menu_grid);
+
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         Bundle b = getIntent().getExtras();
         path = "forum/sections/";
@@ -85,7 +88,8 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
             String key = (panel.getId() == R.id.forum_group) ? "forum_groups" : "forum_module";
             setUpProgress();
             gridLayout.removeAllViews();
-            forumManager.getMenuFromDB(gridLayout, key, progress);
+            ((ViewGroup)gridLayout.getParent()).removeView(gridLayout);
+            forumManager.getMenuFromDB((LinearLayout) findViewById(R.id.section_list), key, progress);
 
         }
         else

@@ -20,8 +20,6 @@ import com.itbstudentapp.utils.UserSettings;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private RelativeLayout forum, transport, map, timetable, quiz, chat, links, phone;
-    private Button TEMP_LOG_OUT;
-
     private EventDisplay eventDisplay;
 
     @Override
@@ -30,15 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         UserSettings.currentIntent = this.getIntent();
 
-        SharedPreferences editor = getSharedPreferences(UtilityFunctions.PREF_FILE, MODE_PRIVATE);
         UserSettings.checkIfInit(this, UtilityFunctions.getUserNameFromFirebase());
-
-        Log.e("here", "onCreate: " + editor.getBoolean("vibrate", true));
-
-        Log.e("username", "onCreate: " + editor.getString("username", "unknown"));
-        Log.e("accountType", "onCreate: " + editor.getString("accountType", "unknown"));
-        Log.e("course", "onCreate: " + editor.getString("courseID", "unknown"));
-        Log.e("course", "onCreate: " + editor.getString("studentGroups", "unknown"));
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
@@ -60,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forum.setOnClickListener(this);
         timetable.setOnClickListener(this);
 
-//        TEMP_LOG_OUT.setOnClickListener(this);
         eventDisplay = new EventDisplay(this, (TextView) findViewById(R.id.event_message));
 
 

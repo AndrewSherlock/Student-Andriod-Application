@@ -31,6 +31,7 @@ public class TrainTimeTable extends AppCompatActivity implements OnThreadComplet
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_time_table);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         trainHandler = new TrainInformationHandler(this);
 
         if(!UtilityFunctions.doesUserHaveConnection(this))

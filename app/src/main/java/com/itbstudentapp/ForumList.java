@@ -17,6 +17,7 @@ public class ForumList extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum_list);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         forum_topic = getIntent().getStringExtra("path");
 
         forum_title = findViewById(R.id.forum_banner_title);

@@ -26,6 +26,7 @@ public class Links extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_links);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         String[] contacts = getResources().getStringArray(R.array.links);
 
         linearLayout = findViewById(R.id.link_grid);

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.itbstudentapp.MainActivity;
 import com.itbstudentapp.R;
+import com.itbstudentapp.UtilityFunctions;
 
 public class AdminPanel extends AppCompatActivity implements View.OnClickListener {
 
@@ -15,15 +16,13 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_panel2);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         setupButtons();
     }
 
     private void setupButtons()
     {
-        TextView admin_mentor = findViewById(R.id.admin_mentor_panel);
-        admin_mentor.setOnClickListener(this);
-
         TextView admin_mod = findViewById(R.id.admin_moderator);
         admin_mod.setOnClickListener(this);
 
@@ -43,12 +42,9 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
         {
             startActivity(new Intent(this, MainActivity.class));
             finish();
-        } else if(v.getId() == R.id.admin_mentor_panel)
-        {
-            showMentorDialog();
         } else if(v.getId() == R.id.admin_moderator)
         {
-
+            showModeratorDialog();
         } else if(v.getId() == R.id.admin_quiz_panel)
         {
             setQuizMaster();
@@ -60,12 +56,14 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    private void showModeratorDialog()
+    {
+        new ModeratorManager(this);
+    }
+
     private void setQuizMaster()
     {
         new QuizMasterManager(this);
-    }
-
-    private void showMentorDialog() {
     }
 
     @Override

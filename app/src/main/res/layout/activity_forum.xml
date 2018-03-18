@@ -7,7 +7,13 @@
     tools:context="com.itbstudentapp.Forum"
     android:background="@drawable/forum_background_img">
 
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/tool_bar">
+    </include>
+
     <RelativeLayout
+        android:layout_below="@id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -38,6 +44,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/forum_banner"
+            android:id="@+id/section_list"
+            android:orientation="vertical"
+            ></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_above="@+id/forum_button_bar"
             android:layout_below="@id/forum_banner"
             >
@@ -64,7 +78,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="85sp"
+                        android:layout_height="70sp"
                         android:id="@+id/modules"
                         android:src="@drawable/module"
                         android:padding="10sp"
@@ -104,7 +118,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="85sp"
+                        android:layout_height="70sp"
                         android:id="@+id/forum"
                         android:src="@drawable/campus"
                         android:padding="10sp"
@@ -144,7 +158,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="85sp"
+                        android:layout_height="70sp"
                         android:id="@+id/area"
                         android:src="@drawable/area"
                         android:padding="10sp"
@@ -184,7 +198,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="85sp"
+                        android:layout_height="70sp"
                         android:id="@+id/transport_image"
                         android:src="@drawable/transport_f"
                         android:padding="10sp"
@@ -224,7 +238,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="85sp"
+                        android:layout_height="70sp"
                         android:id="@+id/group"
                         android:src="@drawable/group"
                         android:padding="10sp"
@@ -264,7 +278,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="85sp"
+                        android:layout_height="70sp"
                         android:id="@+id/relax"
                         android:src="@drawable/relax"
                         android:padding="10sp"

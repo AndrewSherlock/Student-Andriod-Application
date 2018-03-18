@@ -6,6 +6,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Looper;
 import android.support.annotation.NonNull;
@@ -39,6 +41,7 @@ import com.itbstudentapp.NotificationSystem.Notification;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Random;
 import java.util.UUID;
 
 public class ForumManager {
@@ -59,7 +62,7 @@ public class ForumManager {
 
     int counter;
 
-    public void getMenuFromDB(final GridLayout gridLayout, final String key, final ProgressDialog progress) {
+    public void getMenuFromDB(final LinearLayout linearLayout, final String key, final ProgressDialog progress) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("forum/" + key);
         final ArrayList<String> topic_name = new ArrayList<String>();
 
@@ -90,26 +93,32 @@ public class ForumManager {
                         counter++;
                         topic_name.add(UtilityFunctions.formatTitles(data.getKey()));
                         String permitted = data.child("permitted").getValue(String.class);
+
                         if (permitted.equalsIgnoreCase("all") || (permitted.equalsIgnoreCase(UtilityFunctions.student_group))) {
                             isPermitted = true;
                         }
                     }
 
                     if (isPermitted) {
-                        View view = LayoutInflater.from(gridLayout.getContext()).inflate(R.layout.forum_section_panel, null);
+                        View view = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.forum_section_panel, null);
                         TextView text = view.findViewById(R.id.section_text_box);
                         text.setText(UtilityFunctions.formatTitles(data.getKey()));
 
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Intent intent = new Intent(gridLayout.getContext(), ForumList.class);
+                                Intent intent = new Intent(linearLayout.getContext(), ForumList.class);
                                 intent.putExtra("path", key + "/" + data.getKey());
-                                gridLayout.getContext().startActivity(intent);
+                                linearLayout.getContext().startActivity(intent);
                             }
                         });
 
-                        gridLayout.addView(view);
+                        view.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor( "#cc" + UtilityFunctions.getHexColor(counter))));
+
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                        params.setMargins(0,0,0,20);
+
+                        linearLayout.addView(view, params);
                     }
                 }
 
@@ -264,8 +273,10 @@ public class ForumManager {
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(final Uri uri) {
-                            final String imageLink = uri.toString();
-                            Glide.with(context).load(imageLink).into(imageView);
+                            try {
+                                final String imageLink = uri.toString();
+                                Glide.with(context).load(imageLink).into(imageView);
+                            } catch (IllegalArgumentException e){}
                         }
                     });
 
@@ -324,7 +335,7 @@ public class ForumManager {
     private void subscribeThreadDeleteButton(View view, final String ref)
     {
         SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
-        if(preferences.getString("accountType", "").equalsIgnoreCase("itb-staff"))
+        if(preferences.getBoolean("moderator", false))
         {
             View deleteButton = view.findViewById(R.id.forum_post_delete);
             deleteButton.setVisibility(View.VISIBLE);
@@ -341,7 +352,7 @@ public class ForumManager {
     private void subscribePostDeleteButton(View view, final String ref, final int replyNum)
     {
         SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
-        if(preferences.getString("accountType", "").equalsIgnoreCase("itb-staff"))
+        if(preferences.getBoolean("moderator", false))
         {
             final View deleteButton = view.findViewById(R.id.forum_post_delete);
             deleteButton.setVisibility(View.VISIBLE);

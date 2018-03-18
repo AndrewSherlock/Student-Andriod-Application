@@ -26,6 +26,7 @@ public class Phone extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         String[] contacts = getResources().getStringArray(R.array.contacts);
 
         linearLayout = findViewById(R.id.contact_grid);

@@ -52,6 +52,7 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
         }
 
         setContentView(R.layout.activity_quiz_management);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         questions = new ArrayList<>();
         quizTitle = findViewById(R.id.quiz_title);

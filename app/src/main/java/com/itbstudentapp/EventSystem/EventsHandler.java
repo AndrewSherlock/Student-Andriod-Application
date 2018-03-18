@@ -38,6 +38,7 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_events_handler);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         UserSettings.currentIntent = this.getIntent();
 
         addEvent = findViewById(R.id.add_event);
