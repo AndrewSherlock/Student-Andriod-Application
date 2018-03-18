@@ -106,8 +106,8 @@ public class ReportedPost extends AppCompatActivity {
                                         forumPost.addReplyToList(d.getValue(Reply.class));
                                     }
 
-                                    ReportedPostModal rpm = ReportedPostModal.newInstance(forumPost, dataLink, reportedPostsSection.getContext());
-                                    rpm.show(getFragmentManager(),"RPM");
+                                    new ReportedPostModal(reportedPostsSection.getContext(), forumPost, dataLink, d.getRef());
+
                                 }
 
                                 @Override

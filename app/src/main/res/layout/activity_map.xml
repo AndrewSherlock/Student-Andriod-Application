@@ -17,18 +17,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/map_title"
-        android:layout_marginBottom="3sp">
+        android:layout_margin="5sp"
+        android:orientation="horizontal">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="0sp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="Map"
             android:textColor="#fff"
-            android:textSize="32sp"
+            android:textSize="25sp"
             android:fontFamily="@font/cuprumbold"
             android:textAppearance="@style/cuprum_bold"
             android:textAlignment="center"
             />
+
+        <ImageView
+            android:layout_width="0sp"
+            android:layout_weight=".2"
+            android:layout_height="match_parent"
+            android:src="@drawable/plus_white"
+            android:id="@+id/add_room"/>
 
     </LinearLayout>
 
@@ -58,31 +67,33 @@
             android:fontFamily="@font/cuprumbold"
             android:textAppearance="@style/cuprum_bold"
             android:textColor="#fff"
-            android:textSize="22sp"
+            android:textSize="25sp"
             />
 
         <LinearLayout
+            android:layout_margin="20sp"
+            android:layout_gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <EditText
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:hint="Enter room number"
-                android:textColorHint="#fff"
-                android:background="@android:color/transparent"
-                android:textSize="22sp"
-                android:fontFamily="@font/cuprumbold"
-                android:textAppearance="@style/cuprum_bold"
-                android:layout_margin="5sp"
-                android:id="@+id/room_choice"
-                />
+            <!--<EditText-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:hint="Pick Room"-->
+                <!--android:textColorHint="#fff"-->
+                <!--android:background="@android:color/transparent"-->
+                <!--android:textSize="22sp"-->
+                <!--android:fontFamily="@font/cuprumbold"-->
+                <!--android:textAppearance="@style/cuprum_bold"-->
+                <!--android:layout_margin="5sp"-->
+                <!--android:id="@+id/room_choice"-->
+                <!--/>-->
 
             <Spinner
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="40sp"
                 android:layout_weight="1"
                 android:layout_margin="5sp"
                 android:id="@+id/room_drop_down"
@@ -104,7 +115,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Submit"
+                android:text="Find room"
                 android:layout_weight="1"
                 android:textSize="22sp"
                 android:textAlignment="center"
@@ -121,43 +132,43 @@
                 android:layout_weight="1"/>
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60sp"
-            android:orientation="horizontal"
-            >
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="60sp"-->
+            <!--android:orientation="horizontal"-->
+            <!--&gt;-->
 
-            <TextView
-                android:gravity="center_vertical"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Add room to our list."
-                android:fontFamily="@font/cuprumbold"
-                android:textAppearance="@style/cuprum_bold"
-                android:textSize="22sp"
-                android:textColor="#fff"
-                android:layout_marginLeft="5sp"/>
+            <!--<TextView-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Add room to our list."-->
+                <!--android:fontFamily="@font/cuprumbold"-->
+                <!--android:textAppearance="@style/cuprum_bold"-->
+                <!--android:textSize="22sp"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_marginLeft="5sp"/>-->
 
-            <TextView
-                android:gravity="center_vertical"
-                android:textAlignment="center"
-                android:background="@drawable/forum_buttons"
-                android:layout_margin="10dp"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".6"
-                android:text="Add room"
-                android:fontFamily="@font/cuprumbold"
-                android:textAppearance="@style/cuprum_bold"
-                android:textSize="22sp"
-                android:textColor="#fff"
-                android:layout_marginLeft="5sp"
-                android:id="@+id/add_room"/>
+            <!--<TextView-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:textAlignment="center"-->
+                <!--android:background="@drawable/forum_buttons"-->
+                <!--android:layout_margin="10dp"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_weight=".6"-->
+                <!--android:text="Add room"-->
+                <!--android:fontFamily="@font/cuprumbold"-->
+                <!--android:textAppearance="@style/cuprum_bold"-->
+                <!--android:textSize="22sp"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_marginLeft="5sp"-->
+                <!--android:id="@+id/add_room"/>-->
 
 
 
-        </LinearLayout>
+        <!--</LinearLayout>-->
 
 
     </LinearLayout>

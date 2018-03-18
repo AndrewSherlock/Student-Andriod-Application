@@ -53,6 +53,8 @@ public class ContactRepository
     {
         email = email.toLowerCase();
 
+        if(email.contains("admin"))
+            return UserType.ADMIN;
         if(email.contains("student"))
             return UserType.STUDENT;
         if(email.contains("itb.ie"))

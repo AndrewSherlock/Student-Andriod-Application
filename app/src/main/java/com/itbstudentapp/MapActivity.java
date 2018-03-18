@@ -5,6 +5,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -20,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +43,9 @@ import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, View.OnClickListener, AdapterView.OnItemSelectedListener {
 
-    private TextView addRoomButton, submit;
-    private EditText enterRoomBox;
+    private TextView submit;
+    private ImageView addRoomButton;
+
     private Spinner roomSpinner;
 
     private GoogleMap map;
@@ -60,11 +63,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         submit = findViewById(R.id.map_submit);
-        enterRoomBox = findViewById(R.id.room_choice);
         roomSpinner = findViewById(R.id.room_drop_down);
         addRoomButton = findViewById(R.id.add_room);
 
-        enterRoomBox.setOnClickListener(this);
+        SharedPreferences preferences = getSharedPreferences(UtilityFunctions.PREF_FILE, MODE_PRIVATE);
+
+        if(!preferences.getString("accountType", "").equalsIgnoreCase("admin") && !preferences.getBoolean("moderator", false))
+        {
+            addRoomButton.setVisibility(View.INVISIBLE);
+        }
+
         roomSpinner.setOnItemSelectedListener(this);
 
         submit.setOnClickListener(this);
@@ -120,11 +128,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == enterRoomBox.getId())
-        {
-            hasEnteredTextLast = true;
-            return;
-        }
 
         if(!UtilityFunctions.doesUserHaveConnection(getBaseContext()))
         {
@@ -157,20 +160,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             });
 
             dialog.show();
-        } else{
-            String room;
-            if(hasEnteredTextLast)
-            {
-                room = enterRoomBox.getText().toString();
-            } else{
-                room = roomSpinner.getSelectedItem().toString();
-            }
-
-            room = room.replace(" ", "_");
-            room = room.trim();
-            getCoords(room);
-
         }
+// else{
+//            String room;
+//            if(hasEnteredTextLast)
+//            {
+//                room = enterRoomBox.getText().toString();
+//            } else{
+//                room = roomSpinner.getSelectedItem().toString();
+//            }
+//
+//            room = room.replace(" ", "_");
+//            room = room.trim();
+//            getCoords(room);
+//
+//        }
     }
 
     private boolean addRoomToDatabase(String roomId)

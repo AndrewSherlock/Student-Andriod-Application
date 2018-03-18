@@ -162,7 +162,6 @@ public class ForumManager {
                 reference.child(post.getPostTitle()).setValue(post);
                 reference.child(post.getPostTitle()).child("subscribed_users").child(UtilityFunctions.getUserNameFromFirebase()).setValue(UtilityFunctions.getUserNameFromFirebase() + ",");
                 Toast.makeText(context, "Topic posted successfully", Toast.LENGTH_SHORT).show();
-                sendNotificationsToUsers(reference.child(post.getPostTitle()).child("subscribed_users").getRef());
                 newPostModal.postMessage();
             }
         });
@@ -170,34 +169,6 @@ public class ForumManager {
         delayThread.start();
 
         return true;
-    }
-
-    private void sendNotificationsToUsers(final DatabaseReference reference)
-    {
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                String userList = dataSnapshot.getValue(String.class);
-
-                String[] usersArray = userList.split(",");
-                Log.e("AG", "onDataChange: " + dataSnapshot.getRef( ) + "/" +dataSnapshot.getChildrenCount());
-
-                for(DataSnapshot name : dataSnapshot.getChildren())
-                {
-                    //String notificationType, String title, String body, String messageSender
-                    Notification notification = new Notification("forum", "New reply to a topic you posted in.", "", name.getKey().toLowerCase());
-                    FirebaseNotificationManager.sendNotificationToUser(notification);
-                }
-
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     boolean hasUploaded = false;
@@ -249,7 +220,7 @@ public class ForumManager {
                         LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 layoutParams.setMargins(20, 20, 20, 20);
 
-                View view = LayoutInflater.from(context).inflate(R.layout.forum_topic_post, null); //TODO ken crash
+                View view = LayoutInflater.from(context).inflate(R.layout.forum_topic_post, null);
                 view.setTag(dataSnapshot.getKey());
 
                 subscribeReportFunctions(view, dataSnapshot.getRef().toString(), forumPost.getPostComment());
@@ -355,31 +326,19 @@ public class ForumManager {
         if(preferences.getBoolean("moderator", false))
         {
             final View deleteButton = view.findViewById(R.id.forum_post_delete);
+
             deleteButton.setVisibility(View.VISIBLE);
             deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl(ref + "/replies/");
+                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl(ref);
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
 
-                            int i = 0;
-
-                            for(DataSnapshot d : dataSnapshot.getChildren())
-                            {
-                                if(i == replyNum) {
-                                    d.getRef().setValue(null);
-                                    View buttonParent = (View) deleteButton.getParent().getParent().getParent();
-                                    ((ViewGroup) buttonParent.getParent()).removeView(buttonParent);
-                                    Toast.makeText(context, "Post deleted", Toast.LENGTH_SHORT).show();
-                                    return;
-                                }
-
-                                i++;
-                            }
-
+                            reference.removeValue();
+                            Toast.makeText(context, "Post deleted by moderator", Toast.LENGTH_SHORT).show();
                         }
 
                         @Override
@@ -425,7 +384,7 @@ public class ForumManager {
                 if (forum_poster.getImageLink() != null) {
                     nameText.setText(forum_poster.getUsername());
 
-                    StorageReference reference = FirebaseStorage.getInstance().getReference("forumImages/" + forum_poster.getImageLink());
+                    StorageReference reference = FirebaseStorage.getInstance().getReference("userImages/" + forum_poster.getImageLink());
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -447,89 +406,13 @@ public class ForumManager {
 
     private int valueCheck = 0;
     public void addReplysToModal(final LinearLayout messageSection, ForumPost forumPost, String postLink) {
-        valueCheck = 0;
-        final ArrayList<Reply> posts = forumPost.getPostReplies();
-        shouldListenToReplies = false;
-        for (int i = 0; i < posts.size(); i++) {
-            final View view = LayoutInflater.from(context).inflate(R.layout.forum_post_section_modal, null);
-            subscribeReportFunctions(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink, forumPost.getPostComment());
-            subscribePostDeleteButton(view, "https://itb-student-app-6727d.firebaseio.com/forum/" + postLink, i);
-            TextView reply = view.findViewById(R.id.forum_reply_comment);
-            reply.setText(posts.get(i).getPosterComment());
 
-            TextView timeText = view.findViewById(R.id.forum_reply_date);
-            timeText.setText(UtilityFunctions.milliToTime(posts.get(i).getPostTime()));
-
-            final ImageView postImage = view.findViewById(R.id.forum_reply_image);
-            StorageReference storage = FirebaseStorage.getInstance().getReference("forumImages/" + posts.get(i).getImageLink());
-            storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                @Override
-                public void onSuccess(Uri uri) {
-                    String imageLink = uri.toString();
-                    Glide.with(context).load(imageLink).into(postImage);
-                }
-            });
-
-            valueCheck++;
-
-            Log.e("Loop_check", "addReplysToModal: " + i );
-            if(i == posts.size() - 1)
-            {
-                shouldListenToReplies = true;
-            }
-
-            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + posts.get(i).getPosterID());
-            reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.getValue(User.class);
-                    TextView username = view.findViewById(R.id.forum_reply_name);
-                    username.setText(user.getUsername());
-
-                    final ImageView userImage = view.findViewById(R.id.forum_post_user_image);
-
-                    if (user.getImageLink() != null) {
-                        StorageReference reference = FirebaseStorage.getInstance().getReference("forumImages/" + user.getImageLink());
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                String imageLink = uri.toString();
-                                Glide.with(context).load(imageLink).into(userImage);
-                            }
-                        });
-                    }
-
-                    addMessageFunctionToView(dataSnapshot.getKey(), userImage);
-                    messageSection.addView(view);
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-
-            listenForReplys(messageSection, postLink);
-//            if (posts.size() == valueCheck) {
-//                Log.e("post_size", "addReplysToModal: " + "Here");
-//                shouldListenToReplies = true;
-//                listenForReplys(messageSection, postLink);
-//            } else if(valueCheck == posts.size() - 1)
-//            {
-//                Log.e("post_size", "addReplysToModal: " + "Here" + posts.size());
-//                shouldListenToReplies = true;
-//                listenForReplys(messageSection, postLink);
-//            }
-
-
-        }
-
-
+        shouldListenToReplies = true;
+        listenForReplys(messageSection, postLink);
     }
 
     public boolean addReplyToDatabase(final String postLink, final int size, final String posterComment, final Uri image) {
         Reply reply = new Reply(UtilityFunctions.getUserNameFromFirebase(), posterComment, Calendar.getInstance().getTimeInMillis());
-
 
         if (!UtilityFunctions.doesUserHaveConnection(context)) {
             Toast.makeText(context, "No network connection, Please try again", Toast.LENGTH_SHORT).show();
@@ -551,7 +434,7 @@ public class ForumManager {
                 while (image != null && !hasUploaded) ;
 
                 Looper.prepare();
-                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("forum/" + postLink + "/replies/");
+                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(postLink + "/replies/");
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -609,35 +492,39 @@ public class ForumManager {
         this.fragmentManager = fragmentManager;
     }
 
-    public void listenForReplys(final LinearLayout messageSection, String postLink)
+    public void listenForReplys(final LinearLayout messageSection, final String postLink)
     {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(postLink + "/replies/");
-        Log.e("Link", "listenForReplys: " + reference );
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(postLink + "/replies/");
+
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.e("Link", "listenForReplys: " + dataSnapshot.getKey() );
+
                 if (shouldListenToReplies) {
-                    Log.e("Child", "onChildAdded: " + dataSnapshot.getKey());
+
                     final View view = LayoutInflater.from(context).inflate(R.layout.forum_post_section_modal, null);
                     final Reply r = dataSnapshot.getValue(Reply.class);
 
                     TextView reply = view.findViewById(R.id.forum_reply_comment);
                     reply.setText(r.getPosterComment());
+                    subscribePostDeleteButton(view, dataSnapshot.getRef().toString(), Integer.parseInt(dataSnapshot.getKey()));
+                    Log.e("WHAT am i doing", "onChildAdded: " +   reference.getParent().getRef().toString() + "/->" +  r.getPosterComment());
+                    subscribeReportFunctions(view, reference.getParent().getRef().toString(), r.getPosterComment());
 
                     TextView timeText = view.findViewById(R.id.forum_reply_date);
                     timeText.setText(UtilityFunctions.milliToTime(r.getPostTime()));
 
-                    final ImageView postImage = view.findViewById(R.id.forum_reply_image);
-                    StorageReference storage = FirebaseStorage.getInstance().getReference("forumImages/" + r.getImageLink());
-                    storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            String imageLink = uri.toString();
-                            Glide.with(context).load(imageLink).into(postImage);
-                        }
-                    });
-
+                    if(r.getImageLink() != null) {
+                        final ImageView postImage = view.findViewById(R.id.forum_reply_image);
+                        StorageReference storage = FirebaseStorage.getInstance().getReference("forumImages/" + r.getImageLink());
+                        storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String imageLink = uri.toString();
+                                Glide.with(context).load(imageLink).into(postImage);
+                            }
+                        });
+                    }
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + r.getPosterID());
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -650,7 +537,7 @@ public class ForumManager {
                             addMessageFunctionToView(r.getPosterID(), userImage);
 
                             if (user.getImageLink() != null) {
-                                StorageReference reference = FirebaseStorage.getInstance().getReference("forumImages/" + user.getImageLink());
+                                StorageReference reference = FirebaseStorage.getInstance().getReference("userImages/" + user.getImageLink());
                                 reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                     @Override
                                     public void onSuccess(Uri uri) {

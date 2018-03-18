@@ -12,6 +12,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.service.notification.StatusBarNotification;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -111,6 +112,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
                 }
 
                 nBuilder.setContentTitle(formattedName + "sent you a message!");
+
+
+
                 notificationManager.notify(1, nBuilder.build());
             }
 

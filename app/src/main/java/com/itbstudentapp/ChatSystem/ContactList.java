@@ -81,6 +81,10 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
         for(final ContactCard card : cc)
         {
             View v = LayoutInflater.from(this.getContext()).inflate(R.layout.contact_card, null);
+
+            if(card.getUserAccountType().toString().equalsIgnoreCase("admin"))
+                continue;
+
             TextView userName = v.findViewById(R.id.contact_name);
             TextView userType = v.findViewById(R.id.contact_account);
             final TextView user_id = v.findViewById(R.id.contact_id);

@@ -123,14 +123,14 @@ public class UtilityFunctions {
 
                 menu.getMenu().add("Profile Settings");
 
-                if(preferences.getString("accountType", "").equalsIgnoreCase("itb-staff"))
+                if(preferences.getString("accountType", "").equalsIgnoreCase("admin"))
                 {
                     menu.getMenu().add("Admin panel");
                     menu.getMenu().add("Events");
                 }
 
                 if(preferences.getString("accountType", "").equalsIgnoreCase("lecturer")
-                        ||preferences.getString("accountType", "").equalsIgnoreCase( "itb-staff"))
+                        ||preferences.getString("accountType", "").equalsIgnoreCase( "admin"))
                 {
                     menu.getMenu().add("Set quiz");
                 }
@@ -160,7 +160,7 @@ public class UtilityFunctions {
                                 break;
                             case "contact us":
                                 Intent contact = new Intent(context, MessageScreen.class);
-                                contact.putExtra("message_id", "b00090936");
+                                contact.putExtra("message_id", "admin");
                                 context.startActivity(contact);
                                 break;
                             case "events":
