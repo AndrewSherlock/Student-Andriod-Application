@@ -364,8 +364,11 @@ public class ForumManager {
 
                 if(title.length() > 15)
                 {
-                    title = title.substring(0,14) + "...";
+                    title = title.substring(0,14);
                 }
+
+                title.replace(" ", "_");
+                title.replace(".", "_");
 
                 reference.child(title).setValue(ref);
                 Toast.makeText(context, "Post reported", Toast.LENGTH_SHORT).show();
@@ -375,7 +378,9 @@ public class ForumManager {
     }
 
     private void loadUserInformationIntoSection(final TextView nameText, final ImageView user_image, final String posterID) {
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + posterID);
+        String moddedUserId = posterID.replace(".", "_");
+
+        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + moddedUserId);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -472,7 +477,6 @@ public class ForumManager {
                 popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-
                         if (item.getTitle().toString().equalsIgnoreCase("contact")) {
                             Intent messageUser = new Intent(context, MessageScreen.class);
                             messageUser.putExtra("message_id", posterID);
@@ -507,8 +511,8 @@ public class ForumManager {
 
                     TextView reply = view.findViewById(R.id.forum_reply_comment);
                     reply.setText(r.getPosterComment());
+
                     subscribePostDeleteButton(view, dataSnapshot.getRef().toString(), Integer.parseInt(dataSnapshot.getKey()));
-                    Log.e("WHAT am i doing", "onChildAdded: " +   reference.getParent().getRef().toString() + "/->" +  r.getPosterComment());
                     subscribeReportFunctions(view, reference.getParent().getRef().toString(), r.getPosterComment());
 
                     TextView timeText = view.findViewById(R.id.forum_reply_date);
@@ -533,7 +537,7 @@ public class ForumManager {
                             TextView username = view.findViewById(R.id.forum_reply_name);
                             username.setText(user.getUsername());
 
-                            final ImageView userImage = view.findViewById(R.id.forum_post_user_image);
+                            final ImageView userImage = view.findViewById(R.id.forum_reply_user_image);
                             addMessageFunctionToView(r.getPosterID(), userImage);
 
                             if (user.getImageLink() != null) {
