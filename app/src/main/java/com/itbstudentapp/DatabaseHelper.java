@@ -21,10 +21,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String COL4 = "class_event";
     private static final String COL5 = "day";
     private static final String COL6 = "room";
+    private static final int DB_VERSION=2;
 
 
     public DatabaseHelper(Context context) {
-        super(context, TABLE_NAME, null, 1);
+        super(context, TABLE_NAME, null, DB_VERSION);
     }
 
     @Override
@@ -32,11 +33,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL2 + " TEXT, " + COL3 + " TEXT, "+ COL4 + " TEXT, "+ COL5 + " TEXT, "+ COL6 + " TEXT )";
         db.execSQL(createTable);
-
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        Log.d(TAG, "onUpgrade, tablename= " + TABLE_NAME+" version: "+i+","+ i1);
+        onCreate(db);
+    }
+    public void onDowngrade(SQLiteDatabase db, int i, int i1) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
@@ -56,10 +61,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         //if data is inserted incorrectly it will return -1
         if (result == -1) {
+
             return false;
         } else {
+
             return true;
         }
+
     }
 
     /**
@@ -70,6 +78,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String query = "SELECT * FROM " + TABLE_NAME;
         Cursor data = db.rawQuery(query, null);
+
         return data;
     }
 
@@ -83,6 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM " + TABLE_NAME +
                 " WHERE " + COL5 + " = '" + day + "'";
         Cursor data = db.rawQuery(query, null);
+
         return data;
     }
 
@@ -98,6 +108,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " WHERE " + COL4 + " = '" + class_event + "'" +
                 " AND " + COL5 + " = '" + day + "'";
         Cursor data = db.rawQuery(query, null);
+
         return data;
     }
 
@@ -120,6 +131,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 " WHERE " + COL1 + " = " + id ;
         Log.d(TAG, "updateTimetableEntry: query: " + query);
         db.execSQL(query);
+
     }
 
 
@@ -134,6 +146,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Log.d(TAG, "deleteTimetableEntry: query: " + query);
         Log.d(TAG, "deleteTimetableEntry: Deleting entry id: " + id + " from database.");
         db.execSQL(query);
+
     }
 
 }
