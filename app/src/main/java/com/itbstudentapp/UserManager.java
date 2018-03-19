@@ -190,7 +190,7 @@ public class UserManager
             return;
         }
 
-        User user = new User(username, password, courseId, accountType, emailAddress, true);
+        User user = new User(username, courseId, accountType, emailAddress, true);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("users").child(prepareFirebaseLink(emailAddress.split("@")[0])).setValue(user);

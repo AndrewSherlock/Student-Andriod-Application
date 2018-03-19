@@ -170,7 +170,7 @@ public class NoteMain extends AppCompatActivity {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.note_dialog, null);
 
-        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(NoteMain.this);
+        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(NoteMain.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
         alertDialogBuilderUserInput.setView(view);
 
         final EditText inputNote = view.findViewById(R.id.note);

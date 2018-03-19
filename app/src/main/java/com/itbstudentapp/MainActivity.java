@@ -43,17 +43,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         links = findViewById(R.id.links);
         phone = findViewById(R.id.phone);
         notes = findViewById(R.id.notes);
-//
-//        String[] colorHexes = getResources().getStringArray(R.array.colours);
-//        transport.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[0 % colorHexes.length])));
-//        timetable.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[1 % colorHexes.length])));
-//        quiz.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[2 % colorHexes.length])));
-//        map.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[3 % colorHexes.length])));
-//        forum.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[4 % colorHexes.length])));
-//        chat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[5 % colorHexes.length])));
-//        links.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[6 % colorHexes.length])));
-//        phone.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[7 % colorHexes.length])));
-//        notes.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[8 % colorHexes.length])));
+
+        String[] colorHexes = getResources().getStringArray(R.array.colours);
+        transport.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[0 % colorHexes.length])));
+        timetable.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[1 % colorHexes.length])));
+        quiz.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[2 % colorHexes.length])));
+        map.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[3 % colorHexes.length])));
+        forum.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[4 % colorHexes.length])));
+        chat.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[5 % colorHexes.length])));
+        links.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[6 % colorHexes.length])));
+        phone.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[7 % colorHexes.length])));
+        notes.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + colorHexes[8 % colorHexes.length])));
 
         phone.setOnClickListener(this);
         transport.setOnClickListener(this);
