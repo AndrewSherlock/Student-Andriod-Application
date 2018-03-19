@@ -32,17 +32,6 @@ public class AddClass extends AppCompatActivity {
 
         Intent receivedIntent = getIntent();
 
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-        {
-            Log.e("Fail", "onCreate: " + "write Permission not granted" );
-        }
-
-        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
-        {
-            Log.e("Fail", "onCreate: " + "read Permission not granted" );
-        }
-
-
         //now get the day we passed as an extra
         selectedDay = receivedIntent.getStringExtra("day");
 

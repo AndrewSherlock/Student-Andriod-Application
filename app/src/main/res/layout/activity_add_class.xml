@@ -5,127 +5,133 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.itbstudentapp.AddClass">
-
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:orientation="vertical"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
->
-
-
-<TextView
+<ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:text="Class or Event"
-    android:textSize="30dp"/>
-<EditText
-    android:textAlignment="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="text"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/addClassOrEvent"/>
+    android:layout_height="wrap_content">
 
-<TextView
+    <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:text="Start Time"
-    android:textSize="30dp"/>
-<EditText
-    android:textAlignment="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="time"
-    android:hint="eg 9:30/13:00"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/addTimetableStartTime"/>
-
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:text="End Time"
-    android:textSize="30dp"/>
-<EditText
-    android:textAlignment="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="time"
-    android:hint="eg 11:30/15:00"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/addTimetableEndTime"/>
-
-<TextView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textAlignment="center"
-    android:text="Room"
-    android:textSize="30dp"/>
-<EditText
-    android:textAlignment="center"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:inputType="text"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:id="@+id/addTimetableRoom"/>
-
-
-
-<LinearLayout
-    android:layout_centerHorizontal="true"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:weightSum="100"
-    android:layout_below="@+id/classOrEvent"
+    android:layout_height="match_parent"
     >
 
-</LinearLayout>
-    <GridLayout
-        android:columnCount="2"
-        android:layout_centerHorizontal="true"
+
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_margin="10sp"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Class or Event"
+        android:textSize="30dp"/>
+    <EditText
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addClassOrEvent"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Start Time"
+        android:textSize="30dp"/>
+    <EditText
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:maxLength="5"
+        android:hint="eg 9:30/13:00"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addTimetableStartTime"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="End Time"
+        android:textSize="30dp"/>
+    <EditText
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:maxLength="5"
+        android:hint="eg 11:30/15:00"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addTimetableEndTime"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Room"
+        android:textSize="30dp"/>
+    <EditText
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/addTimetableRoom"/>
+
+
+
+    <LinearLayout
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:weightSum="100"
         android:layout_below="@+id/classOrEvent"
         >
 
-        <Button
-            android:padding="10dp"
-            android:layout_columnWeight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:fontFamily="@font/cuprumbold"
-            android:gravity="center"
-            android:background="@drawable/forum_panels"
-            android:backgroundTint="#cc299308"
-            android:textSize="16sp"
+    </LinearLayout>
+        <GridLayout
+            android:columnCount="2"
+            android:layout_centerHorizontal="true"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="10sp"
+            android:weightSum="100"
+            android:layout_below="@+id/classOrEvent"
+            >
 
-            android:text="SAVE"
-            android:id="@+id/btnSaveTimetableEntry"/>
-        <Button
-            android:padding="10dp"
-            android:layout_columnWeight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:fontFamily="@font/cuprumbold"
-            android:gravity="center"
-            android:background="@drawable/forum_panels"
-            android:backgroundTint="#cc8c010a"
-            android:textSize="16sp"
-            android:text="Back"
-            android:id="@+id/btnBckTimetableEntry"/>
+            <Button
+                android:padding="10dp"
+                android:layout_columnWeight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:fontFamily="@font/cuprumbold"
+                android:gravity="center"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc299308"
+                android:textSize="16sp"
+
+                android:text="SAVE"
+                android:id="@+id/btnSaveTimetableEntry"/>
+            <Button
+                android:padding="10dp"
+                android:layout_columnWeight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:fontFamily="@font/cuprumbold"
+                android:gravity="center"
+                android:background="@drawable/forum_panels"
+                android:backgroundTint="#cc8c010a"
+                android:textSize="16sp"
+                android:text="Back"
+                android:id="@+id/btnBckTimetableEntry"/>
+
+        </GridLayout>
+
 
     </GridLayout>
-
-
-</GridLayout>
+</ScrollView>
 </android.support.constraint.ConstraintLayout>

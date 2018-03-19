@@ -48,6 +48,7 @@
         <activity android:name=".AddClass" />
         <activity android:name=".EditTimetableEntryActivity" />
         <activity android:name=".ForumList" />
+        <activity android:name=".NoteMain" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
