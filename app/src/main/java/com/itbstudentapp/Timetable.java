@@ -29,6 +29,7 @@ public class Timetable extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_timetable);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
         setupUIViews();
         setupListView();

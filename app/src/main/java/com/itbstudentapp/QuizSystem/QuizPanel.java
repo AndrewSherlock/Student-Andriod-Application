@@ -48,7 +48,6 @@ public class QuizPanel extends AppCompatActivity {
 
                     if (quizMaster.equalsIgnoreCase(UtilityFunctions.getUserNameFromFirebase())) {
                         View view = LayoutInflater.from(quizSection.getContext()).inflate(R.layout.quiz_subject_detail, null);
-                        // LinearLayout layout = view.findViewById(R.id.quiz_detail_panel);
 
                         TextView subjectName = view.findViewById(R.id.quiz_subject);
                         subjectName.setText(quiz.getKey());

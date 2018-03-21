@@ -167,8 +167,10 @@ public class UtilityFunctions {
                                 context.startActivity(new Intent(context, EventsHandler.class));
                                 break;
                             case "logout":
+                                removeInstanceIDFromDB(context);
                                 FirebaseAuth auth = FirebaseAuth.getInstance();
                                 auth.signOut();
+                                auth = null;
                                 Intent intent = new Intent(context, LoginScreen.class);
                                 UserSettings.clearFile(context);
                                 context.startActivity(intent);
@@ -181,6 +183,15 @@ public class UtilityFunctions {
         });
 
         return toolbar;
+    }
+
+    private static void removeInstanceIDFromDB(Activity context)
+    {
+        context.stopService(new Intent(context, MyFirebaseMessagingService.class));
+        context.stopService(new Intent(context, MyFirebaseInstanceIDService.class));
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase());
+        ref.child("instance_id").setValue(null);
     }
 
     private static void loadMenuIntent(Activity context, Class activityClass)

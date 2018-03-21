@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.ParseException;
+
 public class AddClass extends AppCompatActivity {
 
     private Button btnSave, btnBack;
@@ -40,7 +42,15 @@ public class AddClass extends AppCompatActivity {
             public void onClick(View view) {
                 String class_event = AddClass.this.class_event.getText().toString();
                 String startTime = AddClass.this.startTime.getText().toString();
+
+                if(!isValidTime(startTime))
+                    return;
+
                 String endTime = AddClass.this.endTime.getText().toString();
+
+                if(!isValidTime(endTime))
+                    return;
+
                 String room = AddClass.this.room.getText().toString();
                 if(!class_event.equals("")&&!startTime.equals("")&&!endTime.equals("")&&!room.equals("")){
                     databaseHelper.addData(startTime, endTime, class_event, selectedDay, room);
@@ -65,5 +75,37 @@ public class AddClass extends AppCompatActivity {
     }
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+    private boolean isValidTime(String time)
+    {
+        try {
+            time = time.replace(":", ".");
+            float timeValue = Float.parseFloat(time);
+
+            int hour = (int)Math.floor(timeValue);
+
+            if(hour > 24 || hour < 0)
+            {
+                Toast.makeText(getApplicationContext(), "Invalid hour entered. Enter between 0 - 24", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            float minutes = (float) timeValue - hour;
+           
+            if(minutes < 0.0 || minutes >= 0.60)
+            {
+                Toast.makeText(getApplicationContext(), "Invalid minutes entered. Enter between 0 - 59", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+
+            return true;
+
+        } catch (NumberFormatException e)
+        {
+            Toast.makeText(getApplicationContext(), "You must enter a valid time.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 }

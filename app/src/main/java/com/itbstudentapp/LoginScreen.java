@@ -119,6 +119,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                     return;
                 }
 
+                if(auth == null)
+                    auth = FirebaseAuth.getInstance();
 
                 auth.signInWithEmailAndPassword(dataSnapshot.child("email").getValue(String.class), user_password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -142,6 +144,8 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                                 }
                             }
                         });
+
+                auth = null;
             }
 
             @Override

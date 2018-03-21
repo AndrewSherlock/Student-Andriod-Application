@@ -15,6 +15,8 @@
             android:id="@+id/weekDay"
             android:textStyle="bold"
             android:textSize="40sp"
+            android:fontFamily="@font/cuprumbold"
+            android:textAppearance="@style/cuprum_bold"
             android:textColor="#ffffff"
             android:gravity="center"
             android:text="Day"

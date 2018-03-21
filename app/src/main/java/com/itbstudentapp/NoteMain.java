@@ -14,6 +14,9 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,7 +28,7 @@ import com.itbstudentapp.utils.RecyclerTouchListener;
 public class NoteMain extends AppCompatActivity {
     private NotesAdapter mAdapter;
     private List<Note> notesList = new ArrayList<>();
-    private CoordinatorLayout coordinatorLayout;
+    private RelativeLayout relativeLayout;
     private RecyclerView recyclerView;
     private TextView noNotesView;
 
@@ -35,9 +38,9 @@ public class NoteMain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.note_main);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
-
-        coordinatorLayout = findViewById(R.id.coordinator_layout);
+        relativeLayout = findViewById(R.id.coordinator_layout);
         recyclerView = findViewById(R.id.recycler_view);
         noNotesView = findViewById(R.id.empty_notes_view);
 
@@ -45,7 +48,7 @@ public class NoteMain extends AppCompatActivity {
 
         notesList.addAll(db.getAllNotes());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        ImageView fab = findViewById(R.id.note_add_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -169,6 +172,8 @@ public class NoteMain extends AppCompatActivity {
     private void showNoteDialog(final boolean shouldUpdate, final Note note, final int position) {
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(getApplicationContext());
         View view = layoutInflaterAndroid.inflate(R.layout.note_dialog, null);
+        TextView saveButton = view.findViewById(R.id.saveButton);
+        TextView cancelButton = view.findViewById(R.id.cancel_button);
 
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(NoteMain.this, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
         alertDialogBuilderUserInput.setView(view);
@@ -180,26 +185,13 @@ public class NoteMain extends AppCompatActivity {
         if (shouldUpdate && note != null) {
             inputNote.setText(note.getNote());
         }
-        alertDialogBuilderUserInput
-                .setCancelable(false)
-                .setPositiveButton(shouldUpdate ? "update" : "save", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogBox, int id) {
 
-                    }
-                })
-                .setNegativeButton("cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialogBox, int id) {
-                                dialogBox.cancel();
-                            }
-                        });
-
+        saveButton.setText(shouldUpdate ? "Update" : "Save");
         final AlertDialog alertDialog = alertDialogBuilderUserInput.create();
-        alertDialog.show();
-
-        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v)
+            {
                 // Show toast message when no text is entered
                 if (TextUtils.isEmpty(inputNote.getText().toString())) {
                     Toast.makeText(NoteMain.this, "Enter note!", Toast.LENGTH_SHORT).show();
@@ -218,6 +210,50 @@ public class NoteMain extends AppCompatActivity {
                 }
             }
         });
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        //alertDialogBuilderUserInput
+//                .setCancelable(false)
+//                .setPositiveButton(shouldUpdate ? "update" : "save", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialogBox, int id) {
+//
+//                    }
+//                })
+//                .setNegativeButton("cancel",
+//                        new DialogInterface.OnClickListener() {
+//                            public void onClick(DialogInterface dialogBox, int id) {
+//                                dialogBox.cancel();
+//                            }
+//                        });
+
+        alertDialog.show();
+
+//        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // Show toast message when no text is entered
+//                if (TextUtils.isEmpty(inputNote.getText().toString())) {
+//                    Toast.makeText(NoteMain.this, "Enter note!", Toast.LENGTH_SHORT).show();
+//                    return;
+//                } else {
+//                    alertDialog.dismiss();
+//                }
+//
+//                // check if user updating note
+//                if (shouldUpdate && note != null) {
+//                    // update note by it's id
+//                    updateNote(inputNote.getText().toString(), position);
+//                } else {
+//                    // create new note
+//                    createNote(inputNote.getText().toString());
+//                }
+//            }
+//        });
     }
 
     /**

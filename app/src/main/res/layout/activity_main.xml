@@ -27,6 +27,7 @@
             android:layout_height="match_parent"
             android:text="Event system test"
             android:id="@+id/event_message"
+            android:linksClickable="true"
             android:textAppearance="@style/cuprum_reg"
             android:fontFamily="@font/cuprumregular"
             android:textColor="#fff"

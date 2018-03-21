@@ -39,6 +39,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_view);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         addNewClass = findViewById(R.id.addNewClass);
         addNewClassText = findViewById(R.id.addNewClassText);
         addNewClassText.setOnClickListener(this);

@@ -16,7 +16,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:includeFontPadding="false"
-        android:textColor="@color/colorAccent"
+        android:textColor="#fff"
         android:lineSpacingExtra="0dp"
         android:textSize="40sp" />
 
@@ -25,8 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/dot"
+        android:fontFamily="@font/cuprumbold"
+        android:textAppearance="@style/cuprum_bold"
         android:textColor="#858585"
-        android:textSize="14sp" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/note"
@@ -34,7 +36,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/timestamp"
         android:layout_toRightOf="@id/dot"
-        android:textColor="#232323"
-        android:textSize="18sp" />
+        android:textColor="#ffffff"
+        android:fontFamily="@font/cuprumregular"
+        android:textAppearance="@style/cuprum_reg"
+        android:textSize="18sp"
+        android:minLines="1"
+        android:maxLines="4"
+        />
 
 </RelativeLayout>

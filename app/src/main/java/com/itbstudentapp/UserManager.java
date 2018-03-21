@@ -22,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 public class UserManager
 {
 
@@ -96,6 +98,12 @@ public class UserManager
             return;
         }
 
+        if(emailAddress.split("@").length != 2)
+        {
+            Toast.makeText(context, "Your email is not a valid email address.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if(!isTheUserEmailValid(emailAddress.split("@")[1]))
         {
             for(String s: emailAddress.split("@"))
@@ -134,8 +142,65 @@ public class UserManager
 
         if(this.emailAddress.contains("student"))
             askUserForCourse();
-        else
+        else{
            writeToDatabase(getUserAccountType(emailAddress), null);
+            String user_id = emailAddress.split("@")[0];
+            user_id = user_id.replace(" ", "_");
+
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + user_id);
+            ref.child("groups").setValue("staff:");
+            ref.child("staffUser").setValue(true);
+        }
+    }
+
+    private void getuserGroup(final String course)
+    {
+        final Dialog groupDialog = new Dialog(context);
+        groupDialog.setContentView(R.layout.modal_course_choice);
+        final LinearLayout modalLayout = groupDialog.findViewById(R.id.course_list);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("group_messages");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(final DataSnapshot dataSnapshot) {
+
+                for(final DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    final View groupItem = LayoutInflater.from(context).inflate(R.layout.course_item_list, null);
+                    final TextView textView = groupItem.findViewById(R.id.course_title);
+                    textView.setText(snapshot.getKey());
+
+                    textView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String group = snapshot.getKey() + ":";
+                            addUserGroupToAccount(group,course);
+                            groupDialog.dismiss();
+                        }
+                    });
+
+                    modalLayout.addView(groupItem);
+                }
+
+                groupDialog.show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void addUserGroupToAccount(String group, String course_id)
+    {
+        writeToDatabase(getUserAccountType(emailAddress), course_id);
+        String user_id = emailAddress.split("@")[0];
+        user_id = user_id.replace(" ", "_");
+
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + user_id);
+        ref.child("groups").setValue(group);
+        ref.child("staffUser").setValue(false);
     }
 
     private void askUserForCourse()
@@ -155,8 +220,10 @@ public class UserManager
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    writeToDatabase(getUserAccountType(emailAddress), textView.getText().toString());
+                   // writeToDatabase(getUserAccountType(emailAddress), textView.getText().toString());
                     courseChoice.dismiss();
+                    getuserGroup(textView.getText().toString());
+
                 }
             });
 
@@ -176,9 +243,6 @@ public class UserManager
         if(emailLink.contains("admin"))
             return "admin";
 
-        if(emailLink.contains("nln"))
-            return "nln";
-
         return "itb-staff";
     }
 
@@ -190,11 +254,10 @@ public class UserManager
             return;
         }
 
-        User user = new User(username, courseId, accountType, emailAddress, true);
+        User user = new User(username, courseId, accountType, emailAddress);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child("users").child(prepareFirebaseLink(emailAddress.split("@")[0])).setValue(user);
-        databaseReference.child("unapproved_users").child(prepareFirebaseLink(emailAddress.split("@")[0])).setValue(prepareFirebaseLink(emailAddress.split("@")[0]));
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(emailAddress, password);

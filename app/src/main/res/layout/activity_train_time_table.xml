@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.itbstudentapp.DublinBus.BusTimes"
-    android:background="@drawable/forum_background_img">
+    android:background="@drawable/transport_stop">
 
     <include
         layout="@layout/toolbar"

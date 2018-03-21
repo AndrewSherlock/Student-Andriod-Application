@@ -27,6 +27,7 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_timetable_entry_layout);
+        setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
         btnSave = findViewById(R.id.btnSaveTimetableEntry);
         btnDelete = findViewById(R.id.btnDeleteTimetableEntry);
         class_event = findViewById(R.id.classOrEvent);

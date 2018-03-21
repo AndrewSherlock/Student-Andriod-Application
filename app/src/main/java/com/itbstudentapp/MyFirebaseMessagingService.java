@@ -30,6 +30,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.itbstudentapp.ChatSystem.Chat;
 import com.itbstudentapp.utils.UserSettings;
 
 import org.json.JSONObject;
@@ -72,8 +73,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
             setupNotifyOfNewEvent(params);
         else if(params.get("type").equalsIgnoreCase("chat"))
             setupNotifyOfNewMessage(params);
-        else if(params.get("type").equalsIgnoreCase("forum"))
-            setupNotifyOfNewForumPost(params);
+//        else if(params.get("type").equalsIgnoreCase("forum"))
+//            setupNotifyOfNewForumPost(params);
 
     }
 
@@ -162,7 +163,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         nBuilder.setAutoCancel(true);
 
-        Intent notificationIntent = UserSettings.currentIntent;
+        Intent notificationIntent = new Intent(this, Chat.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
         nBuilder.setContentIntent(contentIntent);

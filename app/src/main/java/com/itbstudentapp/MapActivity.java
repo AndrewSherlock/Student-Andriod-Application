@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.itbstudentapp.utils.UserSettings;
 
 import java.util.List;
 
@@ -56,6 +57,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
+        UserSettings.currentIntent = this.getIntent();
+
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_map);
@@ -161,20 +164,16 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
             dialog.show();
         }
-// else{
-//            String room;
-//            if(hasEnteredTextLast)
-//            {
-//                room = enterRoomBox.getText().toString();
-//            } else{
-//                room = roomSpinner.getSelectedItem().toString();
-//            }
-//
-//            room = room.replace(" ", "_");
-//            room = room.trim();
-//            getCoords(room);
-//
-//        }
+        else{
+            String room;
+            room = roomSpinner.getSelectedItem().toString();
+
+
+            room = room.replace(" ", "_");
+            room = room.trim();
+            getCoords(room);
+
+        }
     }
 
     private boolean addRoomToDatabase(String roomId)
@@ -262,8 +261,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
 
         map.setMinZoomPreference(15);
-        map.setMaxZoomPreference(25);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 20));
+        map.setMaxZoomPreference(40);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(coord, 15));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(coord);
         markerOptions.title(room);

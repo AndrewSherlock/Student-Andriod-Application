@@ -5,13 +5,24 @@
     android:layout_height="wrap_content"
     tools:context="com.itbstudentapp.Timetable"
     android:background="@drawable/itb_snow1">
+
+    <include
+        layout="@layout/toolbar"
+        android:id="@+id/tool_bar"
+        >
+    </include>
+
     <TextView
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/tool_bar"
         android:padding="10sp"
         android:id="@+id/timetableHomeBtn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:gravity="center"
+        android:fontFamily="@font/cuprumbold"
+        android:textAppearance="@style/cuprum_bold"
         android:text="Home"
         android:textColor="#fff"
         android:background="@drawable/forum_buttons"
