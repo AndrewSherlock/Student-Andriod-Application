@@ -272,4 +272,15 @@ public class UtilityFunctions {
             return false;
         }
     }
+
+    public static void checkIfLoggedIn(Context ct)
+    {
+        SharedPreferences preferences = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE);
+        String username = preferences.getString("username", "");
+
+        if(username == null || username == "")
+        {
+            ct.startActivity(new Intent(ct, LoginScreen.class));
+        }
+    }
 }

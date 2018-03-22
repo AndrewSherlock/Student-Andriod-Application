@@ -130,5 +130,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             eventDisplay.displayHandler.removeCallbacksAndMessages(null);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        SharedPreferences preferences = this.getSharedPreferences(UtilityFunctions.PREF_FILE, this.MODE_PRIVATE);
+        String username = preferences.getString("username", "");
+
+        if(username == null || username == "")
+        {
+            startActivity(new Intent(this, LoginScreen.class));
+            finish();
+        }
+    }
 }

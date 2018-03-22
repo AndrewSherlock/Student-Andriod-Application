@@ -64,7 +64,18 @@ public class QuizHome extends AppCompatActivity {
                     view.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + UtilityFunctions.getHexColor(counter++))));
 
                     TextView textView = view.findViewById(R.id.contact_text);
-                    textView.setText(quizTopics.getKey());
+
+                    String title = quizTopics.getKey();
+                    String[] split = title.split("_");
+
+                    title = "";
+
+                    for(int i = 0; i < split.length; i++)
+                    {
+                        title += split[i].substring(0,1).toUpperCase() +  split[i].substring(1,split[i].length()).toLowerCase() + " ";
+                    }
+
+                    textView.setText(title);
 
                     layout.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -130,7 +130,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Intent intent = new Intent(LoginScreen.this, MainActivity.class);
+                                    Intent intent = new Intent(progress.getContext(), MainActivity.class);
                                     progress.dismiss();
                                     startService(fBase);
                                     startService(fbaseId);
@@ -168,4 +168,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         return entered_user_id;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

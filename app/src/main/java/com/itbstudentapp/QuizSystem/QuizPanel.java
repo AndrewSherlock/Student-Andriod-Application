@@ -50,7 +50,18 @@ public class QuizPanel extends AppCompatActivity {
                         View view = LayoutInflater.from(quizSection.getContext()).inflate(R.layout.quiz_subject_detail, null);
 
                         TextView subjectName = view.findViewById(R.id.quiz_subject);
-                        subjectName.setText(quiz.getKey());
+
+                        String title = quiz.getKey();
+                        String[] split = title.split("_");
+
+                        title = "";
+
+                        for(int i = 0; i < split.length; i++)
+                        {
+                            title += split[i].substring(0,1).toUpperCase() +  split[i].substring(1,split[i].length()).toLowerCase() + " ";
+                        }
+
+                        subjectName.setText(title);
 
                         TextView quiz_numbers = view.findViewById(R.id.quiz_amount);
                         quiz_numbers.setText(quiz.getChildrenCount() - 2 + " Quizes availible");

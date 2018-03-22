@@ -31,6 +31,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.itbstudentapp.utils.ForgottenPasswordModal;
 import com.itbstudentapp.utils.UserSettings;
 
 import java.security.NoSuchAlgorithmException;
@@ -95,11 +96,6 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
                         public void onSuccess(Uri uri) {
                             Glide.with(context).load(uri).into(profile);
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(context, "Failed getting user image", Toast.LENGTH_SHORT).show();
-                        }
                     });
                 }
             }
@@ -135,25 +131,26 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
 
     private void changeUserPassword()
     {
-        final Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.profile_reset_password);
-        dialog.show();
-
-        final EditText user_new_password = dialog.findViewById(R.id.password_modal_enter);
-        final EditText user_reenter_password = dialog.findViewById(R.id.password_modal_reenter);
-        final EditText user_old_password = dialog.findViewById(R.id.password_modal_old_password);
-
-        TextView resetPassButton = dialog.findViewById(R.id.profile_reset_password);
-        resetPassButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(user_new_password.getText().equals(user_reenter_password.getText())) {
-                    handlePasswordReset(user_new_password.getText().toString(), user_old_password.getText().toString());
-                } else{
-                    Toast.makeText(dialog.getContext(), "Passwords do not match. Please try again.", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        new ForgottenPasswordModal(this);
+//        final Dialog dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.profile_reset_password);
+//        dialog.show();
+//
+//        final EditText user_new_password = dialog.findViewById(R.id.password_modal_enter);
+//        final EditText user_reenter_password = dialog.findViewById(R.id.password_modal_reenter);
+//        final EditText user_old_password = dialog.findViewById(R.id.password_modal_old_password);
+//
+//        TextView resetPassButton = dialog.findViewById(R.id.profile_reset_password);
+//        resetPassButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(user_new_password.getText().equals(user_reenter_password.getText())) {
+//                    handlePasswordReset(user_new_password.getText().toString(), user_old_password.getText().toString());
+//                } else{
+//                    Toast.makeText(dialog.getContext(), "Passwords do not match. Please try again.", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
     }
 
     private void handlePasswordReset(final String newPassword, final String oldPassword)
