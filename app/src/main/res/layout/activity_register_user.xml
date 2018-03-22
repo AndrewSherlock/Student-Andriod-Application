@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/itb_home_screen"
+        android:id="@+id/reg_layout"
         android:orientation="vertical">
 
         <TextView
@@ -22,6 +23,43 @@
             android:textAlignment="center"
             android:textColor="#fff"
             android:textSize="50sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:id="@+id/instruction_panel"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Requirements for field"
+                android:textSize="20sp"
+                android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="15sp"
+                android:fontFamily="@font/cuprumbold"
+                android:textAppearance="@style/cuprum_bold"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:id="@+id/instructions"
+                />
+
+
+
+        </LinearLayout>
 
 
         <LinearLayout

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,8 +36,91 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         register_user = findViewById(R.id.register_submit_button);
         clear_fields = findViewById(R.id.register_clear_button);
 
+        addFocusListener();
         register_user.setOnClickListener(this);
         clear_fields.setOnClickListener(this);
+    }
+
+    private void addFocusListener()
+    {
+        user_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    showInstruction("You must enter your first and second name");
+                } else {
+
+                    if(!user_email.hasFocus() && !user_password.hasFocus() && !user_repeat.hasFocus())
+                    {
+                        hidePanel();
+                    }
+                }
+            }
+        });
+
+        user_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    showInstruction("You must your ITB email.");
+                } else {
+
+                    if(!user_name.hasFocus() && !user_password.hasFocus() && !user_repeat.hasFocus())
+                    {
+                        hidePanel();
+                    }
+                }
+            }
+        });
+
+        user_password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    showInstruction("You must use at least 1 capital letter and 1 number");
+                } else {
+
+                    if(!user_email.hasFocus() && !user_password.hasFocus() && !user_name.hasFocus())
+                    {
+                        hidePanel();
+                    }
+                }
+            }
+        });
+
+        user_repeat.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus)
+                {
+                    showInstruction("You must use at least 1 capital letter and 1 number");
+                } else {
+
+                    if(!user_email.hasFocus() && !user_password.hasFocus() && !user_name.hasFocus())
+                    {
+                        hidePanel();
+                    }
+                }
+            }
+        });
+    }
+
+    private void showInstruction(String instructions)
+    {
+        View v = findViewById(R.id.instruction_panel);
+        v.setVisibility(View.VISIBLE);
+
+        TextView instruction =v.findViewById(R.id.instructions);
+        instruction.setText(instructions);
+    }
+
+    private void hidePanel()
+    {
+        View v = findViewById(R.id.instruction_panel);
+        v.setVisibility(View.INVISIBLE);
     }
 
 

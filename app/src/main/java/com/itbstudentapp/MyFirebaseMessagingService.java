@@ -54,7 +54,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         super();
         FirebaseMessaging.getInstance().subscribeToTopic("user_"+ UtilityFunctions.getUserNameFromFirebase());
         FirebaseMessaging.getInstance().subscribeToTopic("events");
-        Log.e("Here", "MyFirebaseMessagingService: " +  UtilityFunctions.getUserNameFromFirebase());
     }
 
     @Override
@@ -64,21 +63,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         Map<String, String> params = remoteMessage.getData();
 
-        for(Map.Entry map : params.entrySet())
-        {
-            Log.e("", "onMessageReceived: " + map.getValue() + " Value <-/->Key " + map.getKey() );
-        }
-
         if(params.get("type").equalsIgnoreCase("event"))
             setupNotifyOfNewEvent(params);
         else if(params.get("type").equalsIgnoreCase("chat"))
             setupNotifyOfNewMessage(params);
-//        else if(params.get("type").equalsIgnoreCase("forum"))
-//            setupNotifyOfNewForumPost(params);
-
-    }
-
-    private void setupNotifyOfNewForumPost(Map<String, String> params) {
     }
 
     private void setupNotifyOfNewMessage(Map<String, String> params)
@@ -91,39 +79,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         setNotificationForUserSettings(nBuilder);
         nBuilder.setContentText(params.get("body"));
-        getUserNameFromFirebase(params.get("title"), nBuilder);
-    }
 
+        String[] nameArray = params.get("username").split(" ");
+        String capitalizedName ="";
 
-    private void getUserNameFromFirebase(final String userID, final NotificationCompat.Builder nBuilder)
-    {
-        final String username = userID.split(" ")[0];
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + username);
+        for (int i = 0; i < nameArray.length; i++)
+        {
+            capitalizedName += nameArray[i].substring(0,1).toUpperCase() + nameArray[i].substring(1,nameArray[i].length()).toLowerCase() + " ";
+        }
 
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+        nBuilder.setContentTitle(capitalizedName + " sent you a message!");
+        Random rnd = new Random();
+        int channel = rnd.nextInt(1000000) + 1;
 
-                String[] name = dataSnapshot.child("username").getValue(String.class).split(" ");
-                String formattedName = "";
-
-                for(int i = 0; i < name.length; i++)
-                {
-                    formattedName += name[i].substring(0,1).toUpperCase() + name[i].substring(1, name[i].length()).toLowerCase() + " ";
-                }
-
-                nBuilder.setContentTitle(formattedName + "sent you a message!");
-
-
-
-                notificationManager.notify(1, nBuilder.build());
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        notificationManager.notify(channel, nBuilder.build());
     }
 
     private void setupNotifyOfNewEvent(Map<String, String> details)
@@ -144,10 +113,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
     private void setNotificationForUserSettings(NotificationCompat.Builder nBuilder)
     {
+
         if(UserSettings.play_sounds)
         {
             Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-            nBuilder.setSound(sound);
+            nBuilder.setSound(sound, notificationManager.IMPORTANCE_DEFAULT);
         }
 
         if(UserSettings.vibrate)
@@ -163,10 +133,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         nBuilder.setAutoCancel(true);
 
-        Intent notificationIntent = new Intent(this, Chat.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        nBuilder.setContentIntent(contentIntent);
+//        Intent notificationIntent = new Intent(this, Chat.class);
+//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+//                PendingIntent.FLAG_UPDATE_CURRENT);
+//        nBuilder.setContentIntent(contentIntent);
     }
 
     private int generateID()

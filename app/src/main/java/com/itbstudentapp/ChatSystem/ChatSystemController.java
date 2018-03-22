@@ -350,7 +350,7 @@ public class ChatSystemController {
             int currentSender = (i + 1) % users.length;
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + users[i] + "/messages/" + users[currentSender]);
 
-            if (myUsername == users[i]) {
+            if (myUsername.equalsIgnoreCase(users[i])){
                 reference.child("message_info").child("read_status").setValue(String.valueOf(UtilityFunctions.READ));
             } else {
                 reference.child("message_info").child("read_status").setValue(String.valueOf(UtilityFunctions.UNREAD));
@@ -412,7 +412,7 @@ public class ChatSystemController {
         scrollView.post(new Runnable() {
             @Override
             public void run() {
-                scrollView.scrollTo(0, scrollView.getBottom() + 60);
+                scrollView.scrollTo(0, scrollView.getBottom());
             }
         });
 

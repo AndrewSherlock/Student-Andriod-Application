@@ -1,5 +1,7 @@
 package com.itbstudentapp.NotificationSystem;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -26,9 +28,6 @@ public class FirebaseNotificationManager {
         userNotification.put("title", notification.getTitle());
         userNotification.put("body", notification.getBody());
 
-//        userNotification.put("user", "b00090936");
-//        userNotification.put("message", "here");
-//
         reference.push().setValue(userNotification);
     }
 }

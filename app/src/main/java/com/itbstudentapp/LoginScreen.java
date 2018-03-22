@@ -53,6 +53,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         forgotten_password.setOnClickListener(this);
 
         auth = FirebaseAuth.getInstance();
+
+        Log.e("usr", "onCreate: "  + auth.getCurrentUser());
+
         Log.e("Auth", "onCreate: " + (auth == null));
 
         if (auth.getCurrentUser() != null) {
@@ -127,13 +130,13 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Log.e("SUCCESS", "onComplete: " + "Log in success" + user_password);
                                     Intent intent = new Intent(LoginScreen.this, MainActivity.class);
                                     progress.dismiss();
                                     startService(fBase);
                                     startService(fbaseId);
                                     MyFirebaseInstanceIDService.saveTokenToDb();
                                     startActivity(intent);
+
                                     finish();
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Sign in failed.", Toast.LENGTH_SHORT).show();
@@ -164,4 +167,5 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         return entered_user_id;
     }
+
 }

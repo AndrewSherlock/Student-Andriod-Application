@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.itbstudentapp.AdminSystem.AdminPanel;
@@ -190,6 +191,11 @@ public class UtilityFunctions {
         context.stopService(new Intent(context, MyFirebaseMessagingService.class));
         context.stopService(new Intent(context, MyFirebaseInstanceIDService.class));
 
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("user_"+ UtilityFunctions.getUserNameFromFirebase());
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("user_admin");
+
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("events");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase());
         ref.child("instance_id").setValue(null);
     }

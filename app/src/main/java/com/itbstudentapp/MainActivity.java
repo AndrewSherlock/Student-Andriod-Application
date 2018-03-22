@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.itbstudentapp.ChatSystem.Chat;
 import com.itbstudentapp.EventSystem.EventDisplay;
 import com.itbstudentapp.QuizSystem.QuizHome;
@@ -31,9 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         UserSettings.currentIntent = this.getIntent();
 
         UserSettings.checkIfInit(this, UtilityFunctions.getUserNameFromFirebase());
-
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
-
+        
         forum =  findViewById(R.id.forum);
         transport = findViewById(R.id.transport);
         map = findViewById(R.id.map);
@@ -129,4 +129,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(eventDisplay.displayHandler != null)
             eventDisplay.displayHandler.removeCallbacksAndMessages(null);
     }
+
+
 }
