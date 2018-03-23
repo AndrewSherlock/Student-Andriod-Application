@@ -1,5 +1,6 @@
 package com.itbstudentapp.ItbShuttleBus;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.itbstudentapp.MainActivity;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
 
@@ -91,7 +93,9 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
 
         } catch (IOException e)
         {
-            Toast.makeText(this, "No file found andrew.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "There was a problem with this request", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
         }
 
         return json;
