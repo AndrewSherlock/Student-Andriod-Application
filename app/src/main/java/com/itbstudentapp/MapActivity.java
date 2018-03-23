@@ -116,6 +116,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     {
         map = googleMap;
         LatLng lat = new LatLng(53.4048029,-6.3791624);
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(25);
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(lat));
@@ -259,7 +260,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     {
 
         LatLng coord = new LatLng(lat,longatude);
-
+        map.clear();
 
         map.setMinZoomPreference(15);
         map.setMaxZoomPreference(40);

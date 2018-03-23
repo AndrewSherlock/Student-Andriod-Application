@@ -227,6 +227,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
     public void onMapReady(GoogleMap googleMap)
     {
         map = googleMap;
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         LatLng lat;
         if(coord == null)
             lat = new LatLng(53.4048029,-6.3791624);

@@ -78,6 +78,8 @@ public class StopList extends AppCompatActivity implements OnMapReadyCallback, O
         button.setTag(st.getStop_number() + ":" + st.getStop_name());
         routeText.setPadding(20,20,20,20);
 
+        map.clear();
+
         LatLng coord = new LatLng(Double.parseDouble(st.getLatitude()),Double.parseDouble(st.getLongatude()));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(coord);
@@ -131,6 +133,7 @@ public class StopList extends AppCompatActivity implements OnMapReadyCallback, O
     {
         map = googleMap;
         LatLng lat = new LatLng(53.4048029,-6.3791624);
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(45);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
