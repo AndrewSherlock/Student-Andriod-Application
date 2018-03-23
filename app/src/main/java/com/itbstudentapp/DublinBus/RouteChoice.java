@@ -69,6 +69,7 @@ public class RouteChoice extends AppCompatActivity{
             Intent intent = new Intent(rc, StopList.class);
             intent.putExtra("route", v.getTag().toString());
             startActivity(intent);
+            finish();
             }
         });
 

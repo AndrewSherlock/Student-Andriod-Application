@@ -43,6 +43,7 @@ public class Timetable extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent = new Intent(Timetable.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
     }
@@ -158,6 +159,7 @@ public class Timetable extends AppCompatActivity{
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
 }

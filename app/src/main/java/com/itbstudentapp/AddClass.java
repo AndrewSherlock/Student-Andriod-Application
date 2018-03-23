@@ -58,6 +58,7 @@ public class AddClass extends AppCompatActivity {
                     Intent intent = new Intent(AddClass.this, DayView.class);
                     intent.putExtra("day",selectedDay);
                     startActivity(intent);
+                    finish();
                 }else{
                     toastMessage("All fields must be completed");
                 }
@@ -70,6 +71,7 @@ public class AddClass extends AppCompatActivity {
                 Intent intent = new Intent(AddClass.this, DayView.class);
                 intent.putExtra("day",selectedDay);
                 startActivity(intent);
+                finish();
             }
         });
     }

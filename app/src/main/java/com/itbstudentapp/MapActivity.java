@@ -158,6 +158,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                     {
                         dialog.dismiss();
                         startActivity(getIntent());
+                        finish();
                     }
                 }
             });
@@ -310,5 +311,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

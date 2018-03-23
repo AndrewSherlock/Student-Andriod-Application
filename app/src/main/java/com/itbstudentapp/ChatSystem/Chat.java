@@ -113,6 +113,7 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }
 

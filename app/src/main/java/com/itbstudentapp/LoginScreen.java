@@ -35,6 +35,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private ProgressDialog progress;
 
     private FirebaseAuth auth;
+    private boolean isLoggingIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         if (auth.getCurrentUser() != null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 
@@ -130,14 +132,16 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Intent intent = new Intent(progress.getContext(), MainActivity.class);
-                                    progress.dismiss();
-                                    startService(fBase);
-                                    startService(fbaseId);
-                                    MyFirebaseInstanceIDService.saveTokenToDb();
-                                    startActivity(intent);
-
-                                    finish();
+                                    if(!isLoggingIn) {
+                                        isLoggingIn = true;
+                                        Intent intent = new Intent(progress.getContext(), MainActivity.class);
+                                        progress.dismiss();
+                                        startService(fBase);
+                                        startService(fbaseId);
+                                        MyFirebaseInstanceIDService.saveTokenToDb();
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Sign in failed.", Toast.LENGTH_SHORT).show();
                                     Log.e("Failed", "onComplete: " + "Log in failed" + user_password);

@@ -1,5 +1,7 @@
 package com.itbstudentapp;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
@@ -66,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         notes.setOnClickListener(this);
 
         eventDisplay = new EventDisplay(this, (TextView) findViewById(R.id.event_message));
-
 
     }
 
@@ -137,10 +138,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences preferences = this.getSharedPreferences(UtilityFunctions.PREF_FILE, this.MODE_PRIVATE);
         String username = preferences.getString("username", "");
 
-        if(username == null || username == "")
+        if(username == null || username.equalsIgnoreCase(""))
         {
             startActivity(new Intent(this, LoginScreen.class));
             finish();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

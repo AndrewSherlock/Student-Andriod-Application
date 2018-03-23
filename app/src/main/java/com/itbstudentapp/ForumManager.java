@@ -393,8 +393,11 @@ public class ForumManager {
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            String imageLink = uri.toString();
-                            Glide.with(context).load(imageLink).into(user_image);
+
+                           try {
+                               String imageLink = uri.toString();
+                               Glide.with(context).load(imageLink).into(user_image);
+                           } catch (IllegalArgumentException e){}
                         }
                     });
                 }

@@ -116,5 +116,6 @@ public class TrainTimeTable extends AppCompatActivity implements OnThreadComplet
         //super.onBackPressed();
 
         startActivity(new Intent(this, Transport.class));
+        finish();
     }
 }

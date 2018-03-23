@@ -127,6 +127,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 
     private void changeUserPassword()

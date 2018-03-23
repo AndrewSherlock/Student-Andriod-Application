@@ -121,6 +121,7 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
                     editScreenIntent.putExtra("class/event",class_event);
                     editScreenIntent.putExtra("day",selectedDay);
                     startActivity(editScreenIntent);
+                    finish();
                 }
                 else{
                     toastMessage("No ID associated with that name");
@@ -144,16 +145,19 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
             Intent intent = new Intent(this, AddClass.class);
             intent.putExtra("day",selectedDay);
             startActivity(intent);
+            finish();
         }
         if(view.getId() == R.id.backBtn)
         {
             Intent intent = new Intent(this, Timetable.class);
             startActivity(intent);
+            finish();
         }
         if(view.getId() == R.id.homeBtn)
         {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+            finish();
         }
     }
 

@@ -65,6 +65,7 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
                     intent.putExtra("day", selectedDay);
 
                     startActivity(intent);
+                    finish();
                 }else{
                     toastMessage("All fields must be completed");
                 }
@@ -79,6 +80,7 @@ public class EditTimetableEntryActivity extends AppCompatActivity {
                 Intent intent = new Intent(EditTimetableEntryActivity.this, DayView.class);
                 intent.putExtra("day", selectedDay);
                 startActivity(intent);
+                finish();
             }
         });
 

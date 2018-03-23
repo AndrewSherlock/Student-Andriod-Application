@@ -159,11 +159,13 @@ public class QuizHome extends AppCompatActivity {
         Intent intent = new Intent(this, Quiz.class);
         intent.putExtra("quiz", key);
         startActivity(intent);
+        finish();
     }
 
 
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

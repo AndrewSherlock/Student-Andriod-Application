@@ -120,6 +120,7 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
     public void reloadIntent()
     {
         startActivity(getIntent());
+        finish();
     }
 
     @Override
@@ -134,5 +135,6 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

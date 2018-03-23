@@ -1,5 +1,6 @@
 package com.itbstudentapp.QuizSystem;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -148,6 +149,7 @@ public class QuizPanel extends AppCompatActivity {
                             String path = "quiz/" + dataSnapshot.getKey() + "/" + snapshot.getKey();
                             quizEdit.putExtra("quiz_topic", path);
                             layout.getContext().startActivity(quizEdit);
+                            ((Activity)layout.getContext()).finish();
                         }
                     });
 

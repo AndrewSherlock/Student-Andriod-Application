@@ -1,5 +1,6 @@
 package com.itbstudentapp;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -264,6 +265,7 @@ public class UserManager
 
         Toast.makeText(context, "Account created successfully.", Toast.LENGTH_SHORT).show();
         context.startActivity(new Intent(context, LoginScreen.class));
+        ((Activity)context).finish();
     }
 
     public String prepareFirebaseLink(String id)

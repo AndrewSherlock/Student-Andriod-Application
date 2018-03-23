@@ -1,5 +1,6 @@
 package com.itbstudentapp.AdminSystem;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -164,6 +165,7 @@ class ModeratorManager extends Dialog
             public void onClick(View v) {
 
                 getContext().startActivity(new Intent(getContext(), MainActivity.class));
+                ((Activity)getContext()).finish();
 
             }
         });

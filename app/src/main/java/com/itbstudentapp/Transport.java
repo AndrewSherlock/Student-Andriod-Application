@@ -1,5 +1,7 @@
 package com.itbstudentapp;
 
+import android.app.Activity;
+import android.app.ActivityManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -66,25 +68,23 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
     {
         Intent intent = new Intent(this, RouteChoice.class);
         startActivity(intent);
-        finish();
     }
 
     private void CallItbShuttleBus()
     {
         Intent intent = new Intent(this, ItbShuttleMenu.class);
         startActivity(intent);
-        finish();
     }
 
     private void callIarEir()
     {
         Intent intent = new Intent(this, TrainTimeTable.class);
         startActivity(intent);
-        finish();
     }
 
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));
+        finish();
     }
 }

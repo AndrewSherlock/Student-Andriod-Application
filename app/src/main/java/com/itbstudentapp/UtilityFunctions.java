@@ -174,7 +174,9 @@ public class UtilityFunctions {
                                 auth = null;
                                 Intent intent = new Intent(context, LoginScreen.class);
                                 UserSettings.clearFile(context);
+                               // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(intent);
+                                ((Activity)context).finish();
                                 break;
                         }
                         return true;
@@ -281,6 +283,7 @@ public class UtilityFunctions {
         if(username == null || username == "")
         {
             ct.startActivity(new Intent(ct, LoginScreen.class));
+            ((Activity)ct).finish();
         }
     }
 }
