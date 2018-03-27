@@ -94,9 +94,11 @@ public class MessageScreen extends AppCompatActivity implements View.OnClickList
 
             if(isNewMessage)
             {
-                reciever = contactCard.getUser_id();
-                csr.loadChatMessages(reciever, (LinearLayout) findViewById(R.id.messages_screen_messages), (ScrollView) findViewById(R.id.chat_scroll_view));
-                isNewMessage = false;
+                if(contactCard !=null) {
+                    reciever = contactCard.getUser_id();
+                    csr.loadChatMessages(reciever, (LinearLayout) findViewById(R.id.messages_screen_messages), (ScrollView) findViewById(R.id.chat_scroll_view));
+                    isNewMessage = false;
+                }
             }
         }
 

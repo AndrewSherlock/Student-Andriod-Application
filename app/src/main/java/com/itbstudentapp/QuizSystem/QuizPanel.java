@@ -149,7 +149,7 @@ public class QuizPanel extends AppCompatActivity {
                             String path = "quiz/" + dataSnapshot.getKey() + "/" + snapshot.getKey();
                             quizEdit.putExtra("quiz_topic", path);
                             layout.getContext().startActivity(quizEdit);
-                            ((Activity)layout.getContext()).finish();
+                            ((Activity)ct).finish();
                         }
                     });
 
