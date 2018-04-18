@@ -20,6 +20,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.itbstudentapp.R;
 import com.itbstudentapp.UtilityFunctions;
 
+/**
+ * used for the user to reset there password
+ */
 public class ForgottenPasswordModal extends Dialog
 {
     public ForgottenPasswordModal(@NonNull Context context) {
@@ -55,54 +58,36 @@ public class ForgottenPasswordModal extends Dialog
         if(emailAddress.getText().toString() == null || emailAddress.getText().toString().length() <= 0)
         {
             Toast.makeText(getContext(), "The email address can not be blank", Toast.LENGTH_SHORT).show();
-            return;
+            return; // ensure we have a email
         }
 
         if(!UtilityFunctions.doesUserHaveConnection(getContext()))
         {
             Toast.makeText(getContext(), "No network connection available. Please retry later.", Toast.LENGTH_SHORT).show();
-            return;
+            return; // network sensitive
         }
 
         final ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setMessage("Sending email");
         dialog.setTitle("Password Reset");
-        dialog.show();
+        dialog.show(); // show to the user its sending reset info
 
-        FirebaseAuth auth = FirebaseAuth.getInstance(); //todo not reseting password
+        FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.sendPasswordResetEmail(emailAddress.getText().toString().toLowerCase()).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
 
-                if (task.isSuccessful())
+                if (task.isSuccessful()) // if sent, show success
                 {
                     Toast.makeText(getContext(), "Email with your reset details sent", Toast.LENGTH_SHORT).show();
                     dismiss();
                     dialog.dismiss();
-                } else{
+                } else{ // else tell the user it failed
                     Toast.makeText(getContext(), "Password reset failed", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                 }
 
             }
         });
-
-//        auth.sendPasswordResetEmail(emailAddress.getText().toString().toLowerCase()).addOnSuccessListener(new OnSuccessListener<Void>() {
-//            @Override
-//            public void onSuccess(Void aVoid) {
-//                Toast.makeText(getContext(), "Email with your reset details sent", Toast.LENGTH_SHORT).show();
-//                dismiss();
-//                dialog.dismiss();
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(getContext(), "Password reset failed", Toast.LENGTH_SHORT).show();
-//                dialog.dismiss();
-//            }
-//        });
-
-
-
     }
 }

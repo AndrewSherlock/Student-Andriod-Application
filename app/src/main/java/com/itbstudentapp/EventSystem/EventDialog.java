@@ -28,9 +28,8 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * Created by andrew on 02/03/2018.
+ *  dialog that allows crud of the events
  */
-
 public class EventDialog extends Dialog implements View.OnClickListener, CalendarView.OnDateChangeListener, OnImageUploaded {
 
     private EventsHandler eventsHandler;
@@ -92,22 +91,22 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
     }
 
     public void setUri(Uri image) {
-        this.image = image;
-        eventImageDesc.setText(image.getPath());
+        this.image = image; // the image that is assocaited with the event
+        eventImageDesc.setText(image.getPath()); // shows the user the image name
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == eventAdd.getId()) {
             if (image != null) {
-                ic.ImageUpload(eventsHandler, image, "events");
+                ic.ImageUpload(eventsHandler, image, "events"); // uploads the image
                 return;
             }
 
             if (!isEditing)
-                uploadEvent();
+                uploadEvent(); // if this is a new event, save the event
             else
-                editEvent();
+                editEvent(); // else change a current event
         }
 
         if (v.getId() == eventDate.getId()) {
@@ -124,26 +123,26 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
     private void editEvent() {
         if (!UtilityFunctions.doesUserHaveConnection(eventsHandler)) {
             Toast.makeText(eventsHandler.getApplicationContext(), "No network connection. Please try again", Toast.LENGTH_LONG).show();
-            return;
+            return; // network sensitive so ensure we have a connection first
         }
 
-        String title = eventTitle.getText().toString();
-        String eventDescription = eventDesc.getText().toString();
-        String date = eventDate.getText().toString();
+        String title = eventTitle.getText().toString(); // gets the title
+        String eventDescription = eventDesc.getText().toString(); // the description
+        String date = eventDate.getText().toString(); // and date
 
         if (title.length() < 0 && eventDescription.length() < 0 && date.length() < 0) {
             Toast.makeText(eventsHandler.getApplicationContext(), "Ensure all fields are filled out.", Toast.LENGTH_LONG).show();
-            return;
+            return; // make sure no required fields are empty
         }
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("events/" + eventID);
 
         if (!title.equalsIgnoreCase(editEvent.getEventTitle())) {
-            reference.child("eventTitle").setValue(title);
+            reference.child("eventTitle").setValue(title); // if we changed, save over
         }
 
         if (!eventDescription.equalsIgnoreCase(editEvent.getEventMessage())) {
-            reference.child("eventMessage").setValue(eventDescription);
+            reference.child("eventMessage").setValue(eventDescription); // if we changed, save over
         }
 
         Calendar c = Calendar.getInstance();
@@ -151,20 +150,20 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
         long dateMilli = c.getTimeInMillis();
 
         if (dateMilli != editEvent.getEventValidTill()) {
-            reference.child("eventValidTill").setValue(dateMilli);
+            reference.child("eventValidTill").setValue(dateMilli); // if changed, save over
         }
 
         if (!eventImageDesc.getText().toString().equals(editEvent.getEventImage())) {
             if (image != null) {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference("events/" + editEvent.getEventImage());
-                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                storageReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {  // delete the old image
                     @Override
                     public void onSuccess(Void aVoid) {
 
                     }
                 });
 
-                ic.ImageUpload(eventsHandler, image, "events");
+                ic.ImageUpload(eventsHandler, image, "events"); // upload the new image
             }
         }
 
@@ -175,7 +174,7 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
     private void showCalender() {
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        calendarView.setLayoutParams(params);
+        calendarView.setLayoutParams(params); // show a calender to the user
 
         calendarView.setVisibility(View.VISIBLE);
     }
@@ -183,7 +182,7 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
     private void uploadEvent() {
         if (!UtilityFunctions.doesUserHaveConnection(eventsHandler)) {
             Toast.makeText(eventsHandler.getApplicationContext(), "No network connection. Please try again", Toast.LENGTH_LONG).show();
-            return;
+            return; // ensure we have network
         }
 
         String title = eventTitle.getText().toString();
@@ -192,29 +191,25 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
 
         if (title.length() < 0 && eventDescription.length() < 0 && date.length() < 0) {
             Toast.makeText(eventsHandler.getApplicationContext(), "Ensure all fields are filled out.", Toast.LENGTH_LONG).show();
-            return;
+            return; // make sure no required information is blank
         }
 
         Calendar c = Calendar.getInstance();
 
         long currentTime = c.getTimeInMillis();
 
-        c.setTime(choosenDate);
-        long getValidTill = c.getTimeInMillis();
+        c.setTime(choosenDate); // set the date
+        long getValidTill = c.getTimeInMillis(); // convert date to milliseconds
 
-        Event event = new Event(title, eventDescription, currentTime, getValidTill, imageLink);
-        String event_id = UUID.randomUUID().toString();
-        FirebaseDatabase.getInstance().getReference("events").child(event_id).setValue(event);
+        Event event = new Event(title, eventDescription, currentTime, getValidTill, imageLink); // new event object
+        String event_id = UUID.randomUUID().toString(); // give random id
+        FirebaseDatabase.getInstance().getReference("events").child(event_id).setValue(event); // save the event
 
-        //String notificationType, String title, String body
         com.itbstudentapp.NotificationSystem.Notification notification =
                 new com.itbstudentapp.NotificationSystem.Notification("event", "New event posted", title);
 
-       // FirebaseNotificationManager.sendNotificationToUser(notification);
-
-
         dismiss();
-        eventsHandler.reloadIntent();
+        eventsHandler.reloadIntent(); // reload the intent to refresh the list
     }
 
     @Override
@@ -222,11 +217,11 @@ public class EventDialog extends Dialog implements View.OnClickListener, Calenda
         if (choosenDate == null)
             choosenDate = new Date();
 
-        choosenDate.setYear(year - 1900);
+        choosenDate.setYear(year - 1900); // weirdness in the calender that has it 1900 years out of date
         choosenDate.setMonth(month);
         choosenDate.setDate(dayOfMonth);
 
-        eventDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+        eventDate.setText(dayOfMonth + "/" + (month + 1) + "/" + year); // show the text
 
     }
 

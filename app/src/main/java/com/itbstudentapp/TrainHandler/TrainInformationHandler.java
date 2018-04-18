@@ -31,9 +31,9 @@ public class TrainInformationHandler extends AsyncTask{
 
     public String getXmlStringOfDetails() throws IOException
     {
-        HttpURLConnection connection;
         URL trainXML = new URL("http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML_WithNumMins?StationCode=CMINE&NumMins=60");
 
+        // reads the xml that has been recieved and parses it down
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
             DocumentBuilder db = dbf.newDocumentBuilder();

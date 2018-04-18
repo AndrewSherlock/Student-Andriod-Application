@@ -17,6 +17,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -60,9 +61,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         UserSettings.currentIntent = this.getIntent();
 
 
+        // get the map fragment from activity
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_map);
 
+        // init the map
         mapFragment.getMapAsync(this);
 
         submit = findViewById(R.id.map_submit);
@@ -71,11 +74,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         SharedPreferences preferences = getSharedPreferences(UtilityFunctions.PREF_FILE, MODE_PRIVATE);
 
+        // if the user is a staff member, you can add rooms, show button in the corner
         if(!preferences.getString("accountType", "").equalsIgnoreCase("admin") && !preferences.getBoolean("moderator", false))
         {
             addRoomButton.setVisibility(View.INVISIBLE);
         }
 
+        // listener for selecting items in spinner
         roomSpinner.setOnItemSelectedListener(this);
 
         submit.setOnClickListener(this);
@@ -87,6 +92,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     private void addToSpinner()
     {
+        // adds the list of rooms to the spinner
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("map_locations");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -96,12 +102,13 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                for(DataSnapshot data : dataSnapshot.getChildren())
                {
-                   roomList[counter] = formatText(data.getKey());
+                   roomList[counter] = formatText(data.getKey()); // add the room to the array
                    counter++;
                }
 
+               // set the array to the adapter
                ArrayAdapter<String> rooms = new ArrayAdapter<String>(getBaseContext(), R.layout.spinner_text, roomList);
-               roomSpinner.setAdapter(rooms);
+               roomSpinner.setAdapter(rooms); // sets the room in the spinner
             }
 
             @Override
@@ -136,10 +143,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if(!UtilityFunctions.doesUserHaveConnection(getBaseContext()))
         {
             Toast.makeText(getBaseContext(), "Please wait for network connection", Toast.LENGTH_SHORT).show();
-            return;
+            return; // checks we have network
         }
 
-        if(v.getId() == addRoomButton.getId())
+        if(v.getId() == addRoomButton.getId()) // if we are adding a room
         {
             final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.map_add_room_dialog);
@@ -150,14 +157,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 @Override
                 public void onClick(View v) {
                     if(roomId.length() <= 0)
-                    {
+                    { // makes sure we give the room a name
                         Toast.makeText(getBaseContext(), "Please enter a name for location", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
+                    // adds the room to the db
                     if(addRoomToDatabase(roomId.getText().toString()))
                     {
-                        dialog.dismiss();
+                        dialog.dismiss(); // dismiss the dialog and reload the activity
                         startActivity(getIntent());
                         finish();
                     }
@@ -167,10 +175,11 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             dialog.show();
         }
         else{
+
+            // we have choosen a room so we load that to the screen
+
             String room;
             room = roomSpinner.getSelectedItem().toString();
-
-
             room = room.replace(" ", "_");
             room = room.trim();
             getCoords(room);
@@ -182,9 +191,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     {
         Location location = null;
 
+        // make sure we have permission from the user to user the geo location
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
         {
-            requestAccessLocationPermission();
+            requestAccessLocationPermission(); // if not, we request it
         }
 
         String location_context = Context.LOCATION_SERVICE;
@@ -192,6 +202,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         for (String provider : locationManager.getProviders(true))
         {
+            // to get the lastest coords
             locationManager.requestLocationUpdates(provider, 1000, 0,
                     new LocationListener() {
 
@@ -204,22 +215,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                         public void onStatusChanged(String provider, int status,
                                                     Bundle extras) {}
                     });
-            location = locationManager.getLastKnownLocation(provider);
+            location = locationManager.getLastKnownLocation(provider); // get the location
         }
 
-        if(location != null)
+        if(location != null) // set the coords into the db
         {
             roomId = roomId.replace(" ", "_");
 
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("map_locations");
             reference.child(roomId.toLowerCase()).child("long").setValue(location.getLongitude());
             reference.child(roomId.toLowerCase()).child("lat").setValue(location.getLatitude());
-            return true;
+            return true; // success
         }
 
-        return false;
+        return false; // failed
     }
 
+    // make the room text nice
     private String formatText(String room)
     {
         String underScoreCheck = room.replace("_", " ");
@@ -227,6 +239,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         return  capital;
     }
 
+    // show location on the map
     private void getCoords(final String room)
     {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("map_locations/");
@@ -236,12 +249,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                 if(dataSnapshot.child(room.toLowerCase()).exists())
                 {
+                    // get the coords from db
                     double longatude = dataSnapshot.child(room.toLowerCase()).child("long").getValue(double.class);
                     double lat = dataSnapshot.child(room.toLowerCase()).child("lat").getValue(double.class);
 
+                    // set the map to the coord
                     setMapToPosition(longatude, lat, room);
                     return;
                 } else {
+                    // failed state
                     Toast.makeText(getBaseContext(), "No such room. Please check again.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -260,7 +276,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     {
 
         LatLng coord = new LatLng(lat,longatude);
-        map.clear();
+        map.clear(); // clear old markers
 
         map.setMinZoomPreference(15);
         map.setMaxZoomPreference(40);

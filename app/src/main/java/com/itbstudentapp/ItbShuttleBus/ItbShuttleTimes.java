@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+// shows the itb shuttle bus times
 public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCallback{
 
     private String startingPoint;
@@ -54,8 +55,8 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         stopTimesLayout = findViewById(R.id.times_list);
 
         Bundle b = getIntent().getExtras();
-        startingPoint = b.getString("startPoint");
-        direction = b.getBoolean("direction");
+        startingPoint = b.getString("startPoint"); // takes the start point
+        direction = b.getBoolean("direction"); // takes the end point
         String file = null;
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -65,20 +66,20 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
 
 
         if(direction)
-            file = getFileFromAssets("towards_itb.json");
+            file = getFileFromAssets("towards_itb.json"); // depending on the way the journey is going, load a different file
         else
             file = getFileFromAssets("from_itb.json");
 
         readFile(file);
 
-        if(noBuses)
+        if(noBuses) // if its out of hours
         {
             Toast.makeText(this, "No buses available", Toast.LENGTH_LONG).show();
         }
 
     }
 
-    private String getFileFromAssets(String path)
+    private String getFileFromAssets(String path) // gets the file data
     {
         AssetManager assetManager = getAssets();
         String json = null;
@@ -92,7 +93,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
             json = new String(data, "UTF-8");
 
         } catch (IOException e)
-        {
+        { // if we have a probelm reading the data
             Toast.makeText(this, "There was a problem with this request", Toast.LENGTH_LONG).show();
             startActivity(new Intent(this, MainActivity.class));
             finish();
@@ -104,6 +105,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
 
     private void readFile(String file)
     {
+        // used to read and decode the json information
         try {
             JSONObject timetable = new JSONObject(file);
             JSONArray listOfTimes = timetable.getJSONArray("journey");
@@ -171,6 +173,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
+    // gets the time of the bus
     private long getTimeFromString(String time)
     {
         SimpleDateFormat sdf = new SimpleDateFormat("HH.mm");
@@ -192,6 +195,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         return 0;
     }
 
+    // we want to check the buses within the hour so we have to make sure it covers the next hour
     private long getTimeBuffer()
     {
         int miniutesToCheckAhead = 60;
@@ -216,6 +220,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         return calendar.getTimeInMillis();
     }
 
+    // gets the current time
     private long getCurrentTime()
     {
         Calendar calendar = Calendar.getInstance();
@@ -228,6 +233,7 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
     }
 
     @Override
+    // used to show the stop location
     public void onMapReady(GoogleMap googleMap)
     {
         map = googleMap;

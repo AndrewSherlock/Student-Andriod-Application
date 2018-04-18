@@ -52,11 +52,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     public MyFirebaseMessagingService()
     {
         super();
+        // subscribe user to messages
         FirebaseMessaging.getInstance().subscribeToTopic("user_"+ UtilityFunctions.getUserNameFromFirebase());
         FirebaseMessaging.getInstance().subscribeToTopic("events");
     }
 
     @Override
+    // handle new messages
     public void onMessageReceived(RemoteMessage remoteMessage)
     {
         super.onMessageReceived(remoteMessage);
@@ -71,23 +73,26 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
     private void setupNotifyOfNewMessage(Map<String, String> params)
     {
-        if(notificationManager == null)
+        if(notificationManager == null) // get the notification manager
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this);
-        nBuilder.setSmallIcon(R.drawable.ic_launcher_web);
+        nBuilder.setSmallIcon(R.drawable.ic_launcher_web);// set notification icon
 
         setNotificationForUserSettings(nBuilder);
-        nBuilder.setContentText(params.get("body"));
+        nBuilder.setContentText(params.get("body")); // set the text
 
+        //set the user name
         String[] nameArray = params.get("username").split(" ");
         String capitalizedName ="";
 
+        // pretty name
         for (int i = 0; i < nameArray.length; i++)
         {
             capitalizedName += nameArray[i].substring(0,1).toUpperCase() + nameArray[i].substring(1,nameArray[i].length()).toLowerCase() + " ";
         }
 
+        // set the title
         nBuilder.setContentTitle(capitalizedName + " sent you a message!");
         Random rnd = new Random();
         int channel = rnd.nextInt(1000000) + 1;
@@ -100,11 +105,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
         if(notificationManager == null)
             notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
+        // set icon
         NotificationCompat.Builder nBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher_web);
 
         setNotificationForUserSettings(nBuilder);
 
+        // event detials
         nBuilder.setContentTitle("New event posted");
         nBuilder.setContentText(details.get("title"));
 
@@ -114,18 +121,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
     private void setNotificationForUserSettings(NotificationCompat.Builder nBuilder)
     {
 
-        if(UserSettings.play_sounds)
+        if(UserSettings.play_sounds) // if the user allows sounds, play
         {
             Uri sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
             nBuilder.setSound(sound, notificationManager.IMPORTANCE_DEFAULT);
         }
 
+        // vibrate
         if(UserSettings.vibrate)
         {
             long[] pattern = {500,1000};
             nBuilder.setVibrate(pattern);
         }
 
+        // LED flash
         if(UserSettings.flash)
         {
             nBuilder.setLights(Color.GREEN, 500, 1000);
@@ -133,12 +142,9 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService
 
         nBuilder.setAutoCancel(true);
 
-//        Intent notificationIntent = new Intent(this, Chat.class);
-//        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-//        nBuilder.setContentIntent(contentIntent);
     }
 
+    // get id
     private int generateID()
     {
         Random random = new Random();

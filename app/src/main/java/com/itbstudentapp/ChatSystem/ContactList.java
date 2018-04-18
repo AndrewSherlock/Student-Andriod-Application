@@ -34,7 +34,7 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
         super(context, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
         setContentView(R.layout.contact_list);
 
-        this.csr = csr;
+        this.csr = csr; // the chat controller that instantiated this
         studentButton = findViewById(R.id.user_student);
         staffButton = findViewById(R.id.user_staff);
         lecturerButton = findViewById(R.id.user_lecturer);
@@ -73,6 +73,7 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
         show();
     }
 
+    // gets a list of users to message
     private void populateList(ArrayList<ContactCard> cc)
     {
         LinearLayout layout = this.findViewById(R.id.contact_holder);
@@ -83,7 +84,7 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
             View v = LayoutInflater.from(this.getContext()).inflate(R.layout.contact_card, null);
 
             if(card.getUserAccountType().toString().equalsIgnoreCase("admin"))
-                continue;
+                continue; // we want only the contact us to be used for contacting the admin
 
             TextView userName = v.findViewById(R.id.contact_name);
             TextView userType = v.findViewById(R.id.contact_account);
@@ -107,10 +108,10 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
                 @Override
                 public void onClick(View v) {
                     if(csr != null)
-                        csr.setCurrentContact(card);
+                        csr.setCurrentContact(card); // the choosen user to message
 
-                    choosenCard = card;
-                    dismiss();
+                    choosenCard = card; // set it as the choosen card
+                    dismiss(); // dismiss the dialog
                 }
             });
 
@@ -123,7 +124,7 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
     {
         String lastChoice = currentChoice;
 
-        if(v.getId() == studentButton.getId())
+        if(v.getId() == studentButton.getId()) // for user to filter the list
         {
          currentChoice = "STUDENT";
         } else if(v.getId() == staffButton.getId())
@@ -142,13 +143,10 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after)
-    {
-
-    }
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {} // not used, had to implement
 
     @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count)
+    public void onTextChanged(CharSequence s, int start, int before, int count) // so the list filters as we type
     {
         if(s.toString().length() > lastChoice.length())
         {
@@ -161,13 +159,11 @@ public class ContactList extends Dialog implements View.OnClickListener, TextWat
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
-
-    }
+    public void afterTextChanged(Editable s) {} // not used
 
     public ContactCard getChoosenCard() {
         return choosenCard;
-    }
+    } // gets the choosen card
 }
 
 

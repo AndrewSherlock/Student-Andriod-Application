@@ -38,6 +38,7 @@ public class QuizPanel extends AppCompatActivity {
 
     }
 
+    // gets the list of quizes and adds a listener to allow them to be selected
     private void getListOfQuizes() {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("quiz");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -83,21 +84,8 @@ public class QuizPanel extends AppCompatActivity {
                             }
                         });
 
-
-//
-//                        layout.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//                                quizSection.removeAllViews();
-//                                showQuestionEdit(reference.getRef() + "/"+ quiz.getKey());
-//                            }
-//                        });
-//
-//                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//                        params.setMargins(0, 0, 0, 20);
-
                         quizSection.addView(view);
-                        //quizSection.addView(view, params);
+
                     }
                 }
             }

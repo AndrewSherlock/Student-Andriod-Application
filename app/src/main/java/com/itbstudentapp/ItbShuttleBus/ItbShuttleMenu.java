@@ -14,7 +14,7 @@ import com.itbstudentapp.UtilityFunctions;
 public class ItbShuttleMenu extends AppCompatActivity implements View.OnClickListener{
 
     private LinearLayout nac, itb, cmine, shoppingCentre;
-    private int firstChoice = -1;
+    private int firstChoice = -1; // used to decide the direction
     private boolean towardCollege = false;
     private TextView userPrompt;
 
@@ -56,16 +56,16 @@ public class ItbShuttleMenu extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v)
     {
-        if(firstChoice < 0)
+        if(firstChoice < 0) // we have just picked the firs stop
         {
             firstChoice = getChoiceNumber(v);
-            userPrompt.setText("Pick your end point");
+            userPrompt.setText("Pick your end point"); // change the prompt
         }
         else
         {
             int secondChoice = getChoiceNumber(v);
 
-            if(secondChoice == firstChoice)
+            if(secondChoice == firstChoice) // makes sure we dont pick the same start and finish point
             {
                 Toast.makeText(this, "Pick a end point that is not the start point.", Toast.LENGTH_LONG).show();
                 return;
@@ -73,10 +73,10 @@ public class ItbShuttleMenu extends AppCompatActivity implements View.OnClickLis
 
             if(firstChoice > secondChoice)
             {
-                towardCollege = true;
+                towardCollege = true; // we know the direction is towards itb now
             }
 
-            Intent timesScreen = new Intent(this, ItbShuttleTimes.class);
+            Intent timesScreen = new Intent(this, ItbShuttleTimes.class); // start the next activity with the information
             timesScreen.putExtra("direction", towardCollege);
             timesScreen.putExtra("startPoint", getStartPoint(firstChoice));
             startActivity(timesScreen);
@@ -104,7 +104,7 @@ public class ItbShuttleMenu extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onBackPressed()
     {
-        if(firstChoice != -1)
+        if(firstChoice != -1) // if we just want to go back to the first choice
         {
             firstChoice = -1;
             userPrompt.setText("Pick your Starting point");

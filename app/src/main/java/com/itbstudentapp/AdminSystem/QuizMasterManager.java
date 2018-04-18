@@ -34,7 +34,7 @@ public class QuizMasterManager extends Dialog {
     {
         super(context, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
 
-        contactRepository = new ContactRepository();
+        contactRepository = new ContactRepository(); // gets the list of users
 
         setContentView(R.layout.admin_setting_panel);
 
@@ -61,6 +61,7 @@ public class QuizMasterManager extends Dialog {
 
     private void generateQuizMasterList()
     {
+        // this gets the lsit of our current quiz masters
         final LinearLayout list_section = findViewById(R.id.option_section);
         TextView title = findViewById(R.id.title);
         title.setText("Quiz Master Settings");
@@ -70,6 +71,9 @@ public class QuizMasterManager extends Dialog {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                /**
+                 *  for each quiz we have in the database, this gets the quiz master that is assocated with the quiz and displays them
+                 */
                 for(final DataSnapshot d : dataSnapshot.getChildren())
                 {
                     View item = LayoutInflater.from(list_section.getContext()).inflate(R.layout.quiz_master_item, null);
@@ -82,6 +86,9 @@ public class QuizMasterManager extends Dialog {
                     final TextView quiz_master_text = item.findViewById(R.id.quiz_master_name);
                     final String masterId = d.child("quiz_master").getValue(String.class);
 
+                    /**
+                     *  if we have a master for the quiz we get the information of that user from the user database
+                     */
                     if(masterId != null)
                     {
                         DatabaseReference user_db = FirebaseDatabase.getInstance().getReference("users/" + masterId);
@@ -110,6 +117,7 @@ public class QuizMasterManager extends Dialog {
                         quiz_master_text.setText("No master");
                     }
 
+                    // sets up the quiz master edit button for changing master
                     ImageView edit = item.findViewById(R.id.master_edit);
                     edit.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -137,7 +145,9 @@ public class QuizMasterManager extends Dialog {
         title.setText("Pick Quiz master");
         isPickingUser = true;
 
-
+        /**
+         *  if we are choosing a new quiz master, we only want them to be lecturers so we filter the choice
+         */
         final ArrayList<ContactCard> contactCards = contactRepository.filterByType("LECTURER");
         for(int i = 0; i < contactCards.size(); i++)
         {
@@ -147,7 +157,7 @@ public class QuizMasterManager extends Dialog {
             String user_name = contactCards.get(i).getUser_name();
 
             if( contactCards.get(i).getUser_id().equalsIgnoreCase(currentMasterID))
-                continue;
+                continue; // if this user is already the quiz master, we dont add to the list
 
             String usernameArray[] = user_name.split(" ");
 
@@ -160,6 +170,9 @@ public class QuizMasterManager extends Dialog {
 
             usernameField.setText(user_name);
 
+            /**
+             *  if the user has changed the quiz master, we save it to the database
+             */
             final int finalI = i;
             view.setOnClickListener(new View.OnClickListener() {
                 @Override

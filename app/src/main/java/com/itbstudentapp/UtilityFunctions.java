@@ -48,6 +48,7 @@ public class UtilityFunctions {
 
     public static final int noImageUser = R.drawable.ic_launcher_web;
 
+    // gets the user name from the database
     public static String getUserNameFromFirebase()
     {
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -61,21 +62,7 @@ public class UtilityFunctions {
         return  user_name;
     }
 
-    public static String[] getNumberOfColors(int numberOfUsers)
-    {
-
-        String[] colors = {"#a5d389","#84ceb7","#dbd64a", "#a5d389","#84ceb7","#dbd64a"};
-
-        String[] returnColors = new String[numberOfUsers];
-
-        for(int i = 0; i < numberOfUsers; i++)
-        {
-            returnColors[i] = colors[i];
-        }
-
-        return returnColors;
-    }
-
+    // converts a millisecond time to a string time
     public static String milliToTime(long currentTime)
     {
         Date messageDate = new Date(currentTime);
@@ -84,6 +71,7 @@ public class UtilityFunctions {
         return  date;
     }
 
+    // checks if the user has connection to a network
     public static boolean doesUserHaveConnection(Context context)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -95,6 +83,7 @@ public class UtilityFunctions {
         return networkInfo.isConnected();
     }
 
+    // formats the titles into a correct format for forum
     public static String formatTitles(String forum_topic)
     {
         String topicArray[] = forum_topic.split("/");
@@ -111,25 +100,30 @@ public class UtilityFunctions {
         return topic;
     }
 
+    // sets the new toolbar
     public static Toolbar getApplicationToolbar(final Activity context)
     {
         Toolbar toolbar = (Toolbar) context.findViewById(R.id.tool_bar);
         final SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
 
+        // sets the users options
         final ImageView menuButton = toolbar.findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 PopupMenu menu = new PopupMenu(context.getBaseContext(), menuButton);
 
+                // option to edit profile
                 menu.getMenu().add("Profile Settings");
 
+                // if we have the permissions
                 if(preferences.getString("accountType", "").equalsIgnoreCase("admin"))
                 {
                     menu.getMenu().add("Admin panel");
                     menu.getMenu().add("Events");
                 }
 
+                // if we are a lecturer or staff
                 if(preferences.getString("accountType", "").equalsIgnoreCase("lecturer")
                         ||preferences.getString("accountType", "").equalsIgnoreCase( "admin"))
                 {
@@ -137,8 +131,9 @@ public class UtilityFunctions {
                 }
 
 
+                // contact us option
                 menu.getMenu().add("Contact us");
-                menu.getMenu().add("Logout");
+                menu.getMenu().add("Logout"); // log out
 
                 menu.show();
 
@@ -160,6 +155,7 @@ public class UtilityFunctions {
                                 context.startActivity(new Intent(context, QuizPanel.class));
                                 break;
                             case "contact us":
+                                // opens a new message to the admin
                                 Intent contact = new Intent(context, MessageScreen.class);
                                 contact.putExtra("message_id", "admin");
                                 context.startActivity(contact);
@@ -168,13 +164,13 @@ public class UtilityFunctions {
                                 context.startActivity(new Intent(context, EventsHandler.class));
                                 break;
                             case "logout":
+                                // logs out the user
                                 removeInstanceIDFromDB(context);
                                 FirebaseAuth auth = FirebaseAuth.getInstance();
                                 auth.signOut();
                                 auth = null;
                                 Intent intent = new Intent(context, LoginScreen.class);
                                 UserSettings.clearFile(context);
-                               // intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 context.startActivity(intent);
                                 ((Activity)context).finish();
                                 break;
@@ -188,6 +184,7 @@ public class UtilityFunctions {
         return toolbar;
     }
 
+    // stops the services and subcriptions
     private static void removeInstanceIDFromDB(Activity context)
     {
         context.stopService(new Intent(context, MyFirebaseMessagingService.class));
@@ -217,6 +214,7 @@ public class UtilityFunctions {
         return colorHexes[index % colorHexes.length];
     }
 
+    // loads a image into the image view
     public static void loadImageToView(final String userName, final Context context, final ImageView imageView)
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + userName);
@@ -244,7 +242,6 @@ public class UtilityFunctions {
 
     public static void loadEventImageToView(final String event, final Context context, final ImageView imageView)
     {
-
         StorageReference storageReference = FirebaseStorage.getInstance().getReference("events/" + event);
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -256,6 +253,7 @@ public class UtilityFunctions {
 
 
 
+    // convers milli to date
     public static String milliToDate(long time)
     {
         Date messageDate = new Date(time);
@@ -272,18 +270,6 @@ public class UtilityFunctions {
             return true;
         } else{
             return false;
-        }
-    }
-
-    public static void checkIfLoggedIn(Context ct)
-    {
-        SharedPreferences preferences = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE);
-        String username = preferences.getString("username", "");
-
-        if(username == null || username == "")
-        {
-            ct.startActivity(new Intent(ct, LoginScreen.class));
-            ((Activity)ct).finish();
         }
     }
 }

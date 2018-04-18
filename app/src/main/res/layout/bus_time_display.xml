@@ -46,7 +46,7 @@
 
         <TextView
             android:layout_marginRight="10sp"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="30sp"
             android:id="@+id/bus_src"
             android:layout_gravity="bottom"
@@ -55,7 +55,7 @@
             android:textAppearance="@style/cuprum_bold"
             android:text="via Blanchardstown"
             android:textColor="#fff"
-            android:textSize="22sp"
+            android:textSize="15sp"
             />
 
 

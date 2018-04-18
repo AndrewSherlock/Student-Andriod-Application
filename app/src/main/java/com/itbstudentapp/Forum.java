@@ -31,7 +31,6 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
     private ProgressDialog progress;
     private ForumManager forumManager;
 
-    /* old varibles */
     private DatabaseReference ref;
     private Forum instance;
     private LinearLayout layout;
@@ -42,7 +41,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forum);
-        forumManager = new ForumManager();
+        forumManager = new ForumManager(); // create a forum managers
         gridLayout = findViewById(R.id.forum_menu_grid);
 
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
@@ -53,10 +52,10 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
         if (b != null) {
             if (b.getString("sectionChoice").equals("0")) {
                 path = "forum/sections/0/module/";
-                isModule = true;
+                isModule = true; // checks if we are in a subsection
             }
         } else {
-            path = "forum/sections/";
+            path = "forum/sections/"; // otherwise
         }
 
         setUpMainMenu();
@@ -71,7 +70,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
 
         for(int i = 0; i < layouts.length; i++)
         {
-            layouts[i].setOnClickListener(this);
+            layouts[i].setOnClickListener(this); // add action listener to each option
         }
     }
 
@@ -83,6 +82,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
 
     private void handleMenuMain(View panel)
     {
+        // did we enter something with subsections
         if(panel.getId() == R.id.forum_group || panel.getId() == R.id.forum_modules)
         {
             String key = (panel.getId() == R.id.forum_group) ? "forum_groups" : "forum_module";
@@ -94,6 +94,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
         }
         else
         {
+            // otherwise show the list
             String sectionName = getSectionNameFromID(panel.getId());
             Intent intent = new Intent(gridLayout.getContext(), ForumList.class);
             intent.putExtra("path", sectionName);
@@ -130,19 +131,7 @@ public class Forum extends AppCompatActivity implements View.OnClickListener{
 
         return null;
     }
-
-    private String getTitleForSection(int index, boolean isModule) // id rather sections be read in some other way
-    {
-        String[] subjects = {"Fundamentals of programming", "Networking", "Problem solving" ,"Web development"};
-        String[] sections = {"Modules", "Campus", "Area" ,"Transport", "Relax"};
-
-        if(isModule)
-            return  subjects[index];
-
-        return sections[index];
-
-    }
-
+    
     @Override
     public void onBackPressed() {
         startActivity(new Intent(this, MainActivity.class));

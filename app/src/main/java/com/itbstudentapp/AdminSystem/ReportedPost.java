@@ -30,6 +30,9 @@ public class ReportedPost extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reported_post);
 
+        /**
+         *  this makes sure the user has network connection as it depends on networking
+         */
         if(!UtilityFunctions.doesUserHaveConnection(this))
         {
             Toast.makeText(this, "No network connection available. Please try again", Toast.LENGTH_SHORT).show();
@@ -53,8 +56,11 @@ public class ReportedPost extends AppCompatActivity {
         });
     }
 
+    /**
+     * finds the list of reported posts
+     */
     private void getReportedPosts()
-    { //TODO FINISH ME
+    {
         final LinearLayout reportedPostsSection = findViewById(R.id.reported_posts_list);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("reported_posts");
@@ -62,6 +68,9 @@ public class ReportedPost extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                /**
+                 * if we have no reported posts, we just add a view to tell that to the user
+                 */
                 if(dataSnapshot.getChildrenCount() <= 0)
                 {
                     View layout = getLayoutInflater().inflate(R.layout.reported_post_item, null);
@@ -71,16 +80,17 @@ public class ReportedPost extends AppCompatActivity {
                     ImageView cancelButton = layout.findViewById(R.id.post_report_delete);
                     cancelButton.setVisibility(View.INVISIBLE);
 
-                    return;
+                    return; // we dont want to do anything else so we bail out
                 }
 
+                // otherwise, we get the list of reported posts and add each of them to the view
                 for(final DataSnapshot d : dataSnapshot.getChildren())
                 {
                     final LinearLayout layout = (LinearLayout) getLayoutInflater().inflate(R.layout.reported_post_item, null);
-                    TextView title = layout.findViewById(R.id.post_title);
+                    TextView title = layout.findViewById(R.id.post_title); // set the topic name as the report title
                     title.setText(d.getKey());
 
-                    ImageView cancelButton = layout.findViewById(R.id.post_report_delete);
+                    ImageView cancelButton = layout.findViewById(R.id.post_report_delete); // if we deem not a probelm, cancel the report
                     cancelButton.setVisibility(View.VISIBLE);
                     cancelButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -90,6 +100,7 @@ public class ReportedPost extends AppCompatActivity {
                         }
                     });
 
+                    // if we want to see the topic, this gives the modarator a slimmed down version
                     layout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

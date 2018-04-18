@@ -37,7 +37,6 @@ public class StopInformationFinder extends AsyncTask<String, Void,Void> {
         }
 
         Stop stopList[] = stops.toArray(new Stop[stops.size()]);
-        Log.e("Here", "doInBackground: " + strings[0] + " " + "Working" );
         return null;
     }
 
@@ -52,6 +51,7 @@ public class StopInformationFinder extends AsyncTask<String, Void,Void> {
         return stops;
     }
 
+    // gets the stops for the route, checking if the stop matches our list of stops
     private void GetRequest(String route) throws Exception
     {
         HttpURLConnection connection;

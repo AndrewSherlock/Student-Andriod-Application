@@ -45,6 +45,7 @@ public class Transport extends AppCompatActivity implements View.OnClickListener
             return;
         }
 
+        // depending on the button clicked, the mthod is called that loads each transport company
         switch (v.getId())
         {
             case R.id.dub_bus:

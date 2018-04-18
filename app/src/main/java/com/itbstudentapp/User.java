@@ -1,9 +1,5 @@
 package com.itbstudentapp;
 
-/**
- * Created by andrew on 13/12/2017.
- */
-
 public class User {
 
     private String username;

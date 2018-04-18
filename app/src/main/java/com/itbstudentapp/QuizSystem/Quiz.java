@@ -47,15 +47,15 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
         {
             Toast.makeText(this, "No network connection. Please try again.", Toast.LENGTH_SHORT ).show();
             startActivity(new Intent(this, MainActivity.class));
-            finish();
+            finish(); // network sensitive section
         }
 
-        setContentView(R.layout.activity_quiz2);
+        setContentView(R.layout.activity_quiz2);// load the quiz view
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
-        questions = new ArrayList<>();
+        questions = new ArrayList<>(); // create a array list to hold questions
 
         Bundle bundle = getIntent().getExtras();
-        String quiz = bundle.getString("quiz");
+        String quiz = bundle.getString("quiz"); // the quiz we choose
 
         String quiz_title = quiz.split("/")[1].replace("_", " ");
         quiz_title = quiz_title.substring(0,1).toUpperCase() + quiz_title.substring(1, quiz_title.length()).toLowerCase();
@@ -77,6 +77,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
 
     private void getQuestions(String quiz)
     {
+        // get the questions within that quiz
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("quiz/" + quiz);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -88,9 +89,11 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
                     q.setAnswer((ArrayList<String>) snap.child("answer").getValue());
                     q.setPossibleAnswers((ArrayList<String>) snap.child("possibleAnswers").getValue());
 
+                    // get all the questions
                     questions.add(q);
                 }
 
+                // choose a selection from them
                 getPickedQuestions();
             }
 
@@ -103,7 +106,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
 
     private void getPickedQuestions()
     {
-        if(questions.size() < numberOfQuestions)
+        if(questions.size() < numberOfQuestions) // if we have less questions then the max, allow all
         {
             askedQuestions = questions.toArray(new Question[questions.size()]);
             answerSheets = new QuizAnswerSheet[questions.size()];
@@ -111,12 +114,14 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
             questions = null;
             return;
         } else{
+            // else get a array of them
             askedQuestions = new Question[numberOfQuestions];
             answerSheets = new QuizAnswerSheet[questions.size()];
         }
 
-        Random rnd = new Random();
+        Random rnd = new Random(); // random choice
 
+        // get the questions
         for(int i = 0; i < askedQuestions.length; i++)
         {
             int randChoice = rnd.nextInt(questions.size());
@@ -127,13 +132,14 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
         questions = null;
     }
 
+    // show the questions we have choosen
     private void displayQuestions()
     {
         LinearLayout linearLayout = findViewById(R.id.quiz_questions);
 
         for(int i = 0; i < askedQuestions.length; i++)
         {
-            View questions_panel = LayoutInflater.from(this).inflate(R.layout.question_panel, null); // TODO Ken crash
+            View questions_panel = LayoutInflater.from(this).inflate(R.layout.question_panel, null);
             TextView question = questions_panel.findViewById(R.id.question);
             question.setText(askedQuestions[i].getQuestion());
 
@@ -149,9 +155,8 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
             linearLayout.addView(questions_panel, params);
         }
     }
-//
-////    private int counter;
-//    private int correctAmount;
+
+    // make sure they are swap around to avoid patterns emerging
     private void randomizeQuestions(ArrayList<String> answers, View questions_panel, ArrayList<String> correctAnswers, final QuizAnswerSheet answerSheet)
     {
         Random rnd = new Random();
@@ -199,6 +204,9 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+    /**
+     * used to make sure the student took the quiz as intended
+     */
     private void handleQuizEnd()
     {
         float currentScore = 0;
@@ -249,6 +257,7 @@ public class Quiz extends AppCompatActivity implements View.OnClickListener {
         showResults(questionsWrong, currentScore);
     }
 
+    // gets the quiz score of the student
     private void showResults(boolean[] questionsWrong, float currentScore)
     {
         LinearLayout linearLayout = findViewById(R.id.quiz_questions);

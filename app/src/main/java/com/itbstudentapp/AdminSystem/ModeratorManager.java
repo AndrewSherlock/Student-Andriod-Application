@@ -28,31 +28,26 @@ import com.itbstudentapp.R;
 
 import java.util.ArrayList;
 
-/**
- * Created by andrew on 18/03/2018.
- */
-
 class ModeratorManager extends Dialog
 {
     private ContactRepository contactRepository;
-    private boolean isPickingUser = false;
     ContactList contactList;
     private ContactCard contactCard;
 
     public ModeratorManager(Context adminPanel)
     {
-        super(adminPanel, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
-        contactRepository = new ContactRepository();
-        setContentView(R.layout.admin_setting_panel);
+        super(adminPanel, android.R.style.Theme_Light_NoTitleBar_Fullscreen); // sets the dialog up
+        contactRepository = new ContactRepository(); // get the contact list from our user repo
+        setContentView(R.layout.admin_setting_panel); // sets the layout
         TextView title = findViewById(R.id.title);
         title.setText("Moderator List");
 
         setPanelVisiblity(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT), View.VISIBLE);
 
-        addModeratorListener();
-        getListOfModerators();
+        addModeratorListener();  // listens for the new modarator button to be selected
+        getListOfModerators(); // initializes the list of current modarators
         setupHomeButton();
-        show();
+        show(); // shows the dialog
     }
 
     private void addModeratorListener()
@@ -62,7 +57,6 @@ class ModeratorManager extends Dialog
             @Override
             public void onClick(View v) {
 
-                isPickingUser = true;
                 setPanelVisiblity(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 0), View.INVISIBLE);
                 contactList = new ContactList(v.getContext(), contactRepository);
 
@@ -72,6 +66,7 @@ class ModeratorManager extends Dialog
                         contactCard = contactList.getChoosenCard();
                         if(contactCard != null)
                         {
+                            // adds the user to the modarator list
                             addUserToModList(contactCard);
                         }
 
@@ -97,9 +92,11 @@ class ModeratorManager extends Dialog
         modAdd.setLayoutParams(params);
     }
 
+    /**
+     *  method that checks the modarator database for users
+     */
     private void getListOfModerators()
     {
-
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("moderators");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -140,6 +137,11 @@ class ModeratorManager extends Dialog
         list_section.addView(view);
     }
 
+    /**
+     * removes modarators off the list to allow deletion of modarators
+     * @param user_id
+     * @param parent
+     */
     private void handleModDelete(final String user_id, final View parent)
     {
         ImageView view = parent.findViewById(R.id.delete_mod);

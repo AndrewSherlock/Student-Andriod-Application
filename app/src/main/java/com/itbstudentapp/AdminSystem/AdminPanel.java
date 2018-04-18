@@ -12,6 +12,10 @@ import com.itbstudentapp.UtilityFunctions;
 
 public class AdminPanel extends AppCompatActivity implements View.OnClickListener {
 
+    /**
+     * creates the admin panel
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +25,9 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
         setupButtons();
     }
 
+    /**
+     * setting up the buttons on the panel
+     */
     private void setupButtons()
     {
         TextView admin_mod = findViewById(R.id.admin_moderator);
@@ -40,17 +47,17 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
     public void onClick(View v) {
         if(v.getId() == R.id.admin_home)
         {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
+            startActivity(new Intent(this, MainActivity.class)); // brings the user to the home page
+            finish(); // ends the current activity
         } else if(v.getId() == R.id.admin_moderator)
         {
-            showModeratorDialog();
+            showModeratorDialog(); // the dialog that sets the modarators for the app
         } else if(v.getId() == R.id.admin_quiz_panel)
         {
-            setQuizMaster();
+            setQuizMaster(); // setting a new quiz master
         } else if(v.getId() == R.id.admin_forum_reports)
         {
-            startActivity(new Intent(this, ReportedPost.class));
+            startActivity(new Intent(this, ReportedPost.class)); // the reported posts from the forum
             finish();
         }
 
@@ -59,17 +66,18 @@ public class AdminPanel extends AppCompatActivity implements View.OnClickListene
     private void showModeratorDialog()
     {
         new ModeratorManager(this);
-    }
+    } // creates the class of the dialog of each
 
     private void setQuizMaster()
     {
         new QuizMasterManager(this);
-    }
+    }// creates the quiz master dialog
 
     @Override
     public void onBackPressed()
     {
-        startActivity(new Intent(this, MainActivity.class));
+        startActivity(new Intent(this, MainActivity.class)); // if we dont do this step. our event system can get messed up
+                                                                            // and the back button can be unpredictable
         finish();
     }
 }

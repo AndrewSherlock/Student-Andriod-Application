@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -39,10 +40,12 @@ public class UserManager
         this.context = context;
     }
 
+    // checks if we have an email that is permitted
     public boolean isTheUserEmailValid(String email)
     {
         String[] emailAddress = context.getResources().getStringArray(R.array.permitted_emails);
 
+        // loops through the permitted prefixes and returns true when it finds a match
         for(int i = 0; i < emailAddress.length; i++)
         {
             if(emailAddress[i].equalsIgnoreCase(email))
@@ -52,6 +55,7 @@ public class UserManager
         return false;
     }
 
+    // checks the fields for blank
     public boolean areFieldsBlank(String ... texts)
     {
         for(int i = 0; i < texts.length; i++)
@@ -63,6 +67,7 @@ public class UserManager
         return false;
     }
 
+    // checks the password for correct format
     private boolean validPasswordFormat(String password)
     {
         boolean hasUppercase = false;
@@ -91,15 +96,18 @@ public class UserManager
         return hasUppercase && hasLowercase && hasNumber;
     }
 
+    // registers the user
     public void registerUser(final String username, String emailAddress, String password)
     {
+        emailAddress = emailAddress.trim(); // takes any white space away
+
         if(areFieldsBlank(username, emailAddress, password))
         {
             Toast.makeText(context, "Ensure that the fields are not blank", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(emailAddress.split("@").length != 2)
+        if(emailAddress.split("@").length != 2) // makes sure we have a email address
         {
             Toast.makeText(context, "Your email is not a valid email address.", Toast.LENGTH_SHORT).show();
             return;
@@ -107,9 +115,6 @@ public class UserManager
 
         if(!isTheUserEmailValid(emailAddress.split("@")[1]))
         {
-            for(String s: emailAddress.split("@"))
-                Log.e("String", s);
-
             Toast.makeText(context, "Your email is not an ITB email address.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -120,6 +125,7 @@ public class UserManager
             return;
         }
 
+        // checks for conflict
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/");
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -142,8 +148,9 @@ public class UserManager
         this.password = password;
 
         if(this.emailAddress.contains("student"))
-            askUserForCourse();
+            askUserForCourse(); // if its a user we get the course
         else{
+            // else write as a staff member
            writeToDatabase(getUserAccountType(emailAddress), null);
             String user_id = emailAddress.split("@")[0];
             user_id = user_id.replace(" ", "_");
@@ -154,11 +161,19 @@ public class UserManager
         }
     }
 
+    // get the users group
     private void getuserGroup(final String course)
     {
         final Dialog groupDialog = new Dialog(context);
         groupDialog.setContentView(R.layout.modal_course_choice);
         final LinearLayout modalLayout = groupDialog.findViewById(R.id.course_list);
+
+        if(!UtilityFunctions.doesUserHaveConnection(context))
+        {
+            Toast.makeText(context, "No network connection. Please try again later with network connection.", Toast.LENGTH_SHORT).show();
+            ((Activity)context).startActivity(new Intent(context, LoginScreen.class));
+            return;
+        }
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("group_messages");
         reference.addValueEventListener(new ValueEventListener() {
@@ -193,6 +208,7 @@ public class UserManager
         });
     }
 
+    // add the user to the group
     private void addUserGroupToAccount(String group, String course_id)
     {
         writeToDatabase(getUserAccountType(emailAddress), course_id);
@@ -204,14 +220,16 @@ public class UserManager
         ref.child("staffUser").setValue(false);
     }
 
+    // ask the user from a list of courses which is theirs
     private void askUserForCourse()
     {
         final Dialog courseChoice = new Dialog(context);
+
         courseChoice.setContentView(R.layout.modal_course_choice);
         LinearLayout modalLayout = courseChoice.findViewById(R.id.course_list);
 
         final String[] courses = context.getResources().getStringArray(R.array.courses);
-       
+
         for(int i = 0; i < courses.length; i++)
         {
             View courseItem = LayoutInflater.from(context).inflate(R.layout.course_item_list,null);
@@ -221,7 +239,6 @@ public class UserManager
             textView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                   // writeToDatabase(getUserAccountType(emailAddress), textView.getText().toString());
                     courseChoice.dismiss();
                     getuserGroup(textView.getText().toString());
 
@@ -252,7 +269,7 @@ public class UserManager
         if(!UtilityFunctions.doesUserHaveConnection(context))
         {
             Toast.makeText(context, "Please wait for network connection.", Toast.LENGTH_SHORT).show();
-            return;
+            return; // failed due to no network
         }
 
         User user = new User(username, courseId, accountType, emailAddress);

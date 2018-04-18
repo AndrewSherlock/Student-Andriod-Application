@@ -27,10 +27,11 @@ public class Phone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_phone);
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
-        String[] contacts = getResources().getStringArray(R.array.contacts);
+        String[] contacts = getResources().getStringArray(R.array.contacts); // get the contacts from resource file
 
         linearLayout = findViewById(R.id.contact_grid);
 
+        // set each of the contacts to the view
         for(int i = 0; i < contacts.length; i++) {
             String temp[] = contacts[i].split("/");
             String name = temp[0];
@@ -43,6 +44,7 @@ public class Phone extends AppCompatActivity {
             TextView textView = view.findViewById(R.id.contact_text);
             textView.setText(name);
 
+            // on click, open the call with the data needed
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -91,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 finish();
                 break;
             case R.id.quiz:
-                //startActivity(new Intent(this, Quiz.class));
                 startActivity(new Intent(this, QuizHome.class));
                 onActivityChange();
                 finish();
@@ -134,6 +133,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
+
+        // when main activity opens, gets the preferences
 
         SharedPreferences preferences = this.getSharedPreferences(UtilityFunctions.PREF_FILE, this.MODE_PRIVATE);
         String username = preferences.getString("username", "");

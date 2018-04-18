@@ -26,14 +26,6 @@
                android:orientation="vertical"
                android:id="@+id/forum_reply_posts">
 
-               <!-- reply -->
-
-
-
-
-               <!-- -->
-
-
            </LinearLayout>
        </ScrollView>
 

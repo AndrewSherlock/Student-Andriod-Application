@@ -98,12 +98,6 @@ public class Chat extends AppCompatActivity implements View.OnClickListener {
         startActivity(intent);
     }
 
-    private void LoadMessage(String messageID) {
-        Intent intent = new Intent(this, MessageScreen.class);
-        intent.putExtra("message_id", messageID);
-        startActivity(intent);
-    }
-
     private void getGroupMessages()
     {
         message_scrollview.removeAllViews();

@@ -91,6 +91,7 @@ public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, O
     }
 
     @Override
+    // shows where the stop is located
     public void onMapReady(GoogleMap googleMap) {
 
         LatLng lat = new LatLng(Double.parseDouble(stop_lat), Double.parseDouble(stop_long));
@@ -112,7 +113,7 @@ public class BusTimes extends AppCompatActivity implements OnMapReadyCallback, O
     }
 
     @Override
-    public void onThreadCompleteCall()
+    public void onThreadCompleteCall() // when we complete getting the information, we get the timee
     {
         times = btr.getTimes();
         populateList(route, stop, stop_name, times); // method that populates the screen

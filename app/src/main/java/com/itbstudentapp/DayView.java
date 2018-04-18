@@ -94,7 +94,21 @@ public class DayView extends AppCompatActivity implements View.OnClickListener {
             //get the value from the database in column 2 - class name
             //then add it to the ArrayList
             listDataClassNames.add(data.getString(3));
-            listDataClassTimes.add("Time: "+data.getString(1)+ " - "+data.getString(2));
+
+            String startTime = data.getString(1);
+            String finishTime = data.getString(2);
+
+            if(startTime.indexOf(':') == -1)
+            {
+                startTime += ":00";
+            }
+
+            if(finishTime.indexOf(':') == -1)
+            {
+                finishTime += ":00";
+            }
+
+            listDataClassTimes.add("Time: "+ startTime + " - "+ finishTime);
             listDataClassRooms.add("Room: "+data.getString(5));
         }
         //create the list adapter and set the adapter

@@ -9,7 +9,7 @@
     android:id="@+id/spinner_text"
     android:fontFamily="@font/cuprumbold"
     android:textAppearance="@style/cuprum_bold"
-    android:textSize="28sp"
+    android:textSize="22sp"
     android:textColor="#fff"
     android:background="#cc000000"
     android:textAlignment="center"

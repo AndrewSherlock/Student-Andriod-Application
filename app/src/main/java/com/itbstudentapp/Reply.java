@@ -1,8 +1,5 @@
 package com.itbstudentapp;
 
-/**
- * Created by andrew on 01/02/2018.
- */
 
 public class Reply {
 

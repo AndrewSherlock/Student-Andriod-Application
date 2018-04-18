@@ -28,6 +28,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
+        // fields to enter
         user_name = findViewById(R.id.register_user_name);
         user_email = findViewById(R.id.register_user_email);
         user_password = findViewById(R.id.register_user_password);
@@ -41,6 +42,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         clear_fields.setOnClickListener(this);
     }
 
+    // we wanted the user to be informed of the format of each field as they enter, a focus listener was the best item to use
     private void addFocusListener()
     {
         user_name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -108,6 +110,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    // change the current instruction
     private void showInstruction(String instructions)
     {
         View v = findViewById(R.id.instruction_panel);
@@ -117,6 +120,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
         instruction.setText(instructions);
     }
 
+    // hide if no instruction
     private void hidePanel()
     {
         View v = findViewById(R.id.instruction_panel);

@@ -9,19 +9,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+/**
+ *  what happens here is the information is sent to a firebase database which has a cloud function set to onWrite which is used when a database has a
+ *  field entered into it. From this the function decides how to handle it, such as if its a chat message, it will just notify the reciever. if its a new
+ *  event, all users are notified
+ */
+
 public class FirebaseNotificationManager {
 
     public static void sendNotificationToUser(Notification notification/*String user, String message */)
     {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("notifications");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("notifications"); // get the notification database
 
-        String key = UUID.randomUUID().toString();
+        String key = UUID.randomUUID().toString(); // give a random id
 
-        Map userNotification = new HashMap();
+        Map userNotification = new HashMap(); // create a hashmap to send to firebase
 
         if(notification.getMessageSender() != null)
         {
-            userNotification.put("user", notification.getMessageSender());
+            userNotification.put("user", notification.getMessageSender()); // give the user
         }
 
         userNotification.put("type", notification.getNotificationType());

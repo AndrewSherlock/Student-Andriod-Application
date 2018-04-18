@@ -30,6 +30,9 @@ import com.itbstudentapp.UtilityFunctions;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ *  used to create new quizes
+ */
 public class QuizManagement extends AppCompatActivity implements View.OnClickListener {
     
     private boolean isNew;
@@ -48,7 +51,7 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
         {
             Toast.makeText(this, "No network connection. Please try again later", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, MainActivity.class));
-            finish();
+            finish(); // network senstive section
         }
 
         setContentView(R.layout.activity_quiz_management);
@@ -61,9 +64,9 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
         isNew = bundle.getBoolean("new_quiz");
         reference = bundle.getString("quiz_topic");
         
-        if(!isNew)
+        if(!isNew) // if its not a new quiz we are creating
         {
-            loadQuestionsFromQuiz();
+            loadQuestionsFromQuiz(); // load the questions for the quiz
         }
 
         initializeSettings();
@@ -81,6 +84,7 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    // for each question in the quiz, we want to display it
     public void addQuestionToDisplay(final Question question, int index)
     {
         final View view = LayoutInflater.from(this).inflate(R.layout.event_detail, null);
@@ -90,14 +94,14 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
 
         String questionText = question.getQuestion();
 
-        if(questionText.length() > 15) {
+        if(questionText.length() > 15) { // make sure its not over 19 charactors long
             String edittedQuestion = questionText.substring(0, 15) + "...";
             questionTitle.setText(edittedQuestion);
         } else {
             questionTitle.setText(questionText);
         }
 
-        ImageView edit_question = view.findViewById(R.id.event_edit);
+        ImageView edit_question = view.findViewById(R.id.event_edit); // add button to edit it
         edit_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
@@ -106,20 +110,19 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-        ImageView remove_question = view.findViewById(R.id.event_remove);
+        ImageView remove_question = view.findViewById(R.id.event_remove); // remove the question
         remove_question.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("here", "onClick: " + reference + "/" + questions.indexOf(question));
                 questions.remove(question);
                 ((ViewGroup)view.getParent()).removeView(view);
                 hasDeleted = true;
             }
         });
 
-        if(index < 0)
+        if(index < 0) // if its the first question to be added
             ((LinearLayout)findViewById(R.id.question_section)).addView(view);
-        else
+        else // makes sure that it is added in the right place
             ((LinearLayout)findViewById(R.id.question_section)).addView(view, index);
     }
 
@@ -129,6 +132,7 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
         addQuestionToDisplay(question, -1);
     }
 
+    // gets each of our questions in the quiz and adds it to the list
     private void loadQuestionsFromQuiz()
     {
         final Context ct = this;
@@ -194,7 +198,7 @@ public class QuizManagement extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void saveQuestionToDatabase()
+    private void saveQuestionToDatabase() // save the new questions to the database
     {
         String removedSpaces = quizTitle.getText().toString().replace(" ", "_");
         DatabaseReference ref;

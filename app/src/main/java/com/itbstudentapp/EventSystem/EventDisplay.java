@@ -54,11 +54,11 @@ public class EventDisplay implements View.OnClickListener {
 
         if(!UtilityFunctions.doesUserHaveConnection(context))
         {
-            eventDisplay.setText("No network connection");
+            eventDisplay.setText("No network connection"); // this is network senstive,
             eventDisplay.setVisibility(View.VISIBLE);
-            checkForReconnection();
+            checkForReconnection(); // cause its on the main activity we can recheck for network
         } else{
-            getEvents();
+            getEvents(); // if we have connection
         }
     }
 
@@ -68,6 +68,7 @@ public class EventDisplay implements View.OnClickListener {
 
         events = new ArrayList<>();
 
+        // for each event, we add to the list
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -85,7 +86,7 @@ public class EventDisplay implements View.OnClickListener {
                         }
                     }
 
-                    if(events.size() > 0)
+                    if(events.size() > 0) // if we have events, we want to play the anim
                         displayAction(100);
                 }
             }
@@ -99,15 +100,16 @@ public class EventDisplay implements View.OnClickListener {
 
     private void checkForReconnection()
     {
-        Timer t = new Timer();
+        final Timer t = new Timer();
         t.schedule(new TimerTask() {
             @Override
-            public void run() {
+            public void run() { // recursive function to check if we have connection
 
                 if(UtilityFunctions.doesUserHaveConnection(context))
                 {
                     cancel();
                     getEvents();
+                    t.cancel();
                 }
             }
         }, 1000, 10000);
@@ -122,7 +124,7 @@ public class EventDisplay implements View.OnClickListener {
                 boolean firstTurn = (time < 1000);
                 doThreadAction(firstTurn);
             }
-        }, time);
+        }, time); // used to show the different events
 
 
     }
@@ -131,18 +133,18 @@ public class EventDisplay implements View.OnClickListener {
     private void doThreadAction(boolean firstTurn)
     {
         if((Calendar.getInstance().getTimeInMillis()-lastCall) < 9000 && !firstTurn)
-            return;
+            return; //we want to make sure the event is up for the right amount of time
 
-        lastCall = Calendar.getInstance().getTimeInMillis();
+        lastCall = Calendar.getInstance().getTimeInMillis(); // change the event
         context.runOnUiThread(new Runnable() {
             @Override
             public void run()
             {
                 currentMessage = (currentMessage + 1) % events.size();
-                eventDisplay.setVisibility(View.INVISIBLE);
-                eventDisplay.setText(events.get(currentMessage).getEventTitle());
-                eventDisplay.startAnimation(fadeIn);
-                displayAction(10000);
+                eventDisplay.setVisibility(View.INVISIBLE); // hide the current event
+                eventDisplay.setText(events.get(currentMessage).getEventTitle()); // change
+                eventDisplay.startAnimation(fadeIn); // start fadein
+                displayAction(10000); // call next event change
             }
         });
     }
@@ -152,14 +154,16 @@ public class EventDisplay implements View.OnClickListener {
     public void onClick(View v)
     {
         if(v.getId() == eventDisplay.getId())
-        {
+        { // we want to get more information of the event
             Event event = events.get(currentMessage);
 
+            // show dialog with event info
             final Dialog dialog = new Dialog(context, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
             dialog.setContentView(R.layout.event_read_dialog);
             TextView eventTitle = dialog.findViewById(R.id.event_title);
             eventTitle.setText(event.getEventTitle());
 
+            // if we have a image, show the image
             ImageView eventImage = dialog.findViewById(R.id.event_image);
             if(event.getEventImage() == null)
             {

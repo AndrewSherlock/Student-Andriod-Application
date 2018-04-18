@@ -18,8 +18,8 @@ public class ContactRepository
 
     public ContactRepository()
     {
-        userInformation = new ArrayList<>();
-        getUserInformation();
+        userInformation = new ArrayList<>(); // how we store the list of the users
+        getUserInformation(); // gets the users in the list
     }
 
     private void getUserInformation()
@@ -49,7 +49,7 @@ public class ContactRepository
         });
     }
 
-    private UserType getUserTypeFromEmail(String email)
+    private UserType getUserTypeFromEmail(String email) // sets the users account type
     {
         email = email.toLowerCase();
 

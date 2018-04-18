@@ -142,15 +142,3 @@
     </ScrollView>
 
 </RelativeLayout>
-
-
-    <!--
-
-
-     private String eventTitle;
-        private String eventMessage;
-        private long eventPostDate;
-        private long eventValidTill;
-        private String eventImage;
-
-    -->

@@ -53,9 +53,11 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.activity_profile_settings);
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
 
+        // change image button
         changeProfilePicture = findViewById(R.id.profile_change_image);
         changeProfilePicture.setOnClickListener(this);
 
+        // settings switchs
         led = findViewById(R.id.switch_led);
         vibrate = findViewById(R.id.switch_vibrate);
         sound = findViewById(R.id.switch_sound);
@@ -68,6 +70,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
 
         getCurrentPrefs();
 
+        // get change password button
         changePassword = findViewById(R.id.profile_reset_password);
         changePassword.setOnClickListener(this);
 
@@ -79,6 +82,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
 
     private void loadProfilePicture()
     {
+        // gets the current image from firebase
         final Context context = this;
         final ImageView profile = findViewById(R.id.profile_image);
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase());
@@ -133,47 +137,9 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     private void changeUserPassword()
     {
         new ForgottenPasswordModal(this);
-//        final Dialog dialog = new Dialog(this);
-//        dialog.setContentView(R.layout.profile_reset_password);
-//        dialog.show();
-//
-//        final EditText user_new_password = dialog.findViewById(R.id.password_modal_enter);
-//        final EditText user_reenter_password = dialog.findViewById(R.id.password_modal_reenter);
-//        final EditText user_old_password = dialog.findViewById(R.id.password_modal_old_password);
-//
-//        TextView resetPassButton = dialog.findViewById(R.id.profile_reset_password);
-//        resetPassButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(user_new_password.getText().equals(user_reenter_password.getText())) {
-//                    handlePasswordReset(user_new_password.getText().toString(), user_old_password.getText().toString());
-//                } else{
-//                    Toast.makeText(dialog.getContext(), "Passwords do not match. Please try again.", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
     }
 
-    private void handlePasswordReset(final String newPassword, final String oldPassword)
-    {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase());
-        final Context context = this;
-        reference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                if(dataSnapshot.child("password").getValue(String.class).equals(oldPassword))
-                {
-                   //TODO grrrrr firebase
-                } else{
-                    Toast.makeText(context, "Passwords do not match. Please try again.", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-    }
-
+    // uploading a new profile image
     private void changeProfilePicture()
     {
         if(!UtilityFunctions.doesUserHaveConnection(this))
@@ -188,6 +154,7 @@ public class ProfileSettings extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
+    // the result of our new upload
     protected void onActivityResult(int requestCode, int resultCode, final Intent data)
     {
         super.onActivityResult(requestCode, resultCode, data);

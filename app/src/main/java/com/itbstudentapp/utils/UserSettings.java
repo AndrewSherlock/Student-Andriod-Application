@@ -25,13 +25,12 @@ public class UserSettings
     public static boolean flash = true;
     public static boolean location = true;
 
-    public static boolean hasChecked = false;
     public static String username;
     public static String studentCourse;
     public static String student_groups[];
     public static String accountType;
 
-    private static void setupPlayerOptions(Context ct)
+    private static void setupPlayerOptions(Context ct) // sets the users defaults in preferences
     {
         SharedPreferences preferences = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE);
 
@@ -48,13 +47,9 @@ public class UserSettings
         location = preferences.getBoolean("geo", true);
     }
 
-
-
-
-
-
     public static Intent currentIntent;
 
+    // checks if we have set the users prefs
     public static void checkIfInit(final Context ct, String username)
     {
         final SharedPreferences pref = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE);
@@ -102,6 +97,7 @@ public class UserSettings
         checkIfUserModerator(username, ct);
     }
 
+    // used to check if we are a moderator
     private static void checkIfUserModerator(final String username, final Context ct)
     {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("moderators");
@@ -125,6 +121,7 @@ public class UserSettings
         });
     }
 
+    // clears the current preferences
     public static void clearFile(Context ct)
     {
         SharedPreferences.Editor editor = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE).edit();

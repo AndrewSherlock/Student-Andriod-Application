@@ -27,15 +27,16 @@ public class Links extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_links);
         setSupportActionBar(UtilityFunctions.getApplicationToolbar(this));
-        String[] contacts = getResources().getStringArray(R.array.links);
+        String[] links = getResources().getStringArray(R.array.links); // get the links from resource file
 
         linearLayout = findViewById(R.id.link_grid);
 
-        for(int i = 0; i < contacts.length; i++) {
-            String temp[] = contacts[i].split("_");
+        for(int i = 0; i < links.length; i++) { // for each link
+            String temp[] = links[i].split("_");
             String name = temp[0];
             final String link = temp[1];
 
+            // add to the view
             View view = LayoutInflater.from(this).inflate(R.layout.contact_button, null);
             LinearLayout layout = view.findViewById(R.id.contact_button);
             layout.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#cc" + getHexColor(i))));
@@ -46,6 +47,7 @@ public class Links extends AppCompatActivity {
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // when clicked, open browser and give the link to it
                     Uri uriUrl = Uri.parse(link);
                     Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
                     startActivity(launchBrowser);
@@ -62,6 +64,7 @@ public class Links extends AppCompatActivity {
 
     private String getHexColor(int index)
     {
+        // random colours
         String[] colorHexes = getResources().getStringArray(R.array.colours);
         return colorHexes[index % colorHexes.length];
     }

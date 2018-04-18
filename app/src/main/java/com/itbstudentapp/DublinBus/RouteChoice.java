@@ -36,6 +36,7 @@ public class RouteChoice extends AppCompatActivity{
                 dbhandler.execute();
             }
         });
+        // loads the list of routes in the area
 
         loader.start();
 
@@ -61,8 +62,6 @@ public class RouteChoice extends AppCompatActivity{
         params.setMargins(0, 0, 0, 25);
 
         final RouteChoice rc = this;
-
-        //LinearLayout.LayoutParams linear = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         button.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View v) {

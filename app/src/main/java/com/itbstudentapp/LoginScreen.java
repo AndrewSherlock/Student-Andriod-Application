@@ -34,7 +34,7 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
     private ProgressDialog progress;
 
-    private FirebaseAuth auth;
+    private FirebaseAuth auth; // firebase system for handling logging in
     private boolean isLoggingIn = false;
 
     @Override
@@ -55,10 +55,6 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
 
         auth = FirebaseAuth.getInstance();
 
-        Log.e("usr", "onCreate: "  + auth.getCurrentUser());
-
-        Log.e("Auth", "onCreate: " + (auth == null));
-
         if (auth.getCurrentUser() != null) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -70,12 +66,14 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
         final String user_name = user.getText().toString();
         final String user_password = password.getText().toString();
 
+        // make sure we have a name to log in as
         if (user_name.length() == 0 || TextUtils.isEmpty(user_name)) {
-            Toast.makeText(getApplicationContext(), "user_namename must not be blank.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "username must not be blank.", Toast.LENGTH_SHORT).show();
             progress.dismiss();
             return;
         }
 
+        // user entered a password
         if (password.length() == 0 || TextUtils.isEmpty(user_password)) {
             Toast.makeText(getApplicationContext(), "Password must not be blank.", Toast.LENGTH_SHORT).show();
             progress.dismiss();
@@ -108,43 +106,46 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     private void loginUser(String username, final String user_password) {
         if (!UtilityFunctions.doesUserHaveConnection(this)) {
             Toast.makeText(this, "No internet connection. Please try again later", Toast.LENGTH_SHORT).show();
-            return;
+            return; // network sensitive
         }
 
+        // create our services
         final Intent fBase = new Intent(this, MyFirebaseMessagingService.class);
         final Intent fbaseId = new Intent(this, MyFirebaseInstanceIDService.class);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + prepareLink(username));
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addValueEventListener(new ValueEventListener() { // get the user name to check if they exist
             @Override
             public void onDataChange(final DataSnapshot dataSnapshot) {
                 if (!dataSnapshot.exists()) {
                     Toast.makeText(getApplicationContext(), "User not found", Toast.LENGTH_SHORT).show();
                     progress.dismiss();
                     return;
+                    // if no user exists
                 }
 
-                if(auth == null)
+                if(auth == null) // make sure we have an instance of firebase auth
                     auth = FirebaseAuth.getInstance();
 
+                // sign in with the user name and password
                 auth.signInWithEmailAndPassword(dataSnapshot.child("email").getValue(String.class), user_password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    if(!isLoggingIn) {
+                                    if(!isLoggingIn) { // make sure we dont try multiple log ins which causes a weird trigger
                                         isLoggingIn = true;
                                         Intent intent = new Intent(progress.getContext(), MainActivity.class);
-                                        progress.dismiss();
-                                        startService(fBase);
+                                        progress.dismiss(); // dismiss logging in dialog
+                                        startService(fBase); // start our services
                                         startService(fbaseId);
-                                        MyFirebaseInstanceIDService.saveTokenToDb();
-                                        startActivity(intent);
+                                        MyFirebaseInstanceIDService.saveTokenToDb(); // save device id to db
+                                        startActivity(intent); // start main and destory this activity
                                         finish();
                                     }
                                 } else {
+                                    // log in failed
                                     Toast.makeText(getApplicationContext(), "Sign in failed.", Toast.LENGTH_SHORT).show();
-                                    Log.e("Failed", "onComplete: " + "Log in failed" + user_password);
                                     user.setText("");
                                     password.setText("");
                                     progress.dismiss();
@@ -163,6 +164,9 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
     }
 
     private String prepareLink(String user_id) {
+
+        // get right formatted id for firebase
+
         UserManager userManager = new UserManager(this);
         String entered_user_id = userManager.prepareFirebaseLink(user_id.toLowerCase());
 

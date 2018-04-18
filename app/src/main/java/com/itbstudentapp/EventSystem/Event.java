@@ -1,9 +1,5 @@
 package com.itbstudentapp.EventSystem;
 
-/**
- * Created by andrew on 01/03/2018.
- */
-
 public class Event
 {
     private String eventTitle;

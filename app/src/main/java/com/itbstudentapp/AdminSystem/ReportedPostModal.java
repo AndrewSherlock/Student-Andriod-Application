@@ -47,6 +47,13 @@ public class ReportedPostModal extends Dialog implements View.OnClickListener {
     private ForumPost fp;
     private boolean hasDeleted = false;
 
+    /**
+     *  modal that shows the slimmed down reported post
+     * @param context
+     * @param forumPost
+     * @param ref
+     * @param dRef
+     */
     public ReportedPostModal(@NonNull Context context, ForumPost forumPost, String ref, final DatabaseReference dRef)
     {
         super(context, android.R.style.Theme_Light_NoTitleBar_Fullscreen);
@@ -63,13 +70,13 @@ public class ReportedPostModal extends Dialog implements View.OnClickListener {
         dbRef = ref;
         ct = context;
         fp = forumPost;
-        Log.e("LINKY", "onDismiss: " + dRef.toString() );
+
         setPostsInView();
         setOnDismissListener(new OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
 
-                if(hasDeleted)
+                if(hasDeleted) // if the user decides to delete the post, on dismiss we delete post
                 {
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReferenceFromUrl(dRef.toString());
                     reference.removeValue();
@@ -85,6 +92,10 @@ public class ReportedPostModal extends Dialog implements View.OnClickListener {
         loadPostIntoView(layout);
     }
 
+    /**
+     *  adds the post to the view
+     * @param layout
+     */
     private void loadPostIntoView(LinearLayout layout)
     {
         View view = LayoutInflater.from(ct).inflate(R.layout.report_post_item, null);
@@ -136,6 +147,12 @@ public class ReportedPostModal extends Dialog implements View.OnClickListener {
 
     }
 
+    /**
+     * adds each of the post replys to the dialog
+     * @param i
+     * @param reply
+     * @param layout
+     */
     private void addRepliesToView(final int i, Reply reply, final LinearLayout layout)
     {
         final View view = LayoutInflater.from(ct).inflate(R.layout.report_post_item, null);
@@ -165,6 +182,7 @@ public class ReportedPostModal extends Dialog implements View.OnClickListener {
             });
         }
 
+        // if the user has deleted the post
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

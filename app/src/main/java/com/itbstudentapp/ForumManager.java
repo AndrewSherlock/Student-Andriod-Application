@@ -47,7 +47,7 @@ import java.util.UUID;
 public class ForumManager {
 
     private Context context;
-    private boolean shouldListenToReplies = false;
+    private boolean shouldListenToReplies = false; // used to make sure we dont write multiple
 
     public ForumManager() {
     }
@@ -62,6 +62,7 @@ public class ForumManager {
 
     int counter;
 
+    // gets the module and groups from forum
     public void getMenuFromDB(final LinearLayout linearLayout, final String key, final ProgressDialog progress) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("forum/" + key);
         final ArrayList<String> topic_name = new ArrayList<String>();
@@ -99,7 +100,7 @@ public class ForumManager {
                         }
                     }
 
-                    if (isPermitted) {
+                    if (isPermitted) { // if the user is allowed to see, add to view
                         View view = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.forum_section_panel, null);
                         TextView text = view.findViewById(R.id.section_text_box);
                         text.setText(UtilityFunctions.formatTitles(data.getKey()));
@@ -135,16 +136,17 @@ public class ForumManager {
     public void addNewUserPost(String forumSection) {
 
         NewPostModal newPostModal = NewPostModal.newInstance(forumSection);
-        newPostModal.show(fragmentManager, "new_post");
+        newPostModal.show(fragmentManager, "new_post"); // add a new post modal
     }
 
+    // add the new post to the foru,
     public boolean addNewPostToDatabase(final String forumLink, ForumPost forumPost, final Uri image, final NewPostModal newPostModal) {
         if (!UtilityFunctions.doesUserHaveConnection(context)) {
             Toast.makeText(context, "No network connection", Toast.LENGTH_SHORT).show();
-            return false;
+            return false; // network senstive
         }
 
-        if (image != null) {
+        if (image != null) { // upload a image
             String image_path = UUID.randomUUID().toString();
             forumPost.setFileUpload(image_path);
 
@@ -155,14 +157,14 @@ public class ForumManager {
         Thread delayThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (image != null && !hasUploaded) ;
+                while (image != null && !hasUploaded) ; // wait for the image to upload
 
                 Looper.prepare();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("forum/" + forumLink + "/topics/");
                 reference.child(post.getPostTitle()).setValue(post);
                 reference.child(post.getPostTitle()).child("subscribed_users").child(UtilityFunctions.getUserNameFromFirebase()).setValue(UtilityFunctions.getUserNameFromFirebase() + ",");
                 Toast.makeText(context, "Topic posted successfully", Toast.LENGTH_SHORT).show();
-                newPostModal.postMessage();
+                newPostModal.postMessage(); // post the new topic
             }
         });
 
@@ -173,6 +175,7 @@ public class ForumManager {
 
     boolean hasUploaded = false;
 
+    // used to upload forum images
     private void uploadImage(Uri image, final String fileId) {
         final ProgressDialog progressDialog = new ProgressDialog(context);
         progressDialog.setTitle("Uploading...");
@@ -183,25 +186,27 @@ public class ForumManager {
         ref.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.dismiss();
+                progressDialog.dismiss(); // tell the use of success
                 Toast.makeText(context, "File uploaded", Toast.LENGTH_SHORT).show();
                 hasUploaded = true;
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                progressDialog.dismiss();
-                Toast.makeText(context, "File uploaded", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss(); // if it failed
+                Toast.makeText(context, "File failed  to upload", Toast.LENGTH_SHORT).show();
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                // while uploading
                 double progress = (100 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                 progressDialog.setMessage((int) progress + "% complete.");
             }
         });
     }
 
+    // listen for new topics in the forum
     public void listenForNewTopics(final String forum_topic, final LinearLayout postSection) {
         final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("forum/" + forum_topic + "/topics/");
         reference.addChildEventListener(new ChildEventListener() {
@@ -210,6 +215,7 @@ public class ForumManager {
 
             public void onChildAdded(final DataSnapshot dataSnapshot, String s) {
 
+                // if one is added, we must show it to the user
                 final ForumPost forumPost = dataSnapshot.getValue(ForumPost.class);
 
                 for (DataSnapshot d : dataSnapshot.child("replies").getChildren()) {
@@ -236,6 +242,7 @@ public class ForumManager {
                 TextView postText = view.findViewById(R.id.forum_post);
                 postText.setText(forumPost.getPostComment());
 
+                // if we have a image to upload
                 if (forumPost.getFileUpload() != null) {
                     final ImageView imageView = view.findViewById(R.id.forum_post_image);
                     imageView.setLayoutParams(new LinearLayout.LayoutParams(0, 500, 4));
@@ -253,6 +260,7 @@ public class ForumManager {
 
                 }
 
+                // show number of replies
                 TextView postNumberText = view.findViewById(R.id.forum_number_of_posts);
                 if (forumPost.getPostReplies().size() > 0) {
                     postNumberText.setText(forumPost.getPostReplies().size() + " Posts");
@@ -260,6 +268,7 @@ public class ForumManager {
                     postNumberText.setVisibility(View.INVISIBLE);
                 }
 
+                // add our reply button
                 final TextView newPost = view.findViewById(R.id.forum_reply_button);
                 View.OnClickListener listener = new View.OnClickListener() {
                     @Override
@@ -283,6 +292,7 @@ public class ForumManager {
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot)
             {
+                // if the post is moderate deleted
                 for(int i = 0; i < postSection.getChildCount(); i++)
                 {
                     if(postSection.getChildAt(i).getTag().toString().equalsIgnoreCase( dataSnapshot.getKey()))
@@ -303,11 +313,13 @@ public class ForumManager {
         });
     }
 
+    // show delete button to moderator
     private void subscribeThreadDeleteButton(View view, final String ref)
     {
         SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
         if(preferences.getBoolean("moderator", false))
         {
+            // if clicked, delete
             View deleteButton = view.findViewById(R.id.forum_post_delete);
             deleteButton.setVisibility(View.VISIBLE);
             deleteButton.setOnClickListener(new View.OnClickListener() {
@@ -320,6 +332,7 @@ public class ForumManager {
 
     }
 
+    // show delete to moderator
     private void subscribePostDeleteButton(View view, final String ref, final int replyNum)
     {
         SharedPreferences preferences = context.getSharedPreferences(UtilityFunctions.PREF_FILE, context.MODE_PRIVATE);
@@ -336,7 +349,7 @@ public class ForumManager {
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-
+                            // if user deleted
                             reference.removeValue();
                             Toast.makeText(context, "Post deleted by moderator", Toast.LENGTH_SHORT).show();
                         }
@@ -353,6 +366,7 @@ public class ForumManager {
     }
 
 
+    // show the report post function
     private void subscribeReportFunctions(View view, final String ref, final String post_name)
     {
         View reportButton = view.findViewById(R.id.forum_post_report);
@@ -377,6 +391,7 @@ public class ForumManager {
 
     }
 
+    // add the user information into the forum
     private void loadUserInformationIntoSection(final TextView nameText, final ImageView user_image, final String posterID) {
         String moddedUserId = posterID.replace(".", "_");
 
@@ -384,11 +399,12 @@ public class ForumManager {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                User forum_poster = dataSnapshot.getValue(User.class);
+                User forum_poster = dataSnapshot.getValue(User.class); // get the user
 
-                if (forum_poster.getImageLink() != null) {
+                if (forum_poster.getImageLink() != null) { // get the user image link
                     nameText.setText(forum_poster.getUsername());
 
+                    // add image to the forum
                     StorageReference reference = FirebaseStorage.getInstance().getReference("userImages/" + forum_poster.getImageLink());
                     reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
@@ -415,18 +431,20 @@ public class ForumManager {
     private int valueCheck = 0;
     public void addReplysToModal(final LinearLayout messageSection, ForumPost forumPost, String postLink) {
 
-        shouldListenToReplies = true;
+        shouldListenToReplies = true; // if we can listen, start listening for replys
         listenForReplys(messageSection, postLink);
     }
+    // when a reply is posted, add to the database
 
     public boolean addReplyToDatabase(final String postLink, final int size, final String posterComment, final Uri image) {
         Reply reply = new Reply(UtilityFunctions.getUserNameFromFirebase(), posterComment, Calendar.getInstance().getTimeInMillis());
 
         if (!UtilityFunctions.doesUserHaveConnection(context)) {
             Toast.makeText(context, "No network connection, Please try again", Toast.LENGTH_SHORT).show();
-            return false;
+            return false; // network senstivie
         }
 
+        // if we have a image, upload it
         if (image != null) {
             String image_path = UUID.randomUUID().toString();
             reply.setImageLink(image_path);
@@ -439,14 +457,14 @@ public class ForumManager {
         Thread delayThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (image != null && !hasUploaded) ;
+                while (image != null && !hasUploaded) ; /// wait for uploades
 
                 Looper.prepare();
                 final DatabaseReference reference = FirebaseDatabase.getInstance().getReference(postLink + "/replies/");
                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        long count = dataSnapshot.getChildrenCount();
+                        long count = dataSnapshot.getChildrenCount(); // add the reply to the database
 
                         reference.child(String.valueOf(count)).setValue(r);
                         reference.getParent().child("subscribed_users").child(UtilityFunctions.getUserNameFromFirebase()).setValue(UtilityFunctions.getUserNameFromFirebase());
@@ -465,6 +483,7 @@ public class ForumManager {
         return true;
     }
 
+    // add a message to the forum view
     private void addMessageFunctionToView(final String posterID, final ImageView userLayout) {
 
         if (posterID.equalsIgnoreCase(UtilityFunctions.getUserNameFromFirebase()))
@@ -507,7 +526,7 @@ public class ForumManager {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if (shouldListenToReplies) {
+                if (shouldListenToReplies) { // if we can listen to replys, once one comes in, add the forum topic
 
                     final View view = LayoutInflater.from(context).inflate(R.layout.forum_post_section_modal, null);
                     final Reply r = dataSnapshot.getValue(Reply.class);
@@ -521,7 +540,7 @@ public class ForumManager {
                     TextView timeText = view.findViewById(R.id.forum_reply_date);
                     timeText.setText(UtilityFunctions.milliToTime(r.getPostTime()));
 
-                    if(r.getImageLink() != null) {
+                    if(r.getImageLink() != null) { // upload the image
                         final ImageView postImage = view.findViewById(R.id.forum_reply_image);
                         StorageReference storage = FirebaseStorage.getInstance().getReference("forumImages/" + r.getImageLink());
                         storage.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -535,7 +554,7 @@ public class ForumManager {
                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + r.getPosterID());
                     reference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
+                        public void onDataChange(DataSnapshot dataSnapshot) { // add the user information to the post
                             User user = dataSnapshot.getValue(User.class);
                             TextView username = view.findViewById(R.id.forum_reply_name);
                             username.setText(user.getUsername());
@@ -587,6 +606,7 @@ public class ForumManager {
         });
     }
 
+    //stop listening for replys
     public void setListenerBoolToFalse()
     {
         shouldListenToReplies = false;

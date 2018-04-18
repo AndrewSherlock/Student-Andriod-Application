@@ -18,6 +18,9 @@ import com.itbstudentapp.R;
 import java.util.ArrayList;
 import java.util.Vector;
 
+/**
+ * used for adding new questions and quizes
+ */
 public class QuestionDialog extends Dialog implements View.OnClickListener
 {
     private QuizManagement quizManagement;
@@ -93,15 +96,15 @@ public class QuestionDialog extends Dialog implements View.OnClickListener
     {
         if(v.getId() == R.id.dialog_add_answer)
         {
-            addAnswerPanel();
+            addAnswerPanel(); // if we want to add another answer
 
         } else if(v.getId() == R.id.dialog_question_cancel)
         {
-            dismiss();
+            dismiss(); // we cancel adding a question
         } else if(v.getId() == R.id.dialog_question_add)
         {
 
-            if(question.getText().length() <= 0) {
+            if(question.getText().length() <= 0) { // make sure the question has text
                 Toast.makeText(this.getContext(), "You must enter a question", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -111,6 +114,7 @@ public class QuestionDialog extends Dialog implements View.OnClickListener
 
             if(answers == null || answers.size() < 2)
             {
+                // we want to make sure we have at least two options
                 Toast.makeText(this.getContext(), "You must have at least two possible answers", Toast.LENGTH_SHORT).show();
                 return;
             } else {
@@ -129,7 +133,7 @@ public class QuestionDialog extends Dialog implements View.OnClickListener
 
                         if(counter >= 2 )
                         {
-                            hasEnteredTwoAnswers = true;
+                            hasEnteredTwoAnswers = true; //  makes sure the second answer has text
                         }
                     }
                 }
@@ -142,7 +146,7 @@ public class QuestionDialog extends Dialog implements View.OnClickListener
                 }
 
                 boolean hasAnswers = false;
-                int answerCounter = 0;
+                int answerCounter = 0; // we can allow multiple answers
 
                 for(int i = 0; i < answerRadio.size(); i++)
                 {
@@ -152,7 +156,7 @@ public class QuestionDialog extends Dialog implements View.OnClickListener
                     }
                 }
 
-                if(!hasAnswers)
+                if(!hasAnswers) // to ensure there is at least one answer
                 {
                     Toast.makeText(this.getContext(), "You must have at least one answers", Toast.LENGTH_SHORT).show();
                     return;
@@ -166,14 +170,14 @@ public class QuestionDialog extends Dialog implements View.OnClickListener
 
                 for(int i = 0; i < answerRadio.size(); i++)
                 {
-                    if(answerRadio.get(i).isChecked())
+                    if(answerRadio.get(i).isChecked()) // adds the answers to the array list
                         currentAnswers.add(answers.get(i).getText().toString());
                 }
-                question_instance.setAnswer(currentAnswers);
-                if(isEditing)
+                question_instance.setAnswer(currentAnswers); // sets the question with the answers
+                if(isEditing) // if we are editting the question,
                 {
                     quizManagement.editQuestion(question_instance, questionID);
-                } else {
+                } else { // otherwise its a new question
                     quizManagement.pushQuestionToList(question_instance);
                 }
                 dismiss();

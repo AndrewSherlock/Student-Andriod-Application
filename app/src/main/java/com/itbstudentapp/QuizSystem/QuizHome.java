@@ -40,13 +40,16 @@ public class QuizHome extends AppCompatActivity {
 
         if (!UtilityFunctions.doesUserHaveConnection(this)) {
             Toast.makeText(this, "No network connection", Toast.LENGTH_SHORT).show();
-            onBackPressed();
+            onBackPressed(); // network senstive section
         }
 
 
         loadOptions();
     }
 
+    /**
+     *  loads the quizes for the user to choose from
+     */
     private void loadOptions() {
         final LinearLayout quizSection = findViewById(R.id.quiz_subjects);
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("quiz");
@@ -100,6 +103,7 @@ public class QuizHome extends AppCompatActivity {
         });
     }
 
+    // gets the quizes for the choosen subject
     private void loadQuizTopics(String key) 
     {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("quiz/" + key);

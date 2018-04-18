@@ -77,25 +77,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!--<EditText-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_weight="1"-->
-                <!--android:hint="Pick Room"-->
-                <!--android:textColorHint="#fff"-->
-                <!--android:background="@android:color/transparent"-->
-                <!--android:textSize="22sp"-->
-                <!--android:fontFamily="@font/cuprumbold"-->
-                <!--android:textAppearance="@style/cuprum_bold"-->
-                <!--android:layout_margin="5sp"-->
-                <!--android:id="@+id/room_choice"-->
-                <!--/>-->
-
             <Spinner
-                android:layout_width="0dp"
+                android:layout_width="fill_parent"
                 android:layout_height="40sp"
-                android:layout_weight="1"
-                android:layout_margin="5sp"
+                android:layout_margin="0sp"
                 android:id="@+id/room_drop_down"
                 >
 
@@ -132,45 +117,6 @@
                 android:layout_weight="1"/>
 
         </LinearLayout>
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="60sp"-->
-            <!--android:orientation="horizontal"-->
-            <!--&gt;-->
-
-            <!--<TextView-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight="1"-->
-                <!--android:text="Add room to our list."-->
-                <!--android:fontFamily="@font/cuprumbold"-->
-                <!--android:textAppearance="@style/cuprum_bold"-->
-                <!--android:textSize="22sp"-->
-                <!--android:textColor="#fff"-->
-                <!--android:layout_marginLeft="5sp"/>-->
-
-            <!--<TextView-->
-                <!--android:gravity="center_vertical"-->
-                <!--android:textAlignment="center"-->
-                <!--android:background="@drawable/forum_buttons"-->
-                <!--android:layout_margin="10dp"-->
-                <!--android:layout_width="0dp"-->
-                <!--android:layout_height="match_parent"-->
-                <!--android:layout_weight=".6"-->
-                <!--android:text="Add room"-->
-                <!--android:fontFamily="@font/cuprumbold"-->
-                <!--android:textAppearance="@style/cuprum_bold"-->
-                <!--android:textSize="22sp"-->
-                <!--android:textColor="#fff"-->
-                <!--android:layout_marginLeft="5sp"-->
-                <!--android:id="@+id/add_room"/>-->
-
-
-
-        <!--</LinearLayout>-->
-
-
     </LinearLayout>
 
 </RelativeLayout>

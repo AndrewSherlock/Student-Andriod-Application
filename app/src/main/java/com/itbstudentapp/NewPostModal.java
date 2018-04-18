@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import java.util.Calendar;
 
+/**
+ *  used for new forum posts
+ */
 public class NewPostModal extends DialogFragment implements View.OnClickListener {
     private static String path;
     private View v;
@@ -32,7 +35,7 @@ public class NewPostModal extends DialogFragment implements View.OnClickListener
     private Uri image_upload;
 
     static NewPostModal newInstance(String dbPath) {
-        path = dbPath;
+        path = dbPath; // set the forum post path
 
         return new NewPostModal();
     }
@@ -56,11 +59,11 @@ public class NewPostModal extends DialogFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
         if (v.getId() == newImageButton.getId()) {
-            uploadImage();
+            uploadImage(); // if we are uploading  a image
             return;
         }
 
-        if (user_text_box.getText().length() <= 0) {
+        if (user_text_box.getText().length() <= 0) { // make sure we have entered a post
             Toast.makeText(v.getContext(), "You must enter a message to post.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -69,6 +72,7 @@ public class NewPostModal extends DialogFragment implements View.OnClickListener
 
         long currentTime = Calendar.getInstance().getTimeInMillis();
 
+        // add a new post object
         ForumPost post = new ForumPost(String.valueOf(currentTime), UtilityFunctions.getUserNameFromFirebase(), user_text_box.getText().toString(), currentTime);
         boolean hasPosted = new ForumManager(v.getContext()).addNewPostToDatabase(path, post, image_upload, this);
 
@@ -76,28 +80,29 @@ public class NewPostModal extends DialogFragment implements View.OnClickListener
 
     public void postMessage()
     {
+        // if we have posted the post
         progress.dismiss();
         Toast.makeText(v.getContext(), "Topic posted successfully", Toast.LENGTH_SHORT).show();
         this.dismiss();
     }
 
     private void uploadImage() {
-        Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
-        gallery.setType("image/*");
-        startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code);
+        Intent gallery = new Intent(Intent.ACTION_GET_CONTENT); // get the file system
+        gallery.setType("image/*"); // only look at images
+        startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code); // upload
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == request_code) {
+        if (requestCode == request_code) { // if we have successfully got a image
             if (resultCode == Activity.RESULT_OK) {
-                image_upload = data.getData();
-                imageView.setImageURI(image_upload);
+                image_upload = data.getData(); // get the url
+                imageView.setImageURI(image_upload); // set the uri
 
                 String link[] = image_upload.getPath().split("/");
-                image_name_link.setText(link[link.length - 1]);
+                image_name_link.setText(link[link.length - 1]); // set the link text
             }
         }
     }

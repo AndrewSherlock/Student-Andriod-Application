@@ -81,14 +81,14 @@ public class ChatSystemController {
         Thread th = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (!checkedGroupList) ;
+                while (!checkedGroupList) ; // just to add a delay for firebase to get all the information
 
-                for (int i = 0; i < groupList.length; i++) {
+                for (int i = 0; i < groupList.length; i++) { // for each of the group messages
                     final DatabaseReference db = FirebaseDatabase.getInstance().getReference("group_messages/" + groupList[i]);
                     db.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
+                            if (dataSnapshot.exists()) { // if we have a message, add it to the message list
                                 loadMessageToList(message_scrollview, dataSnapshot);
                             }
                         }
@@ -105,6 +105,11 @@ public class ChatSystemController {
         th.start();
     }
 
+    /**
+     *  generates the view for each of the messages
+     * @param message_scrollview
+     * @param dataSnapshot
+     */
     private void loadMessageToList(LinearLayout message_scrollview, final DataSnapshot dataSnapshot) {
         View v = LayoutInflater.from(context).inflate(R.layout.message_preview, null);
 
@@ -112,7 +117,7 @@ public class ChatSystemController {
         String chatTitle = UtilityFunctions.formatTitles(dataSnapshot.getKey());
         messageName.setText(chatTitle);
 
-        TextView timeStamp = v.findViewById(R.id.message_date);
+        TextView timeStamp = v.findViewById(R.id.message_date); // gets the proper time
         String tStamp = UtilityFunctions.milliToTime(dataSnapshot.child("message_info").child("time_stamp").getValue(Long.class));
         timeStamp.setText(tStamp);
 
@@ -127,7 +132,7 @@ public class ChatSystemController {
         message_scrollview.addView(v);
     }
 
-    public void loadUserDetails() {
+    public void loadUserDetails() { //gets the users list of groups
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase());
         db.addValueEventListener(new ValueEventListener() {
             @Override
@@ -149,15 +154,16 @@ public class ChatSystemController {
     }
 
     public void loadUserMessages() {
-        shouldListen = false;
+        shouldListen = false; // to avoid messages generating multiple times
         setUpMenuListener();
         final DatabaseReference db = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase());
 
         db.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                // this is used to put messages in time order
 
-                Map<Long, DataSnapshot> chatDB = new TreeMap<Long, DataSnapshot>(Collections.<Long>reverseOrder());
+                Map<Long, DataSnapshot> chatDB = new TreeMap<Long, DataSnapshot>(Collections.<Long>reverseOrder()); // add the messages to a map and then reverse it
 
                 for (DataSnapshot data : dataSnapshot.child("messages").getChildren()) {
                     chatDB.put(data.child("message_info").child("time_stamp").getValue(Long.class), data);
@@ -179,14 +185,14 @@ public class ChatSystemController {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                if(shouldListen)
+                if(shouldListen) // once all the messages are in, we can listen for new and add them to the list
                     setMessageInView(dataSnapshot);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                if(shouldListen)
+                if(shouldListen) // if we have a child that gets a new message, we must add it to the top of the view
                    moveMessageToTop(dataSnapshot.getKey());
             }
 
@@ -225,12 +231,12 @@ public class ChatSystemController {
             setMessageInView(message);
         }
 
-        shouldListen = true;
+        shouldListen = true; // now we have finished listening to the messages we can start listening
     }
 
     private void setDetails(View v, DataSnapshot ds) {
         String read_status = ds.child("message_info").child("read_status").getValue(String.class);
-        long lastUpdate;
+        long lastUpdate; // get the latest time for the messgae
 
         if( ds.child("message_info").child("time_stamp").getValue() != null)
         {
@@ -248,6 +254,10 @@ public class ChatSystemController {
         time_sent.setText(UtilityFunctions.milliToTime(lastUpdate));
     }
 
+    /**
+     *  method that adds each of our messages to the the view
+     * @param ds
+     */
     private void setMessageInView(final DataSnapshot ds) {
         final View v = LayoutInflater.from(context).inflate(R.layout.message_preview, null);
         final LinearLayout linear = v.findViewById(R.id.message_bg);
@@ -285,15 +295,19 @@ public class ChatSystemController {
         openDialog();
     }
 
-    private void openDialog() {
+    private void openDialog() { // gets the user list dialog
         ContactList contactList = new ContactList(context, contactRepository.getContactInformation(), this);
     }
 
     public void setCurrentContact(ContactCard userToMessage) {
-        messageScreen.setReciever(userToMessage);
+        messageScreen.setReciever(userToMessage); // adds the user to be the reciever to the message
     }
 
-
+    /**
+     * gets users real name from the database
+     * @param username
+     * @param nameField
+     */
     private void getUsername(String username, final TextView nameField) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + username);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -333,20 +347,20 @@ public class ChatSystemController {
 
     public void sendMessage(String userID, String userInput, Uri fileUpload) {
 
-        String myUsername = UtilityFunctions.getUserNameFromFirebase();
-        String[] users = {userID, myUsername};
+        String myUsername = UtilityFunctions.getUserNameFromFirebase(); // gets our username to add to message
+        String[] users = {userID, myUsername}; // array of the users will always be 2 for non group chats
 
-        long time = Calendar.getInstance().getTimeInMillis();
+        long time = Calendar.getInstance().getTimeInMillis(); // gets the current time
         String filePath = null;
 
-        if (fileUpload != null) {
+        if (fileUpload != null) { // if we have a file, upload it
             ImageController ic = new ImageController();
             ic.ImageUpload(context, fileUpload, "chat");
         }
 
-        Message message = new Message(myUsername, userInput, time, filePath);
+        Message message = new Message(myUsername, userInput, time, filePath); // create a message for the chat
 
-        for (int i = 0; i < users.length; i++) {
+        for (int i = 0; i < users.length; i++) { // loop the write to each of the users database
             int currentSender = (i + 1) % users.length;
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + users[i] + "/messages/" + users[currentSender]);
 
@@ -363,16 +377,22 @@ public class ChatSystemController {
         }
     }
 
+    /**
+     * method for loading the message to the screen
+     * @param userId
+     * @param view
+     * @param scrollView
+     */
     public void loadChatMessages(String userId, final LinearLayout view, final ScrollView scrollView) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + UtilityFunctions.getUserNameFromFirebase()
-                + "/messages/" + userId + "/");
+                + "/messages/" + userId + "/");  // gets the message the user wants to view
 
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
-                handleMessageViews(dataSnapshot, view, scrollView);
+                handleMessageViews(dataSnapshot, view, scrollView); // when we add a child to this database
             }
 
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
@@ -382,6 +402,12 @@ public class ChatSystemController {
         });
     }
 
+    /**
+     * loads the group message the user wants to view
+     * @param groupMessage
+     * @param view
+     * @param scrollView
+     */
     public void loadGroupMessages(String groupMessage, final LinearLayout view, final ScrollView scrollView) {
         shouldListen = false;
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("group_messages/" + groupMessage);
@@ -399,6 +425,12 @@ public class ChatSystemController {
         });
     }
 
+    /**
+     * adds the each of the messages dialog to the screen
+     * @param dataSnapshot
+     * @param view
+     * @param scrollView
+     */
     private void handleMessageViews(final DataSnapshot dataSnapshot, final LinearLayout view, final ScrollView scrollView)
     {
         if (dataSnapshot.getKey().equalsIgnoreCase("message_info"))
@@ -407,22 +439,22 @@ public class ChatSystemController {
         Message currentMessage = dataSnapshot.getValue(Message.class);
 
         View v = LayoutInflater.from(view.getContext()).inflate(R.layout.message_dialog_box, null);
-        RelativeLayout dialog_box = v.findViewById(R.id.chat_message_dialog_box);
+        RelativeLayout dialog_box = v.findViewById(R.id.chat_message_dialog_box); // gets the dialog layout
 
         scrollView.post(new Runnable() {
             @Override
             public void run() {
                 scrollView.scrollTo(0, scrollView.getBottom());
             }
-        });
+        }); // force chat to the bottom
 
         if (currentMessage.getSender().equalsIgnoreCase(UtilityFunctions.getUserNameFromFirebase())) {
             RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) dialog_box.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-            dialog_box.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#91bbff")));
+            dialog_box.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#91bbff"))); // if you are the sender, style the dialog this way
         }
 
-        TextView userName = v.findViewById(R.id.chat_message_user_name);
+        TextView userName = v.findViewById(R.id.chat_message_user_name); // add the user name to message
         if (currentMessage.getSender().equalsIgnoreCase(UtilityFunctions.getUserNameFromFirebase())) {
             userName.setText("You said :");
         } else {
@@ -437,7 +469,7 @@ public class ChatSystemController {
         TextView time_display = v.findViewById(R.id.chat_message_date);
         time_display.setText(UtilityFunctions.milliToTime(currentMessage.getSendTime()));
 
-        if (currentMessage.getImageLink() != null) {
+        if (currentMessage.getImageLink() != null) { //if we have a image, make visible
             ImageView imageView = v.findViewById(R.id.chat_message_image);
             new ImageController().setImageInView(imageView, "chat_images/" + currentMessage.getImageLink());
             imageView.setVisibility(View.VISIBLE);
@@ -446,6 +478,12 @@ public class ChatSystemController {
         view.addView(v);
     }
 
+    /**
+     * method for sending group message
+     * @param param
+     * @param userInput
+     * @param imageUpload
+     */
     public void sendGroupMessage(String param, String userInput, Uri imageUpload)
     {
         long time = Calendar.getInstance().getTimeInMillis();

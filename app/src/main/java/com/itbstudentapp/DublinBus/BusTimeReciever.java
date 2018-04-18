@@ -20,13 +20,13 @@ public class BusTimeReciever extends AsyncTask<String, Void,Void>{
 
     public BusTimeReciever(OnThreadComplete threadComplete)
     {
-        this.threadComplete = threadComplete;
+        this.threadComplete = threadComplete; // the calling object
     }
 
     public BusTimeInfo[] getTimes()
     {
         return times;
-    }
+    } // gets the times
 
     @Override
     protected Void doInBackground(String... strings) {

@@ -39,6 +39,11 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
     public ImageController()
     {}
 
+    /**
+     *  image controller must have the activity that calls it as we need to call method in that when the
+     *  image is uploaded. we get the activity from context
+     */
+
     public ImageController(Context context)
     {
         this.context = context;
@@ -64,18 +69,20 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Intent gallery = new Intent(Intent.ACTION_GET_CONTENT);
-        gallery.setType("image/*");
-        caller.startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code);
+        Intent gallery = new Intent(Intent.ACTION_GET_CONTENT); // get the file system from device
+        gallery.setType("image/*"); // look only for images
+        caller.startActivityForResult(Intent.createChooser(gallery, "Pick a file to upload"), request_code); // request code is the code when success
     }
 
     public void ImageUpload(final Context context, Uri filePath, String directory) {
-        if (filePath != null) {
+        if (filePath != null) { // make sure we have a image
+            // tell the user we are uploading
             final ProgressDialog progressDialog = new ProgressDialog(context);
             progressDialog.setTitle("Uploading...");
             progressDialog.show();
-            final String file = UUID.randomUUID().toString();
+            final String file = UUID.randomUUID().toString(); // random name for image
 
+            // add to firebase storage
             StorageReference ref = FirebaseStorage.getInstance().getReference().child(directory + "/" + file);
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -85,7 +92,7 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
                     fileId = file;
 
                     if(imageUploaded != null)
-                        imageUploaded.onImageUploaded(file);
+                        imageUploaded.onImageUploaded(file); // give the link to the image as needed for the post
 
                 }
             }).addOnFailureListener(new OnFailureListener() {
@@ -122,7 +129,6 @@ public class ImageController extends AppCompatActivity implements View.OnClickLi
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(imageView.getContext()).load(uri.toString()).into(imageView);
-                //TODO weird spacing
             }
         });
     }

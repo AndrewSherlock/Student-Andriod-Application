@@ -28,6 +28,9 @@ import com.itbstudentapp.utils.UserSettings;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ *  used to edit and create events
+ */
 public class EventsHandler extends AppCompatActivity implements View.OnClickListener {
 
     private TextView addEvent;
@@ -51,6 +54,9 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
         this.eventDialog = eventDialog;
     }
 
+    /**
+     * gets the list of the current events
+     */
     private void loadEvents() {
         if (!UtilityFunctions.doesUserHaveConnection(this)) {
             Toast.makeText(this, "No network connection. Please try again.", Toast.LENGTH_SHORT).show();
@@ -77,7 +83,7 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
 
                     if(event_name.length() > 19)
                     {
-                        event_name = event_name.substring(0, 15) + "...";
+                        event_name = event_name.substring(0, 15) + "..."; // looks wierd when its longer the 19 characters
                     }
 
                     event_title_box.setText(event_name);
@@ -86,11 +92,11 @@ public class EventsHandler extends AppCompatActivity implements View.OnClickList
                     edit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            new EventDialog(_instance,_instance, e, snap.getKey());
+                            new EventDialog(_instance,_instance, e, snap.getKey()); // if we want to edit the event
                         }
                     });
 
-                    ImageView delete = event_detail.findViewById(R.id.event_remove);
+                    ImageView delete = event_detail.findViewById(R.id.event_remove); // delete the event
                     delete.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {

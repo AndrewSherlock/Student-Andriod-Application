@@ -8,10 +8,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 import com.google.firebase.messaging.FirebaseMessagingService;
 
-/**
- * Created by andrew on 03/03/2018.
- */
-
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService
 {
     @Override
@@ -20,10 +16,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService
         super.onTokenRefresh();
         String token = FirebaseInstanceId.getInstance().getToken();
 
+        // get instance id from db
         if(UtilityFunctions.getUserNameFromFirebase() != null)
             FirebaseDatabase.getInstance().getReference("users").child(UtilityFunctions.getUserNameFromFirebase()).child("instance_id").setValue(token);
     }
 
+    // save instance id
     public static void saveTokenToDb()
     {
         String token = FirebaseInstanceId.getInstance().getToken();
