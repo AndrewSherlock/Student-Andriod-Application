@@ -401,6 +401,8 @@ public class ForumManager {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User forum_poster = dataSnapshot.getValue(User.class); // get the user
 
+                nameText.setText(forum_poster.getUsername());
+
                 if (forum_poster.getImageLink() != null) { // get the user image link
                     nameText.setText(forum_poster.getUsername());
 

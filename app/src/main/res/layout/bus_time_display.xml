@@ -19,9 +19,9 @@
         android:fontFamily="@font/cuprumbold"
         android:textAppearance="@style/cuprum_bold"
         android:gravity="center_vertical"
-        android:text="38 Damastown"
+        android:text="238 Damastown"
         android:textColor="#fff"
-        android:textSize="24sp"
+        android:textSize="20sp"
         />
 
     <LinearLayout
