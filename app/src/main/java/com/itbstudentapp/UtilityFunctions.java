@@ -272,4 +272,18 @@ public class UtilityFunctions {
             return false;
         }
     }
+
+    public static String capitalizeStringWithSplit(String stringToCap, String split)
+    {
+        String stringArray[] = stringToCap.split(split);
+        String returnString = "";
+
+        for(int i = 0; i < stringArray.length; i++)
+        {
+            String capitalizedString = stringArray[i].substring(0,1).toUpperCase() + stringArray[i].substring(1, stringArray[i].length()) + " ";
+            returnString += capitalizedString;
+        }
+
+        return returnString;
+    }
 }

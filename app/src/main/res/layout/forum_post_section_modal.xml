@@ -41,7 +41,7 @@
                 android:fontFamily="@font/cuprumbold"
                 android:textAppearance="@style/cuprum_bold"
                 android:id="@+id/forum_reply_name"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 />
 
             <TextView
@@ -51,7 +51,7 @@
                 android:layout_marginLeft="10sp"
                 android:fontFamily="@font/cuprumbold"
                 android:textAppearance="@style/cuprum_bold"
-                android:textSize="18sp"
+                android:textSize="17sp"
                 android:id="@+id/forum_reply_date"
                 />
 
@@ -67,7 +67,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:text="test"
             android:layout_margin="6sp"
             android:fontFamily="@font/cuprum"

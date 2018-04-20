@@ -400,11 +400,17 @@ public class ForumManager {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User forum_poster = dataSnapshot.getValue(User.class); // get the user
+                String user_id = forum_poster.getEmail().split("@")[0];
 
-                nameText.setText(forum_poster.getUsername());
+                user_id = (user_id.indexOf('.') != -1 ?
+                        UtilityFunctions.capitalizeStringWithSplit(user_id, ".") :
+                        UtilityFunctions.capitalizeStringWithSplit(user_id, "_")
+                );
+
+
+                nameText.setText(forum_poster.getUsername() + " < " + user_id + ">");
 
                 if (forum_poster.getImageLink() != null) { // get the user image link
-                    nameText.setText(forum_poster.getUsername());
 
                     // add image to the forum
                     StorageReference reference = FirebaseStorage.getInstance().getReference("userImages/" + forum_poster.getImageLink());
@@ -559,7 +565,16 @@ public class ForumManager {
                         public void onDataChange(DataSnapshot dataSnapshot) { // add the user information to the post
                             User user = dataSnapshot.getValue(User.class);
                             TextView username = view.findViewById(R.id.forum_reply_name);
-                            username.setText(user.getUsername());
+
+                            String user_id = user.getEmail().split("@")[0];
+                            user_id = (user_id.indexOf('.') != -1 ?
+                                    UtilityFunctions.capitalizeStringWithSplit(user_id, ".") :
+                                    UtilityFunctions.capitalizeStringWithSplit(user_id, "_")
+                            );
+
+
+                            username.setText(UtilityFunctions.capitalizeStringWithSplit(user.getUsername(), " ")
+                                    + "< " + user_id + ">");
 
                             final ImageView userImage = view.findViewById(R.id.forum_reply_user_image);
                             addMessageFunctionToView(r.getPosterID(), userImage);
