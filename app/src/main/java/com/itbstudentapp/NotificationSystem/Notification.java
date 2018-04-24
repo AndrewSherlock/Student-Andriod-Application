@@ -3,9 +3,7 @@ package com.itbstudentapp.NotificationSystem;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Created by andrew on 04/03/2018.
- */
+
 
 public class Notification
 {

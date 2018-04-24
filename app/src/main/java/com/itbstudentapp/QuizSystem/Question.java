@@ -2,9 +2,7 @@ package com.itbstudentapp.QuizSystem;
 
 import java.util.ArrayList;
 
-/**
- * Created by andrew on 05/03/2018.
- */
+
 
 public class Question
 {
