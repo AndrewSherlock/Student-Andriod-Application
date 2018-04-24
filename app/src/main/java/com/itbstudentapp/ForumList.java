@@ -2,6 +2,8 @@ package com.itbstudentapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -21,7 +23,9 @@ public class ForumList extends AppCompatActivity implements View.OnClickListener
         forum_topic = getIntent().getStringExtra("path");
 
         forum_title = findViewById(R.id.forum_banner_title);
-        forum_title.setText(UtilityFunctions.formatTitles(forum_topic));
+
+        String title = UtilityFunctions.formatTitles(forum_topic);
+        forum_title.setText(title);
 
         post_button = findViewById(R.id.forum_new_post);
 

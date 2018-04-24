@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -103,8 +104,9 @@ public class ForumManager {
                     if (isPermitted) { // if the user is allowed to see, add to view
                         View view = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.forum_section_panel, null);
                         TextView text = view.findViewById(R.id.section_text_box);
-                        text.setText(UtilityFunctions.formatTitles(data.getKey()));
 
+                        String title = UtilityFunctions.formatTitles(data.getKey());
+                        text.setText(title);
                         view.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

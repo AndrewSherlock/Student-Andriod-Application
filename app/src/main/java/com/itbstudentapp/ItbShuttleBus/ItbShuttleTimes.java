@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.itbstudentapp.MainActivity;
 import com.itbstudentapp.R;
@@ -247,6 +248,10 @@ public class ItbShuttleTimes extends AppCompatActivity implements OnMapReadyCall
         googleMap.setMinZoomPreference(15);
         googleMap.setMaxZoomPreference(25);
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lat, 15f));
+
+        MarkerOptions mo = new MarkerOptions();
+        mo.position(lat);
+        googleMap.addMarker(mo);
 
         if(UtilityFunctions.askForLocationPermission(this))
         {
