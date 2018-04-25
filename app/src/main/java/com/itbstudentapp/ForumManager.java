@@ -404,14 +404,14 @@ public class ForumManager {
                 User forum_poster = dataSnapshot.getValue(User.class); // get the user
                 String user_id = forum_poster.getEmail().split("@")[0];
 
-                Log.e("ID", "onDataChange: " + user_id.indexOf('.') + " " + user_id.indexOf('_'));
-                user_id = (user_id.indexOf('.') != -1 ?
-                        UtilityFunctions.capitalizeStringWithSplit(user_id, ".") :
-                        UtilityFunctions.capitalizeStringWithSplit(user_id, "_")
-                );
+                if(user_id.indexOf('.') != -1)
+                {
+                    user_id = UtilityFunctions.capitalizeStringWithSplit(user_id, "\\.");
+                } else {
+                    user_id = user_id.substring(0,1).toUpperCase() + user_id.substring(1, user_id.length());
+                }
 
-
-                nameText.setText(forum_poster.getUsername() + " < " + user_id + ">");
+                nameText.setText(forum_poster.getUsername() + " < " + user_id + " >");
 
                 if (forum_poster.getImageLink() != null) { // get the user image link
 
@@ -570,10 +570,13 @@ public class ForumManager {
                             TextView username = view.findViewById(R.id.forum_reply_name);
 
                             String user_id = user.getEmail().split("@")[0];
-                            user_id = (user_id.indexOf('.') != -1 ?
-                                    UtilityFunctions.capitalizeStringWithSplit(user_id, ".") :
-                                    UtilityFunctions.capitalizeStringWithSplit(user_id, "_")
-                            );
+
+                            if(user_id.indexOf('.') != -1)
+                            {
+                                user_id = UtilityFunctions.capitalizeStringWithSplit(user_id, "\\.");
+                            } else {
+                                user_id = user_id.substring(0,1).toUpperCase() + user_id.substring(1, user_id.length());
+                            }
 
 
                             username.setText(UtilityFunctions.capitalizeStringWithSplit(user.getUsername(), " ")

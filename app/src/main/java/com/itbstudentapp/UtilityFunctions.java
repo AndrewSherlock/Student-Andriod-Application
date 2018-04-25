@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -278,6 +279,7 @@ public class UtilityFunctions {
     public static String capitalizeStringWithSplit(String stringToCap, String split)
     {
         String stringArray[] = stringToCap.split(split);
+        Log.e("Split", stringArray.length + "" + stringToCap);
         String returnString = "";
 
         for(int i = 0; i < stringArray.length; i++)
