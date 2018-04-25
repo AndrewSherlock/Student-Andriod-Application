@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.firebase.client.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +56,8 @@ public class UserSettings
         final SharedPreferences pref = ct.getSharedPreferences(UtilityFunctions.PREF_FILE, ct.MODE_PRIVATE);
         final SharedPreferences.Editor editor = pref.edit();
 
+        username = username.replace(".", "_");
+
         if(!pref.contains("moderator")) {
             checkIfUserModerator(username, ct);
             Log.e("ERROR", "checkIfInit: " + "Check failed" );
@@ -68,7 +71,10 @@ public class UserSettings
             return;
         }
 
+        FirebaseAuth.getInstance().signOut();
 
+
+        Log.e("USERNAME", "checkIfInit: " + username );
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users/" + username);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

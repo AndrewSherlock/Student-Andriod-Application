@@ -58,6 +58,7 @@ public class UtilityFunctions {
 
         String user_name = auth.getCurrentUser().getEmail().toString();
         user_name = user_name.split("@")[0].toLowerCase();
+        user_name = user_name.replace(".","_");
 
         return  user_name;
     }

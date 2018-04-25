@@ -153,11 +153,12 @@ public class UserManager
             // else write as a staff member
            writeToDatabase(getUserAccountType(emailAddress), null);
             String user_id = emailAddress.split("@")[0];
-            user_id = user_id.replace(" ", "_");
+            user_id = user_id.replace(".", "_");
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("users/" + user_id);
             ref.child("groups").setValue("staff:");
             ref.child("staffUser").setValue(true);
+            ((Activity)context).startActivity(new Intent(context, LoginScreen.class));
         }
     }
 
@@ -279,6 +280,9 @@ public class UserManager
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(emailAddress, password);
+
+        if(accountType.equalsIgnoreCase("itb-staff"))
+            databaseReference.child("users").child(prepareFirebaseLink(emailAddress.split("@")[0])).child("groups").setValue("staff");
 
         Toast.makeText(context, "Account created successfully.", Toast.LENGTH_SHORT).show();
         context.startActivity(new Intent(context, LoginScreen.class));

@@ -404,6 +404,7 @@ public class ForumManager {
                 User forum_poster = dataSnapshot.getValue(User.class); // get the user
                 String user_id = forum_poster.getEmail().split("@")[0];
 
+                Log.e("ID", "onDataChange: " + user_id.indexOf('.') + " " + user_id.indexOf('_'));
                 user_id = (user_id.indexOf('.') != -1 ?
                         UtilityFunctions.capitalizeStringWithSplit(user_id, ".") :
                         UtilityFunctions.capitalizeStringWithSplit(user_id, "_")

@@ -17,15 +17,25 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService
         String token = FirebaseInstanceId.getInstance().getToken();
 
         // get instance id from db
-        if(UtilityFunctions.getUserNameFromFirebase() != null)
-            FirebaseDatabase.getInstance().getReference("users").child(UtilityFunctions.getUserNameFromFirebase()).child("instance_id").setValue(token);
+        if(UtilityFunctions.getUserNameFromFirebase() != null) {
+            String username = UtilityFunctions.getUserNameFromFirebase();
+            username = username.replace(".", "_");
+
+            FirebaseDatabase.getInstance().getReference("users").child(username).child("instance_id").setValue(token);
+        }
+
     }
 
     // save instance id
     public static void saveTokenToDb()
     {
         String token = FirebaseInstanceId.getInstance().getToken();
-        FirebaseDatabase.getInstance().getReference("users").child(UtilityFunctions.getUserNameFromFirebase()).child("instance_id").setValue(token);
+
+        String username = UtilityFunctions.getUserNameFromFirebase();
+
+        username = username.replace(".", "_");
+
+        FirebaseDatabase.getInstance().getReference("users").child(username).child("instance_id").setValue(token);
     }
 
 

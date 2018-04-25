@@ -82,7 +82,7 @@ public class RegisterUser extends AppCompatActivity implements View.OnClickListe
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus)
                 {
-                    showInstruction("You must use at least 1 capital letter and 1 number");
+                    showInstruction("You must use at least 1 capital letter and 1 number and a min length of 8 characters");
                 } else {
 
                     if(!user_email.hasFocus() && !user_password.hasFocus() && !user_name.hasFocus())
