@@ -1,0 +1,4 @@
+"8240B1045601","Blanchardstown SC (Slip Rd Eastbound)","53.3974642476695","-6.39012536619137"
+"8240DB000661","Blanchardstown, Blanchardstown Main","53.3924222501891","-6.38348935657184"
+"8240DB001545","Blanchardstown, Blanchardstown Shopping Centre","53.3927374478931","-6.38419914147917"
+"8240B1372101","Blanchardstown SC (Slip Rd Westbound)","53.397559860602","-6.39321953025536"

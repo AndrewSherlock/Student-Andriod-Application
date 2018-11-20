@@ -183,6 +183,9 @@ public class UserManager
 
                 for(final DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
+                    if(snapshot.getKey().equalsIgnoreCase("staff"))
+                        continue;
+
                     final View groupItem = LayoutInflater.from(context).inflate(R.layout.course_item_list, null);
                     final TextView textView = groupItem.findViewById(R.id.course_title);
                     textView.setText(snapshot.getKey());
@@ -280,6 +283,7 @@ public class UserManager
 
         FirebaseAuth auth = FirebaseAuth.getInstance();
         auth.createUserWithEmailAndPassword(emailAddress, password);
+        auth.signOut();
 
         if(accountType.equalsIgnoreCase("itb-staff"))
             databaseReference.child("users").child(prepareFirebaseLink(emailAddress.split("@")[0])).child("groups").setValue("staff");

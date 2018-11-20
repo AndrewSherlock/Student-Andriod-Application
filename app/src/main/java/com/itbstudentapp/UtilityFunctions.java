@@ -173,6 +173,7 @@ public class UtilityFunctions {
                                 auth.signOut();
                                 auth = null;
                                 Intent intent = new Intent(context, LoginScreen.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                 UserSettings.clearFile(context);
                                 context.startActivity(intent);
                                 ((Activity)context).finish();
